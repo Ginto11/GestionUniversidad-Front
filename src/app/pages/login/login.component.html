@@ -1,0 +1,19 @@
+<section>
+    <form (ngSubmit)="login()">
+        <h2>Ingresar</h2>
+        <div>
+            <label for="email">Email</label> <br>
+            <input [(ngModel)]="loginEmail" class="input-form" type="email" name="email" id="email">
+        </div>
+
+        <div>
+            <label for="contrasena">Contraseña</label><br>
+            <input [(ngModel)]="loginContrasena" class="input-form" name="contrasena" id="contrasena" type="password">
+        </div>
+
+        <div>
+            <input type="submit" value="Ingresar">
+        </div>
+        <p>Si no tienes cuenta, <a href="">Registrate</a></p>
+    </form>
+</section>
