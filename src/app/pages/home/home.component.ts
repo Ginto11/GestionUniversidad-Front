@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NavSesionComponent } from "../../components/nav-sesion/nav-sesion.component";
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [NavSesionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

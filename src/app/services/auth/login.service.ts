@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { UsuarioLogin } from "../../models/UsuarioLogin";
+import { EstudianteLogin } from "../../models/EstudianteLogin";
 import { Observable } from "rxjs";
+import { EstudianteRegistrar } from "../../models/EstudianteRegistrar";
 
 @Injectable({
     providedIn: 'root'
@@ -13,12 +14,22 @@ export class LoginService{
 
     constructor(private http: HttpClient){ }
 
-    ingresar(usuario: UsuarioLogin): Observable<any> {
+    ingresar(usuario: EstudianteLogin): Observable<any> {
+
         return this.http.post(`${this.URL}/login/estudiantes/ingresar`, usuario, {
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+    }
+
+
+    registrar(usuario: EstudianteRegistrar): Observable<any> {
+        return this.http.post(`${this.URL}/estudiantes`, usuario, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
     }
 
 }

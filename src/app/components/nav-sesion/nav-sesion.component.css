@@ -1,0 +1,30 @@
+h2{
+    color: #fff;
+}
+
+.contenedor-bienvenida{
+    background-color: #000117ee;
+    display: flex;
+    height: 30px;
+    justify-content: space-between;
+    color: #fff;
+    align-items: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.contenedor-bienvenida *{
+    margin: 0 30px;
+}
+
+.contenedor-bienvenida a{
+    color: #F4A300;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.contenedor-bienvenida a:hover{
+    background-color: #fff1;
+    transition: .4s ease all;
+}
