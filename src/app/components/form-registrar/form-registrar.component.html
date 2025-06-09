@@ -1,0 +1,58 @@
+<form (ngSubmit)="registrar()">
+    <h2>Formulario de registro</h2>
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div>
+                <label for="cedula">Cedula</label><br>
+                <input [(ngModel)]="estudianteRegistrar.cedula" type="number" name="ceduña" id="cedula">
+            </div>
+
+            <div>
+                <label for="nombre">Nombre</label><br>
+                <input [(ngModel)]="estudianteRegistrar.nombre" type="text" name="nombre" id="nombre">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div>
+                <label for="apellido">Apellido</label><br>
+                <input [(ngModel)]="estudianteRegistrar.apellido" type="text" name="apellido" id="apellido">
+            </div>
+
+            <div>
+                <label for="edad">Edad</label><br>
+                <input [(ngModel)]="estudianteRegistrar.edad" type="number" name="edad" id="edad">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div>
+                <label for="email">Email</label><br>
+                <input [(ngModel)]="estudianteRegistrar.email" type="email" name="email" id="email">
+            </div>
+
+            <div>
+                <label for="contrasena">Contraseña</label><br>
+                <input [(ngModel)]="estudianteRegistrar.contrasena" type="password" name="contrasena" id="contrasena" />
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div style="width: 100%;">
+                <label for="genero">Genero</label><br>
+                <select [(ngModel)]="estudianteRegistrar.generoId" style="height: 30px; width: 100%;" name="genero" id="genero">
+                    <option selected value="0">Seleccionar</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                    <option value="3">Otro</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <input type="submit" value="Registrarse">
+        </div>
+
+        <p style="text-align: center;">Si ya tienes cuenta, <a href="#" (click)="$event.preventDefault(); ingresando()">Inicia Sesión</a></p>
+    </div>
+</form>

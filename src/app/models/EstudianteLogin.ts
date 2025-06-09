@@ -1,4 +1,4 @@
-export interface UsuarioLogin {
+export interface EstudianteLogin {
     email: string
     contrasena: string
 }

@@ -1,0 +1,50 @@
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0007;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay div{
+    width: 30%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #000;
+}
+
+.overlay div img{
+    width: 70px;
+}
+
+.overlay div input{
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+    background-color: #017C8E;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid transparent;
+}
+
+.overlay div input:focus{
+    background-color: #14AAB8;
+    transition: .4s ease all;
+    border-color: #017C8E;
+}
