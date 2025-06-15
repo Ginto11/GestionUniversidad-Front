@@ -1,18 +1,26 @@
 section{
+    width: 100%;
     padding-top: 60px;
 }
 
 .inicio-universidad {
+    width: 100%;
     display: flex;
 }
 
+.contenedor-img{
+    width: 60%;
+}
+
 .contenedor-img img{
+    width: 100%;
     height: calc(100vh - 60px);
     box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
     mask-image: linear-gradient(to right, red 70%, transparent);
 }
 
 .contenedor-contenido{
+    width: 40%;
     padding: 0px 30px;
     height: calc(100vh - 60px);
     display: flex;
