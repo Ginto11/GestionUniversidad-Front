@@ -1,1 +1,18 @@
-<p>programas works!</p>
+<section class="seccion-imagen-programas">
+    <div>
+      <h2>NUESTROS PROGRAMAS</h2>
+    </div>
+</section>
+<section class="seccion-lista-programas">
+    <h2>✨ Programas</h2>
+    <div class="contenedor-cards">
+        @for (programa of programas; track programa.id) {
+            <div class="card">
+                <img [src]="rutaImagenesProgramas + programa.rutaImagen" [alt]="'Imagen' + programa.nombre">
+                <h2> {{ programa.nombre }} </h2>
+                <p><strong>Descripción: </strong> {{ programa.descripcion }} </p>
+                <p><strong>Duración:</strong> {{ programa.duracion }} semestres. </p>
+            </div>
+        }
+    </div>
+</section>  

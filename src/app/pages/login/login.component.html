@@ -2,13 +2,21 @@
     @if(activeOverlay == true){
         <app-overlay [opciones]="opcionesOverlay" [desactivar]="desactivarOverlay" />
     }
+    
+    <div class="contenedor-ingresar">
+        <div class="contenedor-imagen">
+            <img src="img/imagen-ingresar-formularios.jpg" alt="Imagen Formularios">
+        </div>
+        <div class="contenedor-formulario">
+            @if (isIngresando == true) {
+                
+                <app-form-ingresar [login]="login" [estudianteLogin]="estudianteLogin" [registrandose]="registrandose"/>
+            }
+        
+            @if(isRegistrando == true){
+                <app-form-registrar  [registrar]="registrar" [estudianteRegistrar]="estudianteRegistrar" [ingresando]="ingresando"/>
+            }
+        </div>
+    </div>
 
-
-    @if (isIngresando == true) {
-        <app-form-ingresar [login]="login" [estudianteLogin]="estudianteLogin" [registrandose]="registrandose"/>
-    }
-
-    @if(isRegistrando == true){
-        <app-form-registrar  [registrar]="registrar" [estudianteRegistrar]="estudianteRegistrar" [ingresando]="ingresando"/>
-    }
 </section>
