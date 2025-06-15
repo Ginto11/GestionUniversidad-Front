@@ -12,7 +12,7 @@ section{
 }
 
 .contenedor-imagen{
-    width: 70%;
+    width: 60%;
 }
 
 .contenedor-imagen img{
@@ -23,12 +23,13 @@ section{
 }
 
 .contenedor-formulario{
-    width: 30%;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0px 30px;
 }
 
 .contenedor-formulario *{
-    width: 90%;
+    width: 100%;
 }
