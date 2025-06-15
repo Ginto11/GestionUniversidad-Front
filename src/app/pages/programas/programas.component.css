@@ -1,0 +1,99 @@
+.seccion-imagen-programas{
+    background-image: url(../../../../public/img/fondo-programas-redimensionada.jpg);
+    background-size: cover;
+    background-position: bottom center; /* muestra la parte superior de la imagen */
+    mask-image: linear-gradient(to bottom, black 70%, transparent);
+    height: 120vh;
+}
+
+.seccion-imagen-programas div{
+    height: 140vh; 
+    display:  flex; 
+    justify-content: center; 
+    z-index: 2;
+    background-color: rgba(5, 7, 12, 0.6);
+    width: 100%;
+    height: 120vh;
+    position: absolute;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.seccion-imagen-programas div h2{
+    font-size: 50px;
+    color: #fff;
+    animation-name: movimiento;
+    animation-duration: 2s;
+    text-align: center;
+    text-shadow: 0 0 10px #000;
+}
+
+@keyframes movimiento {
+    
+    10%{
+        transform: scale(0.1);
+    }
+
+    30% {
+        transform: translateY(-200px);
+    }
+
+    60%{
+        transform: scale(1);
+    }
+
+    100%{
+        transform: translateY(0);
+    }
+
+
+}
+
+.seccion-lista-programas h2{
+    width: 80%;
+    color: #FF5F15;
+    text-shadow: 0 0 1px #000;
+}
+
+.seccion-lista-programas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    gap: 30px;
+}
+
+.contenedor-cards{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.seccion-lista-programas .card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+    padding: 5px;
+    background-color: #FEFDFC;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.seccion-lista-programas .card img{
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px #000;
+}
+
+.seccion-lista-programas .card p{
+    text-shadow: 0 0 1px #000;
+}

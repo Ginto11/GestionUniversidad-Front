@@ -1,4 +1,6 @@
 nav {
+    width: 100%;
+    position: fixed;
     background-color: #1A1731;
     color: #fff;
     font-weight: bold;
@@ -7,6 +9,7 @@ nav {
     justify-content: space-around;
     align-items: center;
     box-shadow: 0 0 6px #000;
+    z-index: 3;
 }
 
 h1{

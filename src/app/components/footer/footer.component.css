@@ -5,6 +5,7 @@ footer{
     background-color: #0A0A0A;
     padding: 30px 0;
     color: #f0f4fd;
+    box-shadow: 0 0 6px #000;
 }
 
 footer h3{

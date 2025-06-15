@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +8,12 @@ import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent{
+export class HomeComponent implements OnInit{
+
+  constructor(private viewporscroller: ViewportScroller){}
+
+  ngOnInit(): void {
+    this.viewporscroller.scrollToPosition([0, 0]);
+  }
 
 }

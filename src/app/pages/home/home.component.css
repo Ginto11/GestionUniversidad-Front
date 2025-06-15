@@ -1,3 +1,6 @@
+section{
+    padding-top: 60px;
+}
 
 .inicio-universidad {
     display: flex;
@@ -18,8 +21,14 @@
     gap: 30px;
 }
 
+.contenedor-contenido h2{
+    color: #FF5F15;
+    text-shadow: 0 0 1px #000;;
+}
+
 .contenedor-contenido p{
     text-align: justify;
+    text-shadow: 0 0 1px #000;
 }
 
 .btn {
