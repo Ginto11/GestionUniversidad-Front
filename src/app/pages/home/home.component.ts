@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { NavSesionComponent } from "../../components/nav-sesion/nav-sesion.component";
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
 
 @Component({
   selector: 'app-home',
-  imports: [NavSesionComponent],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
-  nombre = JSON.parse(localStorage.getItem('user') || '{}').nombre;
+export class HomeComponent{
 
-  ngOnInit(): void {
-    localStorage.removeItem('user');
-  } 
 }

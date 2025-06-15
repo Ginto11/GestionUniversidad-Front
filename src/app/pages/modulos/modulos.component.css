@@ -1,0 +1,20 @@
+h2{
+    color: #1A1731;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.contenedor-contenido{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.contenedor-recursos{
+    display: flex;
+    width: 70%;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}

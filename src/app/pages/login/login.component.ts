@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../../services/auth/login.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormIngresarComponent } from "../../components/form-ingresar/form-ingresar.component";
 import { EstudianteLogin } from '../../models/EstudianteLogin';
@@ -8,6 +8,7 @@ import { EstudianteRegistrar } from '../../models/EstudianteRegistrar';
 import { FormRegistrarComponent } from '../../components/form-registrar/form-registrar.component';
 import { OverlayComponent } from "../../components/overlay/overlay.component";
 import { OpcionesOverlay } from '../../models/OpcionesOverlay';
+import { encriptar } from 'src/app/util/util.encrypt';
 
 @Component({
   selector: 'app-login',
@@ -16,14 +17,14 @@ import { OpcionesOverlay } from '../../models/OpcionesOverlay';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
   
-  constructor(public loginService: LoginService, private router: Router){ }
+  constructor(public authService: AuthService, private router: Router){ }
   
   isIngresando = true;
   isRegistrando = false;
   activeOverlay = false;
-
 
   opcionesOverlay: OpcionesOverlay = {
     mensaje: '',
@@ -47,6 +48,22 @@ export class LoginComponent {
     contrasena: '',
     generoId: 0
   }
+
+  validar = () => {
+    let data = sessionStorage.getItem('user');
+    if(data){
+      let usuario = JSON.parse(data);
+      this.authService.verificarToken(usuario.token).subscribe({
+        next: (res) => {
+          console.log(res)
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+      
+    }
+  }
   
   registrar = () => {
     let errores: string[] = this.validarRegistroEstudiante(this.estudianteRegistrar);
@@ -54,7 +71,7 @@ export class LoginComponent {
     if (errores.length > 0) {
       this.activarOverlay('red', '/icons/error.png', '', 'IconError', errores);
     } else {
-      this.loginService.registrar(this.estudianteRegistrar).subscribe({
+      this.authService.registrar(this.estudianteRegistrar).subscribe({
         next: (res) => {
           this.activarOverlay('green', '/icons/comprobado.png', 'Estudiante registrado Exitosamente.', 'IconRegistrado', []);
           this.limpiarCampos();
@@ -83,7 +100,7 @@ export class LoginComponent {
       return;
     }
 
-    this.loginService.ingresar(this.estudianteLogin).subscribe({
+    this.authService.ingresar(this.estudianteLogin).subscribe({
 
       next: (respuesta) => {
         this.sesionExitosa(respuesta);
@@ -123,8 +140,12 @@ export class LoginComponent {
 
   sesionExitosa = (res: any) => {
     const { usuario } = res;
-    localStorage.setItem('user', JSON.stringify(usuario));
-    this.router.navigate(['/home']);
+
+    usuario.token = encriptar(usuario.token);
+
+    console.log(usuario);
+    sessionStorage.setItem('user', JSON.stringify(usuario));
+    this.router.navigate(['/modulos']);
   }
 
   registrandose = () =>{
@@ -143,6 +164,23 @@ export class LoginComponent {
     this.opcionesOverlay.mensaje = '';
     this.opcionesOverlay.alt = '';
     this.activeOverlay = false;
+  }
+
+  verificar = () => {
+    const json = sessionStorage.getItem("user");
+
+    if (json) {
+      const usuario = JSON.parse(json);
+      const { token } = usuario;  
+      this.authService.verificarToken(token).subscribe({
+        next: (res) => {
+          console.log(res)
+        },
+        error: (error) => {
+          console.log(error)
+        }
+      })
+    }
   }
 
   validarRegistroEstudiante = (est: EstudianteRegistrar): string[] => {

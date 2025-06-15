@@ -1,0 +1,41 @@
+<section>
+    <app-nav-sesion [nombre]="nombreUser" [userLogue]="false" />
+    <div class="contenedor-contenido">
+        <h2>Recursos de la aplicación.</h2>
+        <p>En esta sección puedes probar los recursos que necesites de acuerdo a tus permisos de usuario.</p>
+        <div class="contenedor-recursos">
+            
+        @if (rolUser == 'Administrador') {
+
+            <app-recurso icono="estudiante.png" nombreRecurso="Estudiantes" altImg="Imagen Estudiantes" />
+            
+            <app-recurso icono="docentes.png" nombreRecurso="Docentes" altImg="Imagen Docentes" />
+            
+            <app-recurso icono="materias.png" nombreRecurso="Materias" altImg="Imagen Materias" />
+            
+            <app-recurso icono="matricula.png" nombreRecurso="Matriculas" altImg="Imagen Matriculas"/>
+
+            <app-recurso icono="validar_pagos.png" nombreRecurso="Validar Pagos" altImg="Imagen Validar Pagos" />
+        }
+        
+        @if (rolUser == 'Estudiante') {
+
+            <app-recurso icono="materias.png" nombreRecurso="Mis materias" altImg="Imagen Materias" />
+            
+            <app-recurso icono="matricula.png" nombreRecurso="Generar matricula" altImg="Imagen Matriculas"/>
+
+            <app-recurso icono="actualizar_datos.png" nombreRecurso="Actualizar datos" altImg="Imagen Actualizar Datos" />
+            
+            <app-recurso icono="pagos.png" nombreRecurso="Pago matricula" altImg="Pago Matricula" />
+        }
+
+        @if (rolUser == 'Docente') {
+            
+            <app-recurso icono="materias.png" nombreRecurso="Mis materias" altImg="Imagen Materias" />
+        }
+        
+        </div>
+
+    </div>
+</section>
+

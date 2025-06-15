@@ -1,4 +1,10 @@
 <div class="contenedor-bienvenida">
-    <h2>Bienvenido {{ nombre }} </h2>
-    <a href="/">Cerrar Sesión</a>
+    <h2>Bienvenido:  {{ nombre }} </h2>
+
+    <div>
+        @if (userLogue == true) {
+            <a routerLink="/modulos" > <img width="20px" src="icons/icono-nav-modulos.svg" alt="Modulos"> Modulos</a>
+        }
+        <a href="#" (click)="$event.preventDefault(); cerrarSesion()"> <img width="20px" src="icons/icono-nav-cerrar-sesion.svg" alt="Cerrar Sesion"> Cerrar Sesión</a>
+    </div>
 </div>
