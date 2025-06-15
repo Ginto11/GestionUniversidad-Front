@@ -1,4 +1,4 @@
-<form (ngSubmit)="registrar()">
+<form>
     <h2>Formulario de registro</h2>
     <div style="display: flex; flex-direction: column; gap: 15px;">
         <div style="display: flex; gap: 15px; width: 100%;">
@@ -50,7 +50,7 @@
         </div>
 
         <div style="display: flex; gap: 15px; width: 100%;">
-            <input type="submit" value="Registrarse">
+            <button (click)="registrar()" > Registrarse </button>
         </div>
 
         <p style="text-align: center;">Si ya tienes cuenta, <a href="#" (click)="$event.preventDefault(); ingresando()">Inicia Sesión</a></p>

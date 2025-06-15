@@ -1,8 +1,31 @@
 <nav>
-    <h1>Gestion Universidad</h1>
-    @if (logeado == true) {
-        <div >
-            <a href="">Cerrar Sesion</a>
+    <h1> <img src="icons/logo-novauniversity.png" alt="Logo" width="40px"> NovaUniversitas</h1>
+    
+    @if (isInicio == true) {
+        <div class="contenedor-links">
+            <a 
+                routerLink="" 
+                routerLinkActive="link-active" 
+                [routerLinkActiveOptions]="{exact: true}"
+            > <img src="icons/icono-nav-home.svg" alt="Home"> Home</a>
+            
+            <a 
+                routerLink="/nosotros"  
+                routerLinkActive="link-active" 
+                [routerLinkActiveOptions]="{exact: true}"
+            > <img src="icons/icono-nav-nosotros.svg" alt="Nosotros"> Nosotros</a>
+            
+            <a 
+                routerLink="/programas" 
+                routerLinkActive="link-active" 
+                [routerLinkActiveOptions]="{exact: true}"
+            > <img src="icons/icono-nav-programas.svg" alt="Programas"> Programas</a>
+            
+            <a 
+                routerLink="/iniciar-sesion" 
+                routerLinkActive="link-active" 
+                [routerLinkActiveOptions]="{exact: true}"
+            > <img src="icons/icono-nav-iniciar-sesion.svg" alt="Programas"> Iniciar Sesión</a>
         </div>
     }
 </nav>

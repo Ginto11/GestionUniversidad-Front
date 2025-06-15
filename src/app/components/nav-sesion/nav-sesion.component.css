@@ -1,30 +1,46 @@
 h2{
-    color: #fff;
+    color: #1A1731;
 }
 
 .contenedor-bienvenida{
-    background-color: #000117ee;
+    background-color: #fff;
     display: flex;
-    height: 30px;
+    height: 50px;
     justify-content: space-between;
-    color: #fff;
+    color: #1A1731;
     align-items: center;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
 }
 
-.contenedor-bienvenida *{
-    margin: 0 30px;
+.contenedor-bienvenida{
+    padding: 0 30px;
 }
 
-.contenedor-bienvenida a{
-    color: #F4A300;
+.contenedor-bienvenida div a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: #FF5F15;
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
+    font-weight: bold;
+    align-items: center;
+    transition: .4s ease all;
 }
 
-.contenedor-bienvenida a:hover{
-    background-color: #fff1;
-    transition: .4s ease all;
+.contenedor-bienvenida div a:hover{
+    background-color: #1A173110;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-bienvenida div {
+    display: flex;
+    gap: 15px;
+}
+
+
+.contenedor-bienvenida div a img{
+    margin: 0;
 }
