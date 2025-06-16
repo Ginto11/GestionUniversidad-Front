@@ -1,7 +1,7 @@
 .seccion-imagen-programas{
     background-image: url(../../../../public/img/fondo-programas-redimensionada.jpg);
     background-size: cover;
-    background-position: bottom center; /* muestra la parte superior de la imagen */
+    background-position: botton center; /* muestra la parte superior de la imagen */
     mask-image: linear-gradient(to bottom, black 70%, transparent);
     height: 120vh;
 }
