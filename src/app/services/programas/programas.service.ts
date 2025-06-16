@@ -10,6 +10,6 @@ export class ProgramasService {
     constructor(private http: HttpClient){}
 
     listarProgramas(){
-        return this.http.get(`${environment.URL}/programas`);
+        return this.http.get(`${environment.URL}/api/programas`);
     }
 }
