@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { RecursoComponent } from '../../components/recurso/recurso.component';
 import { desencriptar } from 'src/app/util/util.encrypt';
 import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
+import { buscarEnSesionStorage } from 'src/app/util/utilidad';
 
 @Component({
   selector: 'app-modulos',
@@ -21,26 +22,24 @@ export class ModulosComponent implements OnInit{
   constructor(private authService: AuthService, private comunicacionService: ComunicacionService){}
 
   ngOnInit(): void {
-    let data = sessionStorage.getItem('user');
-    if(data){
-      let usuario = JSON.parse(data);
-      let tokenDesencriptado = desencriptar(usuario.token);
-      this.authService.decodificarToken(tokenDesencriptado).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.rolUser = res.rol;
-
-          this.enviarCambioDeNav();
-          
-        }, error: (error) => {
-          console.log(error);
-        }
-      });
-    }
-    
+    this.validarInicioSesion();
   }
-  
-  enviarCambioDeNav(){
+
+  validarInicioSesion = () => {
+
+    let usuario = buscarEnSesionStorage('user');
+    let tokenDesencriptado = desencriptar(usuario.token);
+    this.authService.decodificarToken(tokenDesencriptado).subscribe({
+      next: (res) => {
+        this.rolUser = res.rol;
+        this.enviarCambioDeNav();
+      }, error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  enviarCambioDeNav = () => {
     this.comunicacionService.ocultarLinksEnModulos(this.isInicio);
   }
 }

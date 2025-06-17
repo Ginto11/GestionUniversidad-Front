@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 
@@ -8,11 +8,12 @@ import { ViewportScroller } from '@angular/common';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent{
 
   constructor(private viewporscroller: ViewportScroller){}
 
   ngOnInit(): void {
+    //EL COMPONENTE INICIA CON EL SCROLL ARRIBA
     this.viewporscroller.scrollToPosition([0, 0]);
   }
 

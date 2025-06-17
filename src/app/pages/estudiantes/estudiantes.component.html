@@ -1,4 +1,21 @@
 <section>
     <app-nav-sesion [nombre]="nombreUser" [userLogue]="isUserLogue" />
-    <h2>Modulo Estudiante</h2>
+    <div class="contenedor-modulo">
+        <div class="modulo">
+            <h2>Modulo Estudiantes</h2>
+            <ul class="modulo-links">
+                <a (click)="mostrarTabla()"> <img src="icons/tabla-estudiantes.svg" alt="Mostrar Estudiantes" width="20px"> Mostrar todos</a>
+                <a (click)="mostrarForm();"> <img src="icons/nuevo-estudiante.svg" alt="Nuevo Estudiante" width="20px" style="margin-bottom: 3px;"> Nuevo</a>
+            </ul>
+            <div class="contenedor-componente">
+                @if (isMostrarTabla) {
+                    <app-tabla-estudiantes [estudiantes]="estudiantes" />
+                }
+
+                @if (isMostrarForm) {
+                    <app-form-nuevos-estudiantes />
+                }
+            </div>
+        </div>
+    </div>
 </section>

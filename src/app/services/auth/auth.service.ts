@@ -14,7 +14,7 @@ export class AuthService{
     constructor(private http: HttpClient){ }
 
     ingresar(usuario: EstudianteLogin): Observable<any> {
-        return this.http.post(`${environment.URL}/login/estudiantes/ingresar`, usuario, {
+        return this.http.post(`${environment.URL}/api/login/estudiantes/ingresar`, usuario, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -23,7 +23,7 @@ export class AuthService{
 
 
     registrar(usuario: EstudianteRegistrar): Observable<any> {
-        return this.http.post(`${environment.URL}/estudiantes`, usuario, {
+        return this.http.post(`${environment.URL}/api/estudiantes`, usuario, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -31,7 +31,7 @@ export class AuthService{
     }
 
     verificarToken(token: string): Observable<any> {
-        return this.http.get(`${environment.URL}/login/validar_token`, {
+        return this.http.get(`${environment.URL}/api/login/validar_token`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -41,7 +41,7 @@ export class AuthService{
 
 
     decodificarToken(token: string): Observable<any> {
-        return this.http.get(`${environment.URL}/login/decodificar_token`, {
+        return this.http.get(`${environment.URL}/api/login/decodificar_token`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`

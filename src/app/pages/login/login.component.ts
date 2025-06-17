@@ -8,7 +8,8 @@ import { EstudianteRegistrar } from '../../models/EstudianteRegistrar';
 import { FormRegistrarComponent } from '../../components/form-registrar/form-registrar.component';
 import { OverlayComponent } from "../../components/overlay/overlay.component";
 import { OpcionesOverlay } from '../../models/OpcionesOverlay';
-import { encriptar } from 'src/app/util/util.encrypt';
+import { desencriptar, encriptar } from 'src/app/util/util.encrypt';
+import { buscarEnSesionStorage } from 'src/app/util/utilidad';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ import { encriptar } from 'src/app/util/util.encrypt';
   styleUrl: './login.component.css'
 })
 
-export class LoginComponent {
+export class LoginComponent{
   
   constructor(public authService: AuthService, private router: Router){ }
   
@@ -49,49 +50,21 @@ export class LoginComponent {
     generoId: 0
   }
 
-  validar = () => {
-    let data = sessionStorage.getItem('user');
-    if(data){
-      let usuario = JSON.parse(data);
-      this.authService.verificarToken(usuario.token).subscribe({
-        next: (res) => {
-          console.log(res)
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
-      
-    }
-  }
+
   
   registrar = () => {
     let errores: string[] = this.validarRegistroEstudiante(this.estudianteRegistrar);
 
     if (errores.length > 0) {
       this.activarOverlay('red', '/icons/error.png', '', 'IconError', errores);
-    } else {
-      this.authService.registrar(this.estudianteRegistrar).subscribe({
-        next: (res) => {
-          this.activarOverlay('green', '/icons/comprobado.png', 'Estudiante registrado Exitosamente.', 'IconRegistrado', []);
-          this.limpiarCampos();
-        },
-        error: (error) => {
-          if(error.status == 409){
-            this.activarOverlay('red', '/icons/error.png', error.error.mensaje, 'IconError', []);
-          }
-
-          if(error.status >= 500){
-            this.activarOverlay('red', '/icons/error.png', 'Se ha presentado un error del lado del servidor.', 'IconError', []);
-          }
-
-          if(error.status >= 400){
-            this.activarOverlay('red', '/icons/error.png', 'Se ha presentado un error del lado del cliente.', 'IconError', []);
-          }
-        }
-      })
+      return;
     }
-  }
+
+    this.authService.registrar(this.estudianteRegistrar).subscribe({
+      next: res => this.registroExitoso(),
+      error: error => this.manejoErroresRegistrar(error)
+    })
+  };
 
   login = () => {
 
@@ -101,22 +74,10 @@ export class LoginComponent {
     }
 
     this.authService.ingresar(this.estudianteLogin).subscribe({
-
-      next: (respuesta) => {
-        this.sesionExitosa(respuesta);
-      },
-      error: (error) => {
-        if(error.status == 400){ 
-          this.activarOverlay('red', '/icons/error.png', '¡Credenciales Incorrectas.!', 'IconError', []);
-        }
-
-        if(error.status >= 500){
-          this.activarOverlay('red', '/icons/error.png', '¡Error en el servidor.!', 'IconError', []);
-        }
-        console.error('Error al iniciar sesión:', error);
-      }
-    })
-  }
+      next: res => this.sesionExitosa(res),
+      error: error => this.manejoErroresLogin(error)
+    });
+  };
 
   activarOverlay = (color: string, icon: string, mensaje: string, alt: string, lista: string[]) => {
     this.opcionesOverlay.color = color;
@@ -125,7 +86,7 @@ export class LoginComponent {
     this.opcionesOverlay.alt = alt;
     this.opcionesOverlay.lista = lista;
     this.activeOverlay = true;
-  }
+  };
 
   limpiarCampos = () => {
     this.estudianteRegistrar.apellido = '';
@@ -135,28 +96,26 @@ export class LoginComponent {
     this.estudianteRegistrar.generoId = 0;
     this.estudianteRegistrar.email = '';
     this.estudianteRegistrar.nombre = '';
+  };
 
-  }
 
+  //GUARDA EL TOKEN Y ENCRIPTA EL TOKEN QUE ENVIA EL SERVIDOR
   sesionExitosa = (res: any) => {
     const { usuario } = res;
-
     usuario.token = encriptar(usuario.token);
-
-    console.log(usuario);
     sessionStorage.setItem('user', JSON.stringify(usuario));
     this.router.navigate(['/modulos']);
-  }
+  };
 
   registrandose = () =>{
     this.isRegistrando = true;
     this.isIngresando = false;
-  }
+  };
   
   ingresando = () => {
     this.isIngresando = true;
     this.isRegistrando = false;
-  }
+  };
 
   desactivarOverlay = () => {
     this.opcionesOverlay.color = '';
@@ -164,15 +123,12 @@ export class LoginComponent {
     this.opcionesOverlay.mensaje = '';
     this.opcionesOverlay.alt = '';
     this.activeOverlay = false;
-  }
+  };
 
   verificar = () => {
-    const json = sessionStorage.getItem("user");
-
-    if (json) {
-      const usuario = JSON.parse(json);
-      const { token } = usuario;  
-      this.authService.verificarToken(token).subscribe({
+    let usuario = buscarEnSesionStorage('user');
+    let tokenDesencriptado = desencriptar(usuario.token);
+    this.authService.verificarToken(tokenDesencriptado).subscribe({
         next: (res) => {
           console.log(res)
         },
@@ -180,8 +136,7 @@ export class LoginComponent {
           console.log(error)
         }
       })
-    }
-  }
+  };
 
   validarRegistroEstudiante = (est: EstudianteRegistrar): string[] => {
     const errores: string[] = [];
@@ -191,7 +146,6 @@ export class LoginComponent {
     if (!est.apellido.trim()) errores.push('El apellido es obligatorio.');
     if (est.edad < 16 || est.edad > 100) errores.push('Edad fuera de rango (16-100).');
     if (!est.email.includes('@') || !est.email.includes('.')) errores.push('Correo no válido.');
-
     if (est.contrasena.length < 6) {
       errores.push('Contraseña inválida (mín. 6 caracteres).');
     }
@@ -199,5 +153,39 @@ export class LoginComponent {
     if (est.generoId <= 0) errores.push('Seleccione un género válido.');
 
     return errores;
+  };
+
+
+  manejoErroresLogin = (error: any) => {
+    if(error.status == 400){ 
+      this.activarOverlay('red', '/icons/error.png', '¡Credenciales Incorrectas.!', 'IconError', []);
+    } 
+    else if(error.status >= 500){
+      this.activarOverlay('red', '/icons/error.png', '¡Error en el servidor.!', 'IconError', []);
+    }
+    else {
+      this.activarOverlay('red', '/icons/error.png', 'Error al iniciar sesión.', 'IconError', []);
+    }
+  };
+
+
+  manejoErroresRegistrar = (error: any) => {
+    if(error.status == 409){
+          this.activarOverlay('red', '/icons/error.png', error.error.mensaje, 'IconError', []);
+    }
+
+    if(error.status >= 500){
+      this.activarOverlay('red', '/icons/error.png', 'Se ha presentado un error del lado del servidor.', 'IconError', []);
+    }
+
+    if(error.status >= 400){
+      this.activarOverlay('red', '/icons/error.png', 'Se ha presentado un error del lado del cliente.', 'IconError', []);
+    }
+  };
+
+
+  registroExitoso = () => {
+    this.activarOverlay('green', '/icons/comprobado.png', 'Estudiante registrado Exitosamente.', 'IconRegistrado', []);
+    this.limpiarCampos();
   }
 }

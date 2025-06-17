@@ -1,0 +1,31 @@
+<table>
+    <thead>
+        <tr>
+            <th>Cedula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Email</th>
+            <th>Genero</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (estudiante of estudiantes; track estudiante.id) {
+            <tr>
+                <td> {{ estudiante.cedula }} </td>
+                <td> {{ estudiante.nombre }} </td>
+                <td> {{ estudiante.apellido }} </td>
+                <td> {{ estudiante.edad }} </td>
+                <td> {{ estudiante.email }} </td>
+                <td> {{ estudiante.genero }} </td>
+                <td>
+                    <button>Editar</button>
+                    <button>Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
