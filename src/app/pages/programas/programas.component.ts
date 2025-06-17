@@ -16,12 +16,14 @@ export class ProgramasComponent implements OnInit {
   constructor(private programasService: ProgramasService, private viewPortScroller: ViewportScroller){}
 
   ngOnInit(): void {
-    this.programasService.listarProgramas().subscribe((data) => {
-      this.programas = data;
-    })
-
+    this.mostrarProgramas();
     this.viewPortScroller.scrollToPosition([0, 0]);
   }
 
+  mostrarProgramas = () => {
+    this.programasService.listarProgramas().subscribe((data) => {
+      this.programas = data;
+    })
+  }
   
 }

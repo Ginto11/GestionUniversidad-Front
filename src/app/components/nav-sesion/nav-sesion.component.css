@@ -10,6 +10,7 @@ h2{
     color: #1A1731;
     align-items: center;
     box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 0 1px #000;
 }
 
 .contenedor-bienvenida{

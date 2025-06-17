@@ -15,11 +15,14 @@ export class NavComponent {
   isInicio: boolean = true;
 
   constructor(private comunicacionService: ComunicacionService, private viewPortScroller: ViewportScroller){
-    this.comunicacionService.mostrarLinks.subscribe((data) => {
-      this.isInicio = data;
-    });
-
+    this.mostrarLinks();
     this.viewPortScroller.scrollToPosition([0, 0]);
   }
 
-}
+  mostrarLinks = () => {
+    this.comunicacionService.mostrarLinks.subscribe((data) => {
+      this.isInicio = data;
+    });
+  };
+
+};
