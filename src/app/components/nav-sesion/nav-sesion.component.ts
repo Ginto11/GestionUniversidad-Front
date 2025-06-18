@@ -4,21 +4,21 @@ import { RouterLink } from '@angular/router';
 import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
 
 @Component({
-  selector: 'app-nav-sesion',
-  imports: [RouterLink],
-  templateUrl: './nav-sesion.component.html',
-  styleUrl: './nav-sesion.component.css'
+    selector: 'app-nav-sesion',
+    imports: [RouterLink],
+    templateUrl: './nav-sesion.component.html',
+    styleUrl: './nav-sesion.component.css'
 })
 export class NavSesionComponent {
 
-  constructor(private router: Router, private comunicacionService: ComunicacionService){}
+    constructor(private router: Router, private comunicacionService: ComunicacionService) { }
 
-  @Input() userLogue!: boolean; 
-  @Input() nombre!: string;
+    @Input() userLogue!: boolean;
+    @Input() nombre!: string;
 
-  cerrarSesion = () => {
-    sessionStorage.removeItem('user');
-    this.comunicacionService.ocultarLinksEnModulos(true);
-    this.router.navigate(['/']);
-  }
+    cerrarSesion = () => {
+        sessionStorage.removeItem('user');
+        this.comunicacionService.ocultarLinksEnModulos(true);
+        this.router.navigate(['/']);
+    }
 }

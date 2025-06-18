@@ -7,39 +7,39 @@ import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.
 import { buscarEnSesionStorage } from 'src/app/util/utilidad';
 
 @Component({
-  selector: 'app-modulos',
-  imports: [NavSesionComponent, RecursoComponent],
-  templateUrl: './modulos.component.html',
-  styleUrl: './modulos.component.css'
+    selector: 'app-modulos',
+    imports: [NavSesionComponent, RecursoComponent],
+    templateUrl: './modulos.component.html',
+    styleUrl: './modulos.component.css'
 })
-export class ModulosComponent implements OnInit{
-  
-  nombreUser = JSON.parse(sessionStorage.getItem('user') || '{}').nombre;
-  rolUser = "";
-  isInicio = false;
+export class ModulosComponent implements OnInit {
+
+    nombreUser = JSON.parse(sessionStorage.getItem('user') || '{}').nombre;
+    rolUser = "";
+    isInicio = false;
 
 
-  constructor(private authService: AuthService, private comunicacionService: ComunicacionService){}
+    constructor(private authService: AuthService, private comunicacionService: ComunicacionService) { }
 
-  ngOnInit(): void {
-    this.validarInicioSesion();
-  }
+    ngOnInit(): void {
+        this.validarInicioSesion();
+    }
 
-  validarInicioSesion = () => {
+    validarInicioSesion = () => {
 
-    let usuario = buscarEnSesionStorage('user');
-    let tokenDesencriptado = desencriptar(usuario.token);
-    this.authService.decodificarToken(tokenDesencriptado).subscribe({
-      next: (res) => {
-        this.rolUser = res.rol;
-        this.enviarCambioDeNav();
-      }, error: (error) => {
-        console.log(error);
-      }
-    });
-  }
+        let usuario = buscarEnSesionStorage('user');
+        let tokenDesencriptado = desencriptar(usuario.token);
+        this.authService.decodificarToken(tokenDesencriptado).subscribe({
+            next: (res) => {
+                this.rolUser = res.rol;
+                this.enviarCambioDeNav();
+            }, error: (error) => {
+                console.log(error);
+            }
+        });
+    }
 
-  enviarCambioDeNav = () => {
-    this.comunicacionService.ocultarLinksEnModulos(this.isInicio);
-  }
+    enviarCambioDeNav = () => {
+        this.comunicacionService.ocultarLinksEnModulos(this.isInicio);
+    }
 }

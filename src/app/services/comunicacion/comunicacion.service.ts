@@ -17,4 +17,13 @@ export class ComunicacionService{
         return this.mostrarLinksSubject.getValue();
     }
 
+    tokenExpirado(){
+        window.location.href = '/iniciar-sesion';
+        sessionStorage.removeItem('user');
+    }
+
+    recargarPagina(){
+        window.location.reload();
+    }
+
 }

@@ -1,6 +1,6 @@
 <section>
-    @if(activeOverlay == true){
-        <app-overlay [opciones]="opcionesOverlay" [desactivar]="desactivarOverlay" />
+    @if(mostrarOverlay == true){
+        <app-overlay [opciones]="opciones" [desactivar]="desactivarOverlay" (datoEmitidoOcultar)="recibirDelOverlay($event)" />
     }
     
     <div class="contenedor-ingresar">
@@ -10,11 +10,11 @@
         <div class="contenedor-formulario">
             @if (isIngresando == true) {
                 
-                <app-form-ingresar [login]="login" [estudianteLogin]="estudianteLogin" [registrandose]="registrandose"/>
+                <app-form-ingresar [login]="login" [estudianteLogin]="datosLogin" [registrandose]="registrandose" />
             }
         
             @if(isRegistrando == true){
-                <app-form-registrar  [registrar]="registrar" [estudianteRegistrar]="estudianteRegistrar" [ingresando]="ingresando"/>
+                <app-form-registrar  [registrar]="registrar" [estudianteRegistrar]="datosRegistro" [ingresando]="ingresando"/>
             }
         </div>
     </div>

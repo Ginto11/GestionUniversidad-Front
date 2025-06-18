@@ -1,4 +1,4 @@
-<div class="overlay">
+<div [style.display]="ocultar ? 'none' : 'true'" class="overlay">
     <div>
         <img src="{{ opciones.icon }}" alt="{{ opciones.alt }}">
         @if(opciones.lista.length > 0){
@@ -8,6 +8,6 @@
         }@else {
             <p [style.color]="opciones.color"> {{ opciones.mensaje }} </p>
         }
-        <input (click)="desactivar()" type="button" value="Aceptar">
+        <input (click)="ocultarOverlay()" type="button" value="Aceptar">
     </div>
 </div>

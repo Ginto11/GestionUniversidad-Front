@@ -3,18 +3,18 @@ import { RouterLink } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 
 @Component({
-  selector: 'app-home',
-  imports: [RouterLink],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    imports: [RouterLink],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
-export class HomeComponent{
+export class HomeComponent {
 
-  constructor(private viewporscroller: ViewportScroller){}
+    constructor(private viewporscroller: ViewportScroller) { }
 
-  ngOnInit(): void {
-    //EL COMPONENTE INICIA CON EL SCROLL ARRIBA
-    this.viewporscroller.scrollToPosition([0, 0]);
-  }
+    ngOnInit(): void {
+        //EL COMPONENTE INICIA CON EL SCROLL ARRIBA
+        this.viewporscroller.scrollToPosition([0, 0]);
+    }
 
 }
