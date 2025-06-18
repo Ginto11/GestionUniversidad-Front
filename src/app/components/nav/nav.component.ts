@@ -4,25 +4,25 @@ import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.
 import { ViewportScroller } from '@angular/common';
 
 @Component({
-  selector: 'app-nav',
-  imports: [RouterLink, RouterLinkActive],
-  templateUrl: './nav.component.html',
-  styleUrl: './nav.component.css',
-  standalone: true
+    selector: 'app-nav',
+    imports: [RouterLink, RouterLinkActive],
+    templateUrl: './nav.component.html',
+    styleUrl: './nav.component.css',
+    standalone: true
 })
 export class NavComponent {
 
-  isInicio: boolean = true;
+    isInicio: boolean = true;
 
-  constructor(private comunicacionService: ComunicacionService, private viewPortScroller: ViewportScroller){
-    this.mostrarLinks();
-    this.viewPortScroller.scrollToPosition([0, 0]);
-  }
+    constructor(private comunicacionService: ComunicacionService, private viewPortScroller: ViewportScroller) {
+        this.mostrarLinks();
+        this.viewPortScroller.scrollToPosition([0, 0]);
+    }
 
-  mostrarLinks = () => {
-    this.comunicacionService.mostrarLinks.subscribe((data) => {
-      this.isInicio = data;
-    });
-  };
+    mostrarLinks = () => {
+        this.comunicacionService.mostrarLinks.subscribe((data) => {
+            this.isInicio = data;
+        });
+    };
 
 };

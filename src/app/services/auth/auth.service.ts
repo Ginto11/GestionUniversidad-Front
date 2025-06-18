@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { EstudianteLogin } from "../../models/EstudianteLogin";
+import { EstudianteLogin } from "../../interfaces/EstudianteLogin";
 import { Observable } from "rxjs";
-import { EstudianteRegistrar } from "../../models/EstudianteRegistrar";
+import { EstudianteRegistrar } from "../../interfaces/EstudianteRegistrar";
 import { environment } from "@envs/environment";
 
 @Injectable({

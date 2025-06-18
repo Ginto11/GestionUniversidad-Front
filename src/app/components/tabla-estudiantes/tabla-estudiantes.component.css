@@ -1,0 +1,15 @@
+.contenedor-btns button{
+    margin: 0 3px;
+}
+
+
+.btn{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+
+

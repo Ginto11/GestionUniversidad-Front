@@ -69,7 +69,7 @@ body{
     height: 70vh;
     border-radius: 5px;
     overflow-y: auto;
-    background-color: #FEFDFC;
+    background-color: #FFF;
 }
 
 .contenedor-modulo .contenedor-componente  table{
