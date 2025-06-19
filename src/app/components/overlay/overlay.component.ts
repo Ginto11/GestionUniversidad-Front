@@ -17,7 +17,6 @@ export class OverlayComponent {
     @Input() redireccionar = false;
     @Output() datoEmitidoRecargar = new EventEmitter<boolean>();
     @Output() datoEmitidoOcultar = new EventEmitter<boolean>();
-    ocultar = false;
 
 
     constructor(private comunicacionService: ComunicacionService,) { }
@@ -42,8 +41,6 @@ export class OverlayComponent {
     }
 
     ocultarOverlay = () => {
-
-        this.ocultar = true;
         this.datoEmitidoOcultar.emit(true);
         this.datoEmitidoRecargar.emit(true);
         this.opcionesOverlay.color = '';

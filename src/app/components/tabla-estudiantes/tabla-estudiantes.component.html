@@ -1,10 +1,26 @@
 
 @if (activarOverlay) {
-    <app-overlay [opciones]="{color: '#1A1731', icon: '/icons/informacion.png', mensaje: 'Token expirado, inicie sesión nuevamente, por favor.', alt: 'IconInformacion', lista: []}" [redireccionar]="true" />
+    <app-overlay 
+        [opciones]="{
+            color: '#1A1731', 
+            icon: '/icons/informacion.png', 
+            mensaje: 'Token expirado, inicie sesión nuevamente, por favor.', 
+            alt: 'IconInformacion', 
+            lista: []}" 
+            [redireccionar]="true" 
+    />
 }
 
 @if (estudianteEliminado) {
-    <app-overlay [opciones]="{color: 'green', icon: '/icons/comprobado.png', mensaje: 'Estudiante eliminado exitosamente.', alt: 'IconInformacion', lista: []}" (datoEmitidoRecargar)="recibirDeOverlay($event)" />
+    <app-overlay 
+        [opciones]="{
+            color: 'green', 
+            icon: '/icons/comprobado.png', 
+            mensaje: 'Estudiante eliminado exitosamente.', 
+            alt: 'IconInformacion', 
+            lista: []}" 
+            (datoEmitidoRecargar)="recibirDeOverlay($event)" 
+        />
 }
 <table>
     <thead>

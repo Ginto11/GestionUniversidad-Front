@@ -1,6 +1,6 @@
 <section>
     @if(mostrarOverlay == true){
-        <app-overlay [opciones]="opciones" [desactivar]="desactivarOverlay" (datoEmitidoOcultar)="recibirDelOverlay($event)" />
+        <app-overlay [opciones]="opciones" (datoEmitidoOcultar)="recibirDelOverlay($event)" />
     }
     
     <div class="contenedor-ingresar">

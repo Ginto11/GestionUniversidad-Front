@@ -1,14 +1,11 @@
 .overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: fixed;
+    inset: 0;
     background-color: #0009;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 4;
+    z-index: 9999;
 }
 
 .overlay div{
@@ -43,3 +40,7 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+
+.ocultar-scroll{
+    overflow: hidden;
+}
