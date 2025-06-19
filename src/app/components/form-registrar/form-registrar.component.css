@@ -35,10 +35,6 @@ form input, select{
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-}
-
-
-form input, select {
     text-indent: 15px;
 }
 

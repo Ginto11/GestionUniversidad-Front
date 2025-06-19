@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { desencriptar } from 'src/app/util/util.encrypt';
 import { buscarEnSesionStorage } from 'src/app/util/utilidad';
 import { OverlayComponent } from '../overlay/overlay.component';
-import { EstudiantesServices } from 'src/app/services/estudiantes/estudiantes.service';
+import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
 import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class TablaEstudiantesComponent implements OnInit {
     activarOverlay = false;
     estudianteEliminado = false;
 
-    constructor(private authService: AuthService, private estudiantesService: EstudiantesServices, private comunicacionService: ComunicacionService) { }
+    constructor(private authService: AuthService, private estudianteService: EstudianteServices, private comunicacionService: ComunicacionService) { }
 
     ngOnInit(): void {
         this.validarSesion();
@@ -43,7 +43,7 @@ export class TablaEstudiantesComponent implements OnInit {
 
     async eliminarEstudiante (id: number): Promise<any> {
         try {
-            let res = await this.estudiantesService.eliminar(id);
+            let res = await this.estudianteService.eliminar(id);
             this.estudianteEliminado = true;
             
             return res;

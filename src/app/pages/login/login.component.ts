@@ -32,10 +32,7 @@ export class LoginComponent {
 
 
     recibirDelOverlay = (ocultar: boolean) => {
-        console.log(this.mostrarOverlay, "Recibido del hijo over")
-        this.mostrarOverlay = ocultar;
-        this.mostrarOverlay = false;
-        console.log(this.mostrarOverlay, "Nuevo valor");
+        this.mostrarOverlay = !ocultar;
     }
 
 
@@ -102,10 +99,6 @@ export class LoginComponent {
     ingresando = () => {
         this.isIngresando = true;
         this.isRegistrando = false;
-    };
-
-    desactivarOverlay = () => {
-
     };
 
     verificar = () => {
