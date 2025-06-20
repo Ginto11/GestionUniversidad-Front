@@ -1,59 +1,184 @@
-# GestionUniversidadFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+ ![Badge en Desarollo](https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green)
 
-## Development server
+ # 🎓 GestionUniversidad-Front
 
-To start a local development server, run:
+![Angular](https://img.shields.io/badge/Angular-19.2.4-DD0031?logo=angular&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6?logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-22.14.0-339933?logo=node.js&logoColor=white)
 
+Esta es la **interfaz de usuario** para la Gestión Universitaria de **NovaUniversitas**.  
+Se trata de una SPA (Single Page Application) basada en **Angular**, diseñada para administrar estudiantes, módulos, programas y otros elementos del sistema.
+
+
+## 📋 Tabla de Contenido
+- [🎓 GestionUniversidad-Front](#-gestionuniversidad-front)
+  - [📋 Tabla de Contenido](#-tabla-de-contenido)
+  - [🗂️ Estructura del Proyecto](#️-estructura-del-proyecto)
+  - [⚡️ Descripción General](#️-descripción-general)
+  - [⚙️ Instalación y Ejecutable Local](#️-instalación-y-ejecutable-local)
+      - [1️⃣ Clonar este repositorio](#1️⃣-clonar-este-repositorio)
+      - [2️⃣ Instalar dependencias](#2️⃣-instalar-dependencias)
+      - [3️⃣ Ejecutar el proyecto en modo de desarrollo](#3️⃣-ejecutar-el-proyecto-en-modo-de-desarrollo)
+      - [4️⃣ Acceder a la aplicación](#4️⃣-acceder-a-la-aplicación)
+  - [🌐 Features principales](#-features-principales)
+  - [📁 Scripts principales](#-scripts-principales)
+  - [📄 Variables de Entorno](#-variables-de-entorno)
+  - [🎨 Capturas de Pantalla](#-capturas-de-pantalla)
+  - [👥 Contribución](#-contribución)
+  - [✉️ Contacto](#️-contacto)
+
+## 🗂️ Estructura del Proyecto
+
+```plaintext
+📁 GestionUniversidad-Front/
+├─ 📁 public/
+│  ├─ 📁 documentos/
+│  ├─ 📁 icons/
+│  ├─ 📁 img/
+│  └─ 📁 programas/
+├─ 📁 src/
+│  └─ 📁 app/
+│     ├─ 📁 components/
+│     │  └─ (footer, nav, overlay, tabla-estudiantes, form-*)
+│     ├─ 📁 interfaces/
+│     │  └─ (Estudiante.ts, EstudianteLogin.ts, EstudianteRegistrar.ts, OpcionesOverlay.ts)
+│     └─ 📁 models/
+│        └─ modelos.ts
+│  └─ 📁 pages/
+│     └─ (home, login, estudiantes, modulos, nosotros, programas)
+│  └─ 📁 services/
+│     └─ (auth, estudiantes, programas, usuario, comunicacion)
+│  └─ 📁 util/
+│     └─ (encrypt.ts, utilidad.ts)
+├─ 📁 environments/
+│  └─ environment.ts
+│  └─ environment.development.ts
+```
+
+## ⚡️ Descripción General
+
+✅ Framework: **Angular 16+**  
+✅ Lenguaje: **TypeScript**  
+✅ Diseño basado en **Componentes** para escalabilidad y modularidad.  
+✅ Consumo de APIs REST para obtener y enviar datos al backend.  
+✅ Autenticación y autorización mediante JWT para acceso seguro.  
+✅ Utilidades de encriptación y manejo de datos de sesión para garantizar la seguridad.
+
+
+## ⚙️ Instalación y Ejecutable Local
+
+#### 1️⃣ Clonar este repositorio
+```bash
+git clone https://github.com/Ginto11/GestionUniversidad-Front.git
+```
+
+#### 2️⃣ Instalar dependencias
+```bash
+npm install
+```
+
+#### 3️⃣ Ejecutar el proyecto en modo de desarrollo
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+#### 4️⃣ Acceder a la aplicación
 ```bash
-ng generate component component-name
+http://localhost:4200/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🌐 Features principales
+- 👥 CRUD de estudiantes: Listado, creación, edición y eliminación.
 
-```bash
-ng generate --help
+- 🗂️ Visualización de módulos y programas para estudiantes y visitantes.
+
+- 🔐 Inicio de sesión y autorización de usuarios.
+
+- ✅ Alertas overlay para comunicar éxito o error en acciones.
+
+- 📄 Visualización de documentación pública (términos y política de privacidad).
+
+- 💳 Consumo de servicios REST para obtener datos del backend.
+
+- 🎨 Stack Tecnológico
+- ⚡️ Framework: Angular 19
+
+- 🐍 Lenguaje: TypeScript
+
+- 🌐 Librerías principales: **Angular Router**, **Angular Forms** y **Angular HTTP Client**.
+
+- 🎨 UI/UX: HTML5, CSS3
+
+- 🔐 Autenticación: Token JWT + servicios de utilidades para encriptación
+
+## 📁 Scripts principales
+
+| Comando    | Descripción                         |
+| ---------- | ----------------------------------- |
+| `ng serve` | Ejecuta la app en modo desarrollo   |
+| `ng build` | Compila para producción             |
+| `ng test`  | Ejecuta pruebas unitarias           |
+| `ng lint`  | Verifica y corrige estilo de código |
+
+## 📄 Variables de Entorno
+Edita estos archivos para configurar tus versiones, ya sea de producción o desarrollo.
+
+- `src/environments/environment.ts`
+
+- `src/environments/environment.development.ts`
+
+```ts
+export const environment = {
+  ENCRIPTACION_KEY: 'AROCRSAXLJD',
+  URL: 'http://tuservidor/api' // Cambia a tu backend
+};
 ```
 
-## Building
+## 🎨 Capturas de Pantalla
+- Home
+![alt text](image.png)
 
-To build the project run:
+- Nosotros
+![alt text](image-1.png)
+
+- Programas
+![alt text](image-2.png)
+
+- Iniciar sesión y registro.
+![alt text](image-3.png)
+
+- Pie de Página.
+![alt text](image-4.png)
+
+## 👥 Contribución
+Si deseas contribuir:
+
+
+1. Realiza un fork del proyecto.
+2. Crea una nueva rama para tu feature:
 
 ```bash
-ng build
+git checkout -b feature/nueva-funcionalidad
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+3. Agrega todos los cambios.
 ```bash
-ng test
+git  add .
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
+4. Haz commit de los cambios:
 ```bash
-ng e2e
+git commit -m "Agrega nueva funcionalidad"
+```
+5. Push al repositorio:
+```bash
+git push origin feature/nueva-funcionalidad
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## ✉️ Contacto
 
-## Additional Resources
+Si deseas comunicarte para colaborar, obtener soporte o hacer consultas, contáctanos:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- 📧 **Email**: salinitosnelson@gmail.com
+
+
+
+
+

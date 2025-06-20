@@ -23,13 +23,15 @@ export class EstudiantesComponent implements OnInit {
     isMostrarTabla = true;
     isMostrarForm = false;
 
-    constructor(private router: Router, private estudianteService: EstudianteServices, private comunicacionService: ComunicacionService, private viewportScroller: ViewportScroller) { }
+    constructor(private router: Router, private estudianteService: EstudianteServices, private comunicacionService: ComunicacionService, private viewportScroller: ViewportScroller) {
+        this.viewportScroller.scrollToPosition([0, 0]);
+     }
 
     ngOnInit(): void {
+        console.log('Inicio');
         this.validarSesion();
         this.mostrarEstudiantes();
         this.comunicacionService.ocultarLinksEnModulos(false);
-        this.viewportScroller.scrollToPosition([0, 0]);
     }
 
     //VALIDA LA SESION POR MEDIO DEL SESION STORAGE SI NO HAY USER DIRECCIONA AL HOME
