@@ -19,7 +19,7 @@ Se trata de una SPA (Single Page Application) basada en **Angular**, diseñada p
       - [2️⃣ Instalar dependencias](#2️⃣-instalar-dependencias)
       - [3️⃣ Ejecutar el proyecto en modo de desarrollo](#3️⃣-ejecutar-el-proyecto-en-modo-de-desarrollo)
       - [4️⃣ Acceder a la aplicación](#4️⃣-acceder-a-la-aplicación)
-  - [🌐 Features principales](#-features-principales)
+  - [🌐 Características principales](#-características-principales)
   - [📁 Scripts principales](#-scripts-principales)
   - [📄 Variables de Entorno](#-variables-de-entorno)
   - [🎨 Capturas de Pantalla](#-capturas-de-pantalla)
@@ -86,7 +86,7 @@ ng serve
 http://localhost:4200/
 ```
 
-## 🌐 Features principales
+## 🌐 Características principales
 - 👥 CRUD de estudiantes: Listado, creación, edición y eliminación.
 
 - 🗂️ Visualización de módulos y programas para estudiantes y visitantes.
