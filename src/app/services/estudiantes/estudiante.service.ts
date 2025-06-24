@@ -3,10 +3,10 @@ import { Injectable } from "@angular/core";
 import { environment } from "@envs/environment";
 import { AuthService } from "../auth/auth.service";
 import { desencriptar } from "src/app/util/util.encrypt";
-import { Estudiante } from "src/app/interfaces/Estudiante";
 import { lastValueFrom } from "rxjs";
 import { buscarEnSesionStorage } from "src/app/util/utilidad";
-import { EstudianteRegistrar } from "src/app/interfaces/EstudianteRegistrar";
+import { IEstudianteRegistrar } from "src/app/interfaces/IEstudianteRegistrar";
+import { Estudiante } from "src/app/models/estudiante.model";
 
 @Injectable({
     providedIn: 'root'
@@ -15,9 +15,9 @@ export class EstudianteServices {
 
     constructor(private http: HttpClient, private authService: AuthService){}
 
-    async mostrarTodos(): Promise<Estudiante[]>{
+    listarEstudiantes = async (): Promise<Estudiante[]> => {
         try {
-            const data = buscarEnSesionStorage('user');
+            const data = buscarEnSesionStorage('usuario');
 
             if(data){
                 const token = desencriptar(data.token);
@@ -40,10 +40,37 @@ export class EstudianteServices {
 
     }
 
-    async eliminar(id: number): Promise<any> {
+
+    buscarPorId = async (id: number): Promise<Estudiante> => {
         try {
 
-            const data = buscarEnSesionStorage('user');
+            const usuario = buscarEnSesionStorage('usuario');
+
+            if(usuario){
+                
+                const token = desencriptar(usuario.token);
+
+                const headers = new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                });
+                    
+                return await lastValueFrom(
+                    this.http.get<Estudiante>(`${environment.URL}/api/estudiantes/${id}`, { headers })
+                );
+            }
+
+            throw new Error('Usuario no encontrado en sesión');
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    eliminar = async (id: number): Promise<any> => {
+        try {
+
+            const data = buscarEnSesionStorage('usuario');
 
             if(data){
 
@@ -53,7 +80,7 @@ export class EstudianteServices {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 });
-
+            
                 return await lastValueFrom(
                     this.http.delete(`${environment.URL}/api/estudiantes/${id}`, { headers })
                 );
@@ -64,10 +91,10 @@ export class EstudianteServices {
     }
 
 
-    async crear(estudiante: EstudianteRegistrar) : Promise<any> {
+    crear = async (estudiante: IEstudianteRegistrar) : Promise<any> => {
         try{
 
-            const data = buscarEnSesionStorage('user');
+            const data = buscarEnSesionStorage('usuario');
 
             if(data){
             

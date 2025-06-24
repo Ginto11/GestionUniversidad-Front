@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavSesionComponent } from "../../components/nav-sesion/nav-sesion.component";
+import { NavSesionComponent } from "../../shared/nav-sesion/nav-sesion.component";
 import { AuthService } from '../../services/auth/auth.service';
-import { RecursoComponent } from '../../components/recurso/recurso.component';
+import { RecursoComponent } from '../../shared/recurso/recurso.component';
 import { desencriptar } from 'src/app/util/util.encrypt';
 import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
 import { buscarEnSesionStorage } from 'src/app/util/utilidad';
@@ -12,9 +12,9 @@ import { buscarEnSesionStorage } from 'src/app/util/utilidad';
     templateUrl: './modulos.component.html',
     styleUrl: './modulos.component.css'
 })
-export class ModulosComponent implements OnInit {
+export default class ModulosComponent implements OnInit {
 
-    nombreUser = JSON.parse(sessionStorage.getItem('user') || '{}').nombre;
+    nombreUser = JSON.parse(sessionStorage.getItem('usuario') || '{}').nombre;
     rolUser = "";
     isInicio = false;
 
@@ -25,18 +25,26 @@ export class ModulosComponent implements OnInit {
         this.validarInicioSesion();
     }
 
-    validarInicioSesion = () => {
+    validarInicioSesion = async () => {
 
-        let usuario = buscarEnSesionStorage('user');
-        let tokenDesencriptado = desencriptar(usuario.token);
-        this.authService.decodificarToken(tokenDesencriptado).subscribe({
-            next: (res) => {
-                this.rolUser = res.rol;
-                this.enviarCambioDeNav();
-            }, error: (error) => {
-                console.log(error);
+        try {
+            
+            const usuario = buscarEnSesionStorage('usuario');
+
+            if (!usuario) {
+                this.comunicacionService.tokenExpirado();
+                return;
             }
-        });
+
+            const tokenDesencriptado = desencriptar(usuario.token);
+
+            const res = await this.authService.decodificarToken(tokenDesencriptado);
+            this.rolUser = res.rol;
+            this.enviarCambioDeNav();
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     enviarCambioDeNav = () => {

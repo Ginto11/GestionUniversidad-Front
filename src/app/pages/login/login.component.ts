@@ -2,33 +2,58 @@ import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
-import { FormIngresarComponent } from "../../components/form-ingresar/form-ingresar.component";
-import { estudianteRegistrar, estudianteLogin, opcionesOverlay } from '../../models/modelos';
-import { EstudianteRegistrar } from 'src/app/interfaces/EstudianteRegistrar';
-import { FormRegistrarComponent } from '../../components/form-registrar/form-registrar.component';
-import { OverlayComponent } from "../../components/overlay/overlay.component";
+import { FormIngresarComponent } from "../../shared/form-ingresar/form-ingresar.component";
+import { IEstudianteRegistrar } from 'src/app/interfaces/IEstudianteRegistrar';
+import { FormRegistrarComponent } from '../../shared/form-registrar/form-registrar.component';
+import { OverlayComponent } from "../../shared/overlay/overlay.component";
 import { desencriptar, encriptar } from 'src/app/util/util.encrypt';
 import { buscarEnSesionStorage } from 'src/app/util/utilidad';
+import { IAccionesOverlay } from 'src/app/interfaces/IAccionesOverlay';
+import { FooterComponent } from 'src/app/shared/footer/footer.component';
 
 @Component({
     selector: 'app-login',
-    imports: [FormsModule, FormIngresarComponent, FormRegistrarComponent, OverlayComponent],
+    imports: [FormsModule, FormIngresarComponent, FormRegistrarComponent, OverlayComponent, FooterComponent],
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.css'
 })
 
-export class LoginComponent {
+export default class LoginComponent {
 
     constructor(public authService: AuthService, private router: Router) { }
 
-    @Input() datosLogin = estudianteLogin;
-    @Input() datosRegistro = estudianteRegistrar;
-    @Input() opciones = opcionesOverlay;
+    datosLogin = {
+        email: '',
+        contrasena: ''
+    };
+    
+    datosRegistro = {
+        cedula: null,
+        nombre: '',
+        apellido: '',
+        edad: null,
+        email: '',
+        contrasena: '',
+        generoId: 0
+    };
+    
+    opciones = {
+        mensaje: '',
+        icon: '',
+        color: '',
+        alt: '',
+        lista:  [] as string[]
+    };
 
     isIngresando = true;
     isRegistrando = false;
     mostrarOverlay = false;
+
+    accionesOverlay: IAccionesOverlay = {
+        redireccionar: false,
+        ocultar: false
+    }
 
 
     recibirDelOverlay = (ocultar: boolean) => {
@@ -36,50 +61,63 @@ export class LoginComponent {
     }
 
 
-    registrar = () => {
-        let errores: string[] = this.validarRegistroEstudiante(estudianteRegistrar);
+    registrar = async () => {
+        try {
+            const errores: string[] = this.validarRegistroEstudiante(this.datosRegistro);
 
-        if (errores.length > 0) {
-            this.activarOverlay('red', '/icons/error.png', '', 'IconError', errores);
-            return;
+            if (errores.length > 0) {
+                this.activarOverlay('', '/icons/error.png', 'red', 'IconError', errores);
+                this.mostrarOverlay = true;
+                return;
+            }
+
+            await this.authService.registrar(this.datosRegistro);
+            this.registroExitoso();
+            this.limpiarCampos();
+
+        } catch (error) {
+            this.manejoErroresRegistrar(error);
         }
 
-        this.authService.registrar(estudianteRegistrar).subscribe({
-            next: res => this.registroExitoso(),
-            error: error => this.manejoErroresRegistrar(error)
-        })
     };
 
-    login = () => {
+    login = async () : Promise<any> => {
 
-        if (estudianteLogin.email == '' && estudianteLogin.contrasena == '') {
-            this.activarOverlay('red', '/icons/error.png', '¡Todos los campos son obligatorios.!', 'IconError', []);
-            return;
+        try {
+            
+            if (this.datosLogin.email == '' && this.datosLogin.contrasena == '') {
+                this.activarOverlay('Debes ingresar tus credenciales.', '/icons/error.png', 'red', 'IconError', []);
+                this.mostrarOverlay = true;
+                return;
+            }
+            
+            const res = await this.authService.ingresar(this.datosLogin);
+            this.sesionExitosa(res);
+            this.limpiarCampos();
+
+        } catch (error) {
+            this.manejoErroresLogin(error);
         }
-
-        this.authService.ingresar(estudianteLogin).subscribe({
-            next: res => this.sesionExitosa(res),
-            error: error => this.manejoErroresLogin(error)
-        });
     };
 
-    activarOverlay = (color: string, icon: string, mensaje: string, alt: string, lista: string[]) => {
-        opcionesOverlay.color = color;
-        opcionesOverlay.icon = icon;
-        opcionesOverlay.mensaje = mensaje;
-        opcionesOverlay.alt = alt;
-        opcionesOverlay.lista = lista;
-        this.mostrarOverlay = true;
-    };
+    activarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
+        this.opciones.mensaje =  mensaje;
+        this.opciones.icon = icon;
+        this.opciones.color =  color;
+        this.opciones.lista = lista;
+        this.opciones.alt = alt;
+        this.accionesOverlay.redireccionar = false;
+        this.accionesOverlay.ocultar = true;
+    }
 
     limpiarCampos = () => {
-        estudianteRegistrar.apellido = '';
-        estudianteRegistrar.cedula = 0;
-        estudianteRegistrar.contrasena = '';
-        estudianteRegistrar.edad = 0;
-        estudianteRegistrar.generoId = 0;
-        estudianteRegistrar.email = '';
-        estudianteRegistrar.nombre = '';
+        this.datosRegistro.apellido = '';
+        this.datosRegistro.cedula = null;
+        this.datosRegistro.contrasena = '';
+        this.datosRegistro.edad = null;
+        this.datosRegistro.generoId = 0;
+        this.datosRegistro.email = '';
+        this.datosRegistro.nombre = '';
     };
 
 
@@ -87,40 +125,38 @@ export class LoginComponent {
     sesionExitosa = (res: any) => {
         const { usuario } = res;
         usuario.token = encriptar(usuario.token);
-        sessionStorage.setItem('user', JSON.stringify(usuario));
+        sessionStorage.setItem('usuario', JSON.stringify(usuario));
         this.router.navigate(['/modulos']);
     };
 
-    registrandose = () => {
-        this.isRegistrando = true;
-        this.isIngresando = false;
-    };
-
-    ingresando = () => {
-        this.isIngresando = true;
-        this.isRegistrando = false;
-    };
-
-    verificar = () => {
-        let usuario = buscarEnSesionStorage('user');
-        let tokenDesencriptado = desencriptar(usuario.token);
-        this.authService.verificarToken(tokenDesencriptado).subscribe({
-            next: (res) => {
-                console.log(res)
-            },
-            error: (error) => {
-                console.log(error)
+    
+    verificar =  async () => {
+        try {
+            const usuario = buscarEnSesionStorage('usuario');
+            if (!usuario) {
+                this.router.navigate(['/iniciar-sesion']);
+                return;
             }
-        })
+
+            const token = desencriptar(usuario.token);
+            const res = await this.authService.verificarToken(token);
+            if (res.status == 200) {
+                console.log(res)
+            }else{
+                console.log(res);
+            }
+        } catch (error) {
+            console.log(error)
+        }
     };
 
-    validarRegistroEstudiante = (est: EstudianteRegistrar): string[] => {
+    validarRegistroEstudiante = (est: IEstudianteRegistrar): string[] => {
         const errores: string[] = [];
 
-        if (est.cedula.toString().length < 5) errores.push('La cédula debe ser mayor a 4 dígitos.');
+        if (!est.cedula || est.cedula.toString().length < 5) errores.push('La cédula debe ser mayor a 4 dígitos.');
         if (!est.nombre.trim()) errores.push('El nombre es obligatorio.');
         if (!est.apellido.trim()) errores.push('El apellido es obligatorio.');
-        if (est.edad < 18 || est.edad > 100) errores.push('Edad fuera de rango (18-100).');
+        if (!est.edad || est.edad < 18 || est.edad > 100) errores.push('Edad fuera de rango (18-100).');
         if (!est.email.includes('@') || !est.email.includes('.')) errores.push('Correo no válido.');
         if (est.contrasena.length < 6) {
             errores.push('Contraseña inválida (mín. 6 caracteres).');
@@ -134,34 +170,49 @@ export class LoginComponent {
 
     manejoErroresLogin = (error: any) => {
         if (error.status == 400) {
-            this.activarOverlay('red', '/icons/error.png', '¡Credenciales Incorrectas.!', 'IconError', []);
+            this.activarOverlay('Credenciales Incorrectas.', '/icons/error.png', 'red', 'IconError', []);
+        }
+        else if(error.status > 400){
+            this.activarOverlay('Error en el cliente.', '/icons/error.png', 'red', 'IconError', []);
         }
         else if (error.status >= 500) {
-            this.activarOverlay('red', '/icons/error.png', '¡Error en el servidor.!', 'IconError', []);
+            this.activarOverlay('Error en el servidor.', '/icons/error.png', 'red', 'IconError', []);
         }
         else {
-            this.activarOverlay('red', '/icons/error.png', 'Error al iniciar sesión.', 'IconError', []);
+            this.activarOverlay('Error al iniciar sesión.', '/icons/error.png', 'red', 'IconError', []);
         }
+
+        this.mostrarOverlay = true;
     };
 
 
     manejoErroresRegistrar = (error: any) => {
         if (error.status == 409) {
-            this.activarOverlay('red', '/icons/error.png', error.error.mensaje, 'IconError', []);
+            this.activarOverlay(error.error.mensaje, '/icons/error.png', 'red', 'IconError', []);
         }
 
         if (error.status >= 500) {
-            this.activarOverlay('red', '/icons/error.png', 'Se ha presentado un error del lado del servidor.', 'IconError', []);
+            this.activarOverlay('Se ha presentado un error del lado del servidor.', '/icons/error.png', 'red', 'IconError', []);
         }
 
         if (error.status >= 400) {
-            this.activarOverlay('red', '/icons/error.png', 'Se ha presentado un error del lado del cliente.', 'IconError', []);
+            this.activarOverlay('Se ha presentado un error del lado del cliente.', '/icons/error.png', 'red', 'IconError', []);
         }
     };
 
 
     registroExitoso = () => {
-        this.activarOverlay('green', '/icons/comprobado.png', 'Estudiante registrado Exitosamente.', 'IconRegistrado', []);
+        this.activarOverlay('Estudiante registrado Exitosamente.', '/icons/comprobado.png', 'green', 'IconRegistrado', []);
         this.limpiarCampos();
-    }
+    };
+
+    registrandose = () => {
+        this.isRegistrando = true;
+        this.isIngresando = false;
+    };
+    
+    ingresando = () => {
+        this.isIngresando = true;
+        this.isRegistrando = false;
+    };
 }

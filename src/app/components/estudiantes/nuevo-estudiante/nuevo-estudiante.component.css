@@ -1,0 +1,68 @@
+.contenedor-formulario {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+    padding: 30px 0;
+    color: #1A1731;
+}
+
+.formulario-nuevos-usuarios{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.formulario-nuevos-usuarios h2 {
+    text-align: center;
+    color: #FF5F15;
+}
+
+.contenedor-fila-nuevos-usuarios{
+    display: flex;
+    gap: 15px; 
+}
+
+.contenedor-fila-nuevos-usuarios div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor-fila-nuevos-usuarios input, select, button{
+    all: unset;
+    width: 100%;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    box-shadow: 0px 2px 2px 2px  rgba(0, 0, 0, 0.0888);
+    transition: border 0.3s ease-in-out;
+}
+
+.contenedor-fila-nuevos-usuarios input:focus, select:focus {
+    border-color: #FF5F15;
+}
+
+.contenedor-fila-nuevos-usuarios select {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-fila-nuevos-usuarios button{
+    background-color: #FF5F15;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;     
+}
+
+.contenedor-fila-nuevos-usuarios button:hover{
+    border-color: black;
+}

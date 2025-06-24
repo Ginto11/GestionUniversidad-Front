@@ -1,0 +1,71 @@
+h2{
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    color: #1A1731;
+    /*background-image: linear-gradient(90deg, #000117ee, #017C8E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+    
+    /* Para compatibilidad adicional */
+    /*background-clip: text;
+    color: transparent;*/
+}
+
+form{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: #1A1731;
+    flex-wrap: wrap;
+}
+
+form div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+form input, select, button {
+    all: unset;
+    width: 100%;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    box-shadow: 0px 2px 2px 2px  rgba(0, 0, 0, 0.0888);
+    transition: border 0.3s ease-in-out;
+}
+
+form input:focus, select:focus {
+    border-color: #FF5F15;
+}
+
+form select {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form button{
+    background-color: #FF5F15;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+form button:hover{
+    border-color: black;
+}
+
+p{
+    font-size: 14px;
+}
+
+
+
+

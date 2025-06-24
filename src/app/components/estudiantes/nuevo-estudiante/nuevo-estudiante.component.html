@@ -1,0 +1,57 @@
+@if (activarOverlay) {
+    <app-overlay
+        [opciones]="opciones"
+        [accionesOverlay]="accionesOverlay"
+        (datoEmitidoOcultar)="recibirDatoOcultar($event)"
+    />
+}
+
+<div class="contenedor-formulario">
+    <form class="formulario-nuevos-usuarios">
+        <h2> {{ nombreFormulario }} </h2>
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <input [(ngModel)]="estudiante.cedula" placeholder="Cedula" type="number" id="cedula-estudiante" name="cedula-estudiante">
+            </div>
+
+            <div>
+                <input [(ngModel)]="estudiante.nombre" placeholder="Nombre" type="text" id="nombre-estudiante" name="nombre-estudiante">
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <input [(ngModel)]="estudiante.apellido" placeholder="Apellido" type="text" id="apellido-estudiante" name="apellido-estudiante">
+            </div>
+
+            <div>
+                <input [(ngModel)]="estudiante.edad" placeholder="Edad" type="number" id="edad-estudiante" name="edad-estudiante">
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <input [(ngModel)]="estudiante.email" placeholder="Email" type="email" name="email" id="email-estudiante" name="email-estudiante">
+            </div>
+
+            <div>
+                <input [(ngModel)]="estudiante.contrasena" placeholder="Contraseña" type="password" name="contrasena" id="contrasena-estudiante" name="contrasena-estudiante"/>
+            </div>
+        </div>
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <select [(ngModel)]="estudiante.generoId" style="height: 30px; width: 100%;" name="genero-estudiante" id="genero-estudiante">
+                    <option selected value="0">Seleccionar</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                    <option value="3">Otro</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <button (click)="crearEstudiante()"> Añadir </button>
+        </div>
+
+    </form>
+</div>

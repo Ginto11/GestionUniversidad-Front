@@ -1,0 +1,20 @@
+button{
+    all: unset;
+    color: #1A1731;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 30px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background-color: #fff;
+    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.0888);
+    transition: .4s ease all;
+}
+
+button:hover{
+    transform: scale(1.020);
+    border-color: #FF5F15;
+}

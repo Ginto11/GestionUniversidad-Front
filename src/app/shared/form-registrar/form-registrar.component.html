@@ -1,0 +1,51 @@
+<form>
+    <h2>Formulario de registro</h2>
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div>
+                <input [(ngModel)]="estudianteRegistrar.cedula" placeholder="Cedula" type="number" name="ceduña" id="cedula">
+            </div>
+
+            <div>
+                <input [(ngModel)]="estudianteRegistrar.nombre" placeholder="Nombre" type="text" name="nombre" id="nombre">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div>
+                <input [(ngModel)]="estudianteRegistrar.apellido" placeholder="Apellido" type="text" name="apellido" id="apellido">
+            </div>
+
+            <div>
+                <input [(ngModel)]="estudianteRegistrar.edad" placeholder="Edad" type="number" name="edad" id="edad">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div>
+                <input [(ngModel)]="estudianteRegistrar.email" placeholder="Email" type="email" name="email" id="email">
+            </div>
+
+            <div>
+                <input [(ngModel)]="estudianteRegistrar.contrasena" placeholder="Contraseña" type="password" name="contrasena" id="contrasena" />
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div style="width: 100%;">
+                <select [(ngModel)]="estudianteRegistrar.generoId" style="height: 30px; width: 100%;" name="genero" id="genero">
+                    <option selected value="0">Seleccionar</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                    <option value="3">Otro</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <button (click)="registrar()" > Registrarse </button>
+        </div>
+
+        <p style="text-align: center;">Si ya tienes cuenta, <a href="#" (click)="$event.preventDefault(); ingresando()">Inicia Sesión</a></p>
+    </div>
+</form>

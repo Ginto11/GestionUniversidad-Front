@@ -1,0 +1,50 @@
+<div class="contenedor-formulario">
+    <form class="formulario-nuevos-usuarios">
+        <h2> {{ nombreFormulario }} </h2>
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <label for="cedula-estudiante"> Cedula</label>
+                <input [(ngModel)]="estudiante.cedula" disabled="" type="number" id="cedula-estudiante" name="cedula-estudiante">
+            </div>
+
+            <div>
+                <label for="nombre-estudiante">Nombre</label>
+                <input [(ngModel)]="estudiante.nombre" placeholder="Nombre" type="text" id="nombre-estudiante" name="nombre-estudiante">
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <label for="apellido-estudiante">Apellido</label>
+                <input [(ngModel)]="estudiante.apellido" placeholder="Apellido" type="text" id="apellido-estudiante" name="apellido-estudiante">
+            </div>
+
+            <div>
+                <label for="edad-estudiante">Edad</label>
+                <input [(ngModel)]="estudiante.edad" placeholder="Edad" type="number" id="edad-estudiante" name="edad-estudiante">
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <label for="email-estudiante">Email</label>
+                <input [(ngModel)]="estudiante.email" disabled="" type="email" name="email" id="email-estudiante" name="email-estudiante">
+            </div>
+        </div>
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <label for="genero-estudiante">Genero</label>
+                <select [(ngModel)]="estudiante.generoId" style="height: 30px; width: 100%;" name="genero-estudiante" id="genero-estudiante">
+                    @for (genero of generos; track genero.id) {
+                        <option [selected]="estudiante.generoId == genero.id" [value]="genero.id"> {{ genero.nombre }} </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <button> Añadir </button>
+        </div>
+
+    </form>
+</div>
