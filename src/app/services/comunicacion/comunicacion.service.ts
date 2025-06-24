@@ -9,8 +9,15 @@ export class ComunicacionService{
     private mostrarLinksSubject = new BehaviorSubject<boolean>(true);
     mostrarLinks = this.mostrarLinksSubject.asObservable();
 
+    private mostrarFormEditarEstudianteSubject = new BehaviorSubject<boolean>(false);
+    mostrarFormEditarEstudiante = this.mostrarFormEditarEstudianteSubject.asObservable();
+
     ocultarLinksEnModulos(valor: boolean): void{
         this.mostrarLinksSubject.next(valor);
+    }
+
+    activarFormEditarEstudiante(valor: boolean): void{
+        this.mostrarFormEditarEstudianteSubject.next(valor);
     }
 
     getEstado(){
@@ -25,5 +32,7 @@ export class ComunicacionService{
     recargarPagina(){
         window.location.reload();
     }
+
+
 
 }

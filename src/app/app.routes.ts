@@ -1,35 +1,48 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { ModulosComponent } from './pages/modulos/modulos.component';
-import { EstudiantesComponent } from './pages/estudiantes/estudiantes.component';
-import { HomeComponent } from './pages/home/home.component';
-import { NosotrosComponent } from './pages/nosotros/nosotros.component';
-import { ProgramasComponent } from './pages/programas/programas.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        loadComponent: () => import('./pages/home/home.component')
     },
     {
         path: 'programas',
-        component: ProgramasComponent
+        loadComponent: () => import('./pages/programas/programas.component')
     },
     {
         path: 'iniciar-sesion',
-        component: LoginComponent
+        loadComponent: () => import('./pages/login/login.component')
     },
     {
         path: 'nosotros',
-        component: NosotrosComponent
+        loadComponent: () => import('./pages/nosotros/nosotros.component')
     },
     {
         path: 'modulos',
-        component: ModulosComponent
+        loadComponent: () => import('./pages/modulos/modulos.component')
     },
     {
         path: 'estudiantes',
-        component: EstudiantesComponent
+        loadComponent: () => import('./pages/estudiantes/estudiantes.component'),
+        children: [
+            {
+                path: '', 
+                redirectTo: 'listar-estudiantes',
+                pathMatch: 'full'
+            },
+            {
+                path: 'listar-estudiantes',
+                loadComponent: () => import('./components/estudiantes/tabla-estudiantes/tabla-estudiantes.component')
+            },
+            {
+                path: 'editar-estudiante/:id',
+                loadComponent: () => import('./components/estudiantes/editar-estudiante/editar-estudiante.component')
+            },
+            {
+                path: 'nuevo-estudiante',
+                loadComponent: () => import('./components/estudiantes/nuevo-estudiante/nuevo-estudiante.component')
+            }
+        ]
     }
 
 ];

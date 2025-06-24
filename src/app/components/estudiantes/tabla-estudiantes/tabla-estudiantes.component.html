@@ -1,0 +1,39 @@
+@if (activarOverlay) {
+    <app-overlay 
+        [opciones]="opciones"
+        [accionesOverlay]="accionesOverlay"
+        (datoEmitidoOcultar)="recibirDatoOcultar($event)"
+    />
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Cedula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Email</th>
+            <th>Genero</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (estudiante of estudiantes; track estudiante.id) {
+            <tr>
+                <td> {{ estudiante.cedula }} </td>
+                <td> {{ estudiante.nombre }} </td>
+                <td> {{ estudiante.apellido }} </td>
+                <td> {{ estudiante.edad }} </td>
+                <td> {{ estudiante.email }} </td>
+                <td> {{ estudiante.genero }} </td>
+                <td class="contenedor-btns">
+                    <button [routerLink]="['/estudiantes', 'editar-estudiante', estudiante.id]" class="btn btn-actualizar" [title]="`Actualizar a ${estudiante.nombre}`"><img src="icons/icono-actualizar.svg" alt="Actualizar" width="18px"></button>
+                    <button (click)="eliminarEstudiante(estudiante.id)" class="btn" [title]="`Eliminar a ${estudiante.nombre}`"><img src="icons/icono-eliminar.svg" alt="Eliminar" width="15px"></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

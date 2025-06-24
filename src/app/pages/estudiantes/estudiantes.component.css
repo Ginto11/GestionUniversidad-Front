@@ -8,3 +8,8 @@ h2{
     padding-top: 20px;
     text-align: center;
 }
+
+.estudiantes-link-active{
+    background-color: #1A173110;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+}

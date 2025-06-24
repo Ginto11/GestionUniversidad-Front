@@ -66,7 +66,7 @@ body{
 
 
 .contenedor-modulo  .contenedor-componente{
-    height: 70vh;
+    height: 73vh;
     border-radius: 5px;
     overflow-y: auto;
     background-color: transparent;
@@ -90,4 +90,5 @@ body{
     border-bottom: 1px solid #0002;
     background-color: #F5F5F5;
 }
+
 

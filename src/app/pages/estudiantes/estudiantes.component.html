@@ -4,17 +4,11 @@
         <div class="modulo">
             <h2>Modulo Estudiantes</h2>
             <ul class="modulo-links">
-                <a (click)="mostrarTabla()"> <img src="icons/tabla-estudiantes.svg" alt="Mostrar Estudiantes" width="20px"> Mostrar todos</a>
-                <a (click)="mostrarForm();"> <img src="icons/nuevo-estudiante.svg" alt="Nuevo Estudiante" width="20px" style="margin-bottom: 3px;"> Nuevo</a>
+                <a routerLink="listar-estudiantes" routerLinkActive="estudiantes-link-active"> <img src="icons/tabla-estudiantes.svg" alt="Mostrar Estudiantes" width="20px"> Mostrar todos</a>
+                <a routerLink="nuevo-estudiante" routerLinkActive="estudiantes-link-active"> <img src="icons/nuevo-estudiante.svg" alt="Nuevo Estudiante" width="20px" style="margin-bottom: 3px;"> Nuevo</a>
             </ul>
             <div class="contenedor-componente">
-                @if (isMostrarTabla) {
-                    <app-tabla-estudiantes [estudiantes]="estudiantes" />
-                }
-
-                @if (isMostrarForm) {
-                    <app-form-nuevos-usuarios nombreFormulario="Registrando estudiante." [esEstudinate]="true" />
-                }
+                <router-outlet></router-outlet>
             </div>
         </div>
     </div>
