@@ -3,6 +3,8 @@
 
  # 🎓 GestionUniversidad-Front
 
+ Nota: 24-06-25
+
 ![Angular](https://img.shields.io/badge/Angular-19.2.4-DD0031?logo=angular&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6?logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-22.14.0-339933?logo=node.js&logoColor=white)
 
 Esta es la **interfaz de usuario** para la Gestión Universitaria de **NovaUniversitas**.  
