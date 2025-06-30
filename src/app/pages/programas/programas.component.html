@@ -8,7 +8,7 @@
     <div class="contenedor-cards">
         @for (programa of programas; track programa.id) {
             <div class="card">
-                <img [src]="rutaImagenesProgramas + programa.rutaImagen" [alt]="'Imagen' + programa.nombre">
+                <img [src]="rutaImagenesProgramas + programa.rutaImagen" [alt]="'Imagen de ' + programa.nombre" loading="lazy" [title]="'Programa en ' + programa.nombre">
                 <h2> {{ programa.nombre }} </h2>
                 <p><strong>Descripción: </strong> {{ programa.descripcion }} </p>
                 <p><strong>Duración:</strong> {{ programa.duracion }} semestres. </p>
