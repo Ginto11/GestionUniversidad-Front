@@ -1,0 +1,13 @@
+# Permite el acceso a todos los robots
+User-agent: *
+
+# Permite todo el sitio (elimina esta línea si deseas restringir partes)
+Allow: /
+
+# Opcional: bloquea carpetas internas si no quieres que se indexen
+# Disallow: /admin/
+# Disallow: /login/
+# Disallow: /api/
+
+# Enlace al sitemap para facilitar rastreo e indexación
+Sitemap: https://tusitio.com/sitemap.xml
