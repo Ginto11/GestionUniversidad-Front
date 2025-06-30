@@ -27,7 +27,16 @@
             </div>
 
             <div>
+                <input [(ngModel)]="estudianteRegistrar.celular" placeholder="Celular" type="tel" name="celular" id="celular" />
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; width: 100%;">
+            <div>
                 <input [(ngModel)]="estudianteRegistrar.contrasena" placeholder="Contraseña" type="password" name="contrasena" id="contrasena" />
+            </div>
+            <div>
+                <input [(ngModel)]="estudianteRegistrar.confirmacion_contrasena" placeholder="Confirmar contraseña" type="password" name="confirmacion_contrasena" id="confirmacion_contrasena">
             </div>
         </div>
 

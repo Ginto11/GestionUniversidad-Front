@@ -67,3 +67,7 @@
 .contenedor-fila-nuevos-usuarios button:hover{
     border-color: black;
 }
+
+.btn-cancelar{
+    background-color: #CD4450 !important;
+}

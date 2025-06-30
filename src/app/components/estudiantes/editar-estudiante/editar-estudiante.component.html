@@ -1,5 +1,13 @@
+@if (activarOverlay) { 
+    <app-overlay 
+        [accionesOverlay]="accionesOverlay" 
+        [opciones]="opciones" 
+        (datoEmitidoOcultar)="recibirDatoOcultar($event)"
+    /> 
+}
+
 <div class="contenedor-formulario">
-    <form class="formulario-nuevos-usuarios">
+    <form class="formulario-nuevos-usuarios" (ngSubmit)="actualizar(estudiante.id)">
         <h2> {{ nombreFormulario }} </h2>
         <div class="contenedor-fila-nuevos-usuarios">
             <div>
@@ -30,7 +38,14 @@
                 <label for="email-estudiante">Email</label>
                 <input [(ngModel)]="estudiante.email" disabled="" type="email" name="email" id="email-estudiante" name="email-estudiante">
             </div>
+
+            <div>
+                <label for="celular-estudiante">Celular</label>
+                <input [(ngModel)]="estudiante.celular" type="celular" name="celular-estudiante" id="celular-estudiante" name="celular-estudiante">
+            </div>
+            
         </div>
+
         <div class="contenedor-fila-nuevos-usuarios">
             <div>
                 <label for="genero-estudiante">Genero</label>
@@ -43,7 +58,8 @@
         </div>
 
         <div class="contenedor-fila-nuevos-usuarios">
-            <button> Añadir </button>
+            <button type="reset" class="btn-cancelar" routerLink="/estudiantes/listar-estudiantes"> Cancelar </button>
+            <button type="submit"> Actualizar </button>
         </div>
 
     </form>

@@ -10,7 +10,18 @@
     cursor: pointer;
 }
 
+.tabla-estudiantes{
+    height: 73vh;
+    overflow: auto;
+}
 
+.inactivo{
+    color: red;
+}
+
+.activo{
+    color: green;
+}
 
 
 

@@ -6,6 +6,7 @@ import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.
 import { OverlayComponent } from '../../../shared/overlay/overlay.component';
 import { IOpcionesOverlay } from 'src/app/interfaces/IOpcionesOverlay';
 import { IAccionesOverlay } from 'src/app/interfaces/IAccionesOverlay';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-nuevo-estudiante',
@@ -35,8 +36,10 @@ export default class NuevoEstudianteComponent {
         nombre: '',
         apellido: '',
         edad: null,
+        celular: '',
         email: '',
         contrasena: '',
+        confirmacion_contrasena: '',
         generoId: 0
     }
 
@@ -60,10 +63,22 @@ export default class NuevoEstudianteComponent {
                 return;
             }
 
+            if(this.estudiante.contrasena != this.estudiante.confirmacion_contrasena){
+                this.ocultarOverlay('Las contraseñas no coinciden.', '/icons/error.png', 'red', 'IconError', []);
+                this.activarOverlay = true;
+                return;
+            }
+
             this.ocultarOverlay('Error al registrar estudiante', '/icons/error.png', 'red', 'IconError', this.listaErrores);
             this.activarOverlay = true;
 
         } catch (error) {
+            if(error instanceof HttpErrorResponse){
+                this.ocultarOverlay(error.error.mensaje, '/icons/error.png', 'red', 'IconError', []);
+                this.activarOverlay = true;
+                return;
+            }
+
             this.ocultarOverlay('Ocurrio un error inesperado.', '/icons/error.png', 'red', 'IconError', []);
             this.activarOverlay = true;
         }
@@ -79,6 +94,7 @@ export default class NuevoEstudianteComponent {
         const errores: string[] = [];
 
         if (!est.cedula || est.cedula.toString().length < 5) errores.push('La cédula debe ser mayor a 4 dígitos.');
+        if (!est.celular || est.celular.length < 7) errores.push("Numero de celular no valido.");
         if (!est.nombre.trim()) errores.push('El nombre es obligatorio.');
         if (!est.apellido.trim()) errores.push('El apellido es obligatorio.');
         if (!est.edad || est.edad < 18 || est.edad > 100) errores.push('Edad fuera de rango (18-100).');
@@ -121,6 +137,9 @@ export default class NuevoEstudianteComponent {
         this.estudiante.generoId = 0;
         this.estudiante.email = '';
         this.estudiante.nombre = '';
+        this.estudiante.celular = '';
+        this.estudiante.contrasena = '';
+        this.estudiante.confirmacion_contrasena = '';
     };
 
 }

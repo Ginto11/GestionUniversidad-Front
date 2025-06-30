@@ -33,8 +33,10 @@ export default class LoginComponent {
         nombre: '',
         apellido: '',
         edad: null,
+        celular: '',
         email: '',
         contrasena: '',
+        confirmacion_contrasena: '',
         generoId: 0
     };
     
@@ -67,6 +69,12 @@ export default class LoginComponent {
 
             if (errores.length > 0) {
                 this.activarOverlay('', '/icons/error.png', 'red', 'IconError', errores);
+                this.mostrarOverlay = true;
+                return;
+            }
+
+            if(this.datosRegistro.contrasena != this.datosRegistro.confirmacion_contrasena){
+                this.activarOverlay('Las contraseñas no coinciden.', '/icons/error.png', 'red', 'IconError', []);
                 this.mostrarOverlay = true;
                 return;
             }
@@ -118,6 +126,9 @@ export default class LoginComponent {
         this.datosRegistro.generoId = 0;
         this.datosRegistro.email = '';
         this.datosRegistro.nombre = '';
+        this.datosRegistro.confirmacion_contrasena = '';
+        this.datosRegistro.contrasena = '';
+        this.datosRegistro.celular = '';
     };
 
 
@@ -154,6 +165,7 @@ export default class LoginComponent {
         const errores: string[] = [];
 
         if (!est.cedula || est.cedula.toString().length < 5) errores.push('La cédula debe ser mayor a 4 dígitos.');
+        if (!est.celular || est.celular.length < 7) errores.push("Numero de celular no valido.");
         if (!est.nombre.trim()) errores.push('El nombre es obligatorio.');
         if (!est.apellido.trim()) errores.push('El apellido es obligatorio.');
         if (!est.edad || est.edad < 18 || est.edad > 100) errores.push('Edad fuera de rango (18-100).');
@@ -203,6 +215,7 @@ export default class LoginComponent {
 
     registroExitoso = () => {
         this.activarOverlay('Estudiante registrado Exitosamente.', '/icons/comprobado.png', 'green', 'IconRegistrado', []);
+        this.mostrarOverlay = true;
         this.limpiarCampos();
     };
 

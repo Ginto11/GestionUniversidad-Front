@@ -1,23 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { desencriptar } from 'src/app/util/util.encrypt';
-import { buscarEnSesionStorage } from 'src/app/util/utilidad';
 import { OverlayComponent } from '../../../shared/overlay/overlay.component';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
 import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
 import { IOpcionesOverlay } from 'src/app/interfaces/IOpcionesOverlay';
 import { RouterLink } from '@angular/router';
-import { IEstudiante } from 'src/app/interfaces/IEstudiante';
 import { Estudiante } from 'src/app/models/estudiante.model';
+import { CommonModule } from '@angular/common';
+import { PaginacionComponent } from 'src/app/components/estudiantes/paginacion-estudiantes/paginacion.component';
 
 @Component({
     selector: 'app-tabla-estudiantes',
-    imports: [OverlayComponent, RouterLink],
+    imports: [OverlayComponent, RouterLink, CommonModule, PaginacionComponent],
     templateUrl: './tabla-estudiantes.component.html',
     styleUrl: './tabla-estudiantes.component.css'
 })
-export default class TablaEstudiantesComponent implements OnInit {
+export default class TablaEstudiantesComponent {
     
+    numeroPagina = 1;
+    tamanoPagina = 10;
+
     estudiantes: Estudiante[] = [];
 
     accionesOverlay = {
@@ -38,28 +40,9 @@ export default class TablaEstudiantesComponent implements OnInit {
 
     constructor(private authService: AuthService, private estudianteService: EstudianteServices, private comunicacionService: ComunicacionService) { }
 
-    ngOnInit(): void {
-        this.mostrarEstudiantes();
+    recibirEstudiantes = (lista: Estudiante[]): void => {
+        this.estudiantes = lista;
     }
-
-
-    mostrarEstudiantes = async () => {
-        try {
-            if(await this.authService.validarSesion() == false) {
-                this.redireccionarOverlay('Inicie sesión para poder continuar.', '/icons/informacion.png', '#1A1731', 'IconInformacion', []);
-                this.activarOverlay = true;
-                return;
-            }
-
-            const data = await this.estudianteService.listarEstudiantes();
-            console.log(data);
-            this.estudiantes = data;
-        } catch (error) {
-            this.ocultarOverlay('Error al cargar los estudiantes.', '/icons/error.png', 'red', 'IconError', []);
-            this.activarOverlay = true;
-        }
-    }
-
     
     eliminarEstudiante = async (id: number): Promise<any> => {
         try {
@@ -71,12 +54,12 @@ export default class TablaEstudiantesComponent implements OnInit {
             }
 
             const res = await this.estudianteService.eliminar(id);
-            const estudiantesActualizados = await this.estudianteService.listarEstudiantes();
-            this.estudiantes = estudiantesActualizados;
-            
             this.ocultarOverlay('Estudiante eliminado exitosamente', '/icons/comprobado.png', 'green', 'IconComprobado', []);
             this.activarOverlay = true;
 
+            const estudiantesActualizados = await this.estudianteService.listarPaginado(this.numeroPagina, this.tamanoPagina);
+            this.estudiantes = estudiantesActualizados;
+            
             return res;
             } catch (error) {
                 this.ocultarOverlay('Error al eliminar el estudiante (verifique y si el estudiante tiene matricula no se puede eliminar)', '/icons/error.png', 'red', 'IconError', []);
