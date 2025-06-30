@@ -42,7 +42,7 @@ export class PaginacionComponent implements OnInit{
     listarPaginacion = async (): Promise<Estudiante[]> => {
         try {
             if(await this.authService.validarSesion() == false) {
-                this.redireccionarOverlay('Inicie sesión para poder continuar.', '/icons/informacion.png', '#1A1731', 'IconInformacion', []);
+                this.redireccionarOverlay('Inicie sesión para poder continuar.', 'informacion.webp', '#1A1731', 'Informacion', []);
                 this.activarOverlay = true;
                 return [];
             }
@@ -52,7 +52,7 @@ export class PaginacionComponent implements OnInit{
             return estudiantes;
 
         } catch (error) {
-            this.ocultarOverlay('Error al cargar los estudiantes.', '/icons/error.png', 'red', 'IconError', []);
+            this.ocultarOverlay('Error al cargar los estudiantes.', 'error.webp', 'red', 'Error', []);
             this.activarOverlay = true;
             return [];
         }

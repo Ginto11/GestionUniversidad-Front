@@ -57,29 +57,29 @@ export default class NuevoEstudianteComponent {
 
             if(this.listaErrores.length == 0){
                 await this.estudianteServices.crear(this.estudiante);
-                this.ocultarOverlay('Estudiante registrado exitosamente', '/icons/comprobado.png', 'green', 'IconComprobado', []);
+                this.ocultarOverlay('Estudiante registrado exitosamente', 'comprobado.webp', '#1A1731', 'Comprobado', []);
                 this.limpiarCampos();
                 this.activarOverlay = true;
                 return;
             }
 
             if(this.estudiante.contrasena != this.estudiante.confirmacion_contrasena){
-                this.ocultarOverlay('Las contraseñas no coinciden.', '/icons/error.png', 'red', 'IconError', []);
+                this.ocultarOverlay('Las contraseñas no coinciden.', 'error.webp', 'red', 'Error', []);
                 this.activarOverlay = true;
                 return;
             }
 
-            this.ocultarOverlay('Error al registrar estudiante', '/icons/error.png', 'red', 'IconError', this.listaErrores);
+            this.ocultarOverlay('Error al registrar estudiante', 'error.webp', 'red', 'Error', this.listaErrores);
             this.activarOverlay = true;
 
         } catch (error) {
             if(error instanceof HttpErrorResponse){
-                this.ocultarOverlay(error.error.mensaje, '/icons/error.png', 'red', 'IconError', []);
+                this.ocultarOverlay(error.error.mensaje, 'error.webp', 'red', 'Error', []);
                 this.activarOverlay = true;
                 return;
             }
 
-            this.ocultarOverlay('Ocurrio un error inesperado.', '/icons/error.png', 'red', 'IconError', []);
+            this.ocultarOverlay('Ocurrio un error inesperado.', 'error.webp', 'red', 'Error', []);
             this.activarOverlay = true;
         }
     }

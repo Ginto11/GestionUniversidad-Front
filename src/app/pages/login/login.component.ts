@@ -68,13 +68,13 @@ export default class LoginComponent {
             const errores: string[] = this.validarRegistroEstudiante(this.datosRegistro);
 
             if (errores.length > 0) {
-                this.activarOverlay('', '/icons/error.png', 'red', 'IconError', errores);
+                this.activarOverlay('', 'error.webp', 'red', 'Error', errores);
                 this.mostrarOverlay = true;
                 return;
             }
 
             if(this.datosRegistro.contrasena != this.datosRegistro.confirmacion_contrasena){
-                this.activarOverlay('Las contraseñas no coinciden.', '/icons/error.png', 'red', 'IconError', []);
+                this.activarOverlay('Las contraseñas no coinciden.', 'error.webp', 'red', 'Error', []);
                 this.mostrarOverlay = true;
                 return;
             }
@@ -94,7 +94,7 @@ export default class LoginComponent {
         try {
             
             if (this.datosLogin.email == '' && this.datosLogin.contrasena == '') {
-                this.activarOverlay('Debes ingresar tus credenciales.', '/icons/error.png', 'red', 'IconError', []);
+                this.activarOverlay('Debes ingresar tus credenciales.', 'error.webp', 'red', 'Error', []);
                 this.mostrarOverlay = true;
                 return;
             }
@@ -182,16 +182,16 @@ export default class LoginComponent {
 
     manejoErroresLogin = (error: any) => {
         if (error.status == 400) {
-            this.activarOverlay('Credenciales Incorrectas.', '/icons/error.png', 'red', 'IconError', []);
+            this.activarOverlay('Credenciales Incorrectas.', 'error.webp', 'red', 'Error', []);
         }
         else if(error.status > 400){
-            this.activarOverlay('Error en el cliente.', '/icons/error.png', 'red', 'IconError', []);
+            this.activarOverlay('Error en el cliente.', 'error.webp', 'red', 'Error', []);
         }
         else if (error.status >= 500) {
-            this.activarOverlay('Error en el servidor.', '/icons/error.png', 'red', 'IconError', []);
+            this.activarOverlay('Error en el servidor.', 'error.webp', 'red', 'Error', []);
         }
         else {
-            this.activarOverlay('Error al iniciar sesión.', '/icons/error.png', 'red', 'IconError', []);
+            this.activarOverlay('Error al iniciar sesión.', 'error.webp', 'red', 'Error', []);
         }
 
         this.mostrarOverlay = true;
@@ -200,21 +200,21 @@ export default class LoginComponent {
 
     manejoErroresRegistrar = (error: any) => {
         if (error.status == 409) {
-            this.activarOverlay(error.error.mensaje, '/icons/error.png', 'red', 'IconError', []);
+            this.activarOverlay(error.error.mensaje, 'error.webp', 'red', 'Error', []);
         }
 
         if (error.status >= 500) {
-            this.activarOverlay('Se ha presentado un error del lado del servidor.', '/icons/error.png', 'red', 'IconError', []);
+            this.activarOverlay('Se ha presentado un error del lado del servidor.', 'error.webp', 'red', 'Error', []);
         }
 
         if (error.status >= 400) {
-            this.activarOverlay('Se ha presentado un error del lado del cliente.', '/icons/error.png', 'red', 'IconError', []);
+            this.activarOverlay('Se ha presentado un error del lado del cliente.', 'error.webp', 'red', 'Error', []);
         }
     };
 
 
     registroExitoso = () => {
-        this.activarOverlay('Estudiante registrado Exitosamente.', '/icons/comprobado.png', 'green', 'IconRegistrado', []);
+        this.activarOverlay('Estudiante registrado Exitosamente.', 'comprobado.webp', '#1A1731', 'Registrado', []);
         this.mostrarOverlay = true;
         this.limpiarCampos();
     };

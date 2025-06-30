@@ -48,13 +48,13 @@ export default class TablaEstudiantesComponent {
         try {
 
             if(await this.authService.validarSesion() === false) {
-                this.redireccionarOverlay('Inicie sesión para poder continuar.', '/icons/informacion.png', '#1A1731', 'IconInformacion', []);
+                this.redireccionarOverlay('Inicie sesión para poder continuar.', 'informacion.webp', '#1A1731', 'Informacion', []);
                 this.activarOverlay = true;
                 return;
             }
 
             const res = await this.estudianteService.eliminar(id);
-            this.ocultarOverlay('Estudiante eliminado exitosamente', '/icons/comprobado.png', 'green', 'IconComprobado', []);
+            this.ocultarOverlay('Estudiante eliminado exitosamente', 'comprobado.webp', '#1A1731', 'Comprobado', []);
             this.activarOverlay = true;
 
             const estudiantesActualizados = await this.estudianteService.listarPaginado(this.numeroPagina, this.tamanoPagina);
@@ -62,7 +62,7 @@ export default class TablaEstudiantesComponent {
             
             return res;
             } catch (error) {
-                this.ocultarOverlay('Error al eliminar el estudiante (verifique y si el estudiante tiene matricula no se puede eliminar)', '/icons/error.png', 'red', 'IconError', []);
+                this.ocultarOverlay('Error al eliminar el estudiante (verifique y si el estudiante tiene matricula no se puede eliminar)', 'error.webp', 'red', 'Error', []);
                 this.activarOverlay = true;
             }
     }
