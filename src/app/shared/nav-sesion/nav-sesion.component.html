@@ -3,8 +3,8 @@
 
     <div>
         @if (userLogue == true) {
-            <a routerLink="/modulos" > <img width="20px" src="icons/icono-nav-modulos.svg" alt="Modulos"> Modulos</a>
+            <a routerLink="/modulos" title="Ir a Modulos."> <img width="20px" src="icons/icono-nav-modulos.svg" title="Icono Modulos." alt="Modulos"> Modulos</a>
         }
-        <a href="#" (click)="$event.preventDefault(); cerrarSesion()"> <img width="20px" src="icons/icono-nav-cerrar-sesion.svg" alt="Cerrar Sesion"> Cerrar Sesión</a>
+        <a href="#" (click)="$event.preventDefault(); cerrarSesion()" title="Cerrar Sesión"> <img width="20px" src="icons/icono-nav-cerrar-sesion.svg" title="Icono Cerrar Sesión" alt="Cerrar Sesion"> Cerrar Sesión</a>
     </div>
 </div>

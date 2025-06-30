@@ -1,4 +1,4 @@
 <button [routerLink]="['/estudiantes/listar-estudiantes']">
-    <img src="{{ rutaInicial+icono }}" alt="{{ altImg }}">
+    <img src="{{ rutaInicial+icono }}" [title]="'Ir a ' + nombreRecurso" alt="{{ altImg }}">
     <p>{{ nombreRecurso }}</p>
 </button>
