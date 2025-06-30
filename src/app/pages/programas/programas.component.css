@@ -1,5 +1,5 @@
 .seccion-imagen-programas{
-    background-image: url(../../../../public/img/fondo-programas-redimensionada.jpg);
+    background-image: url(../../../../public/img/fondo-programas-redimensionada.webp);
     background-size: cover;
     background-position: center; /* muestra la parte superior de la imagen */
     mask-image: linear-gradient(to bottom, black 70%, transparent);
