@@ -77,7 +77,7 @@ export default class EditarEstudianteComponent implements OnInit {
     actualizar = async (id: number) => {
         try {
             if(await this.authService.validarSesion() === false) {
-                this.redireccionarOverlay('Inicie sesión para poder continuar.', '/icons/informacion.png', '#1A1731', 'IconInformacion', []);
+                this.redireccionarOverlay('Inicie sesión para poder continuar.', 'informacion.webp', '#1A1731', 'Informacion', []);
                 this.activarOverlay = true;
                 return;
             }
@@ -85,12 +85,12 @@ export default class EditarEstudianteComponent implements OnInit {
             const res = await this.estudiantesService.actualizar(id, this.estudiante);
             
             if(res == null){
-                this.ocultarOverlay('Estudiante actualizado (verificar en la tabla).', '/icons/informacion.png', '#1A1731', 'IconInformacion', []);
+                this.ocultarOverlay('Estudiante actualizado (verificar en la tabla).', 'informacion.webp', '#1A1731', 'Informacion', []);
                 this.activarOverlay = true;
             }
 
         } catch (error) {
-            this.redireccionarOverlay(`Error al actualizar`, '/icons/error.png', 'red', 'IconError', []);
+            this.redireccionarOverlay(`Error al actualizar`, 'error.webp', 'red', 'Error', []);
             this.activarOverlay = true;
             return;
         }
