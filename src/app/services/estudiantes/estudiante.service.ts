@@ -40,6 +40,30 @@ export class EstudianteServices {
 
     }
 
+    listarPaginado = async (nPagina: number, nMostrar: number): Promise<Estudiante[]> => {
+        try {
+            const data = buscarEnSesionStorage('usuario');
+
+            if(data){
+                const token = desencriptar(data.token);
+
+                const headers = new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                })
+        
+                return await lastValueFrom(
+                    this.http.get<Estudiante[]>(`${environment.URL}/api/estudiantes/${nPagina}/${nMostrar}`, { headers })
+                );
+            }
+
+            return [];
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
 
     buscarPorId = async (id: number): Promise<Estudiante> => {
         try {
@@ -111,6 +135,30 @@ export class EstudianteServices {
             
             }
         }catch(error){
+            throw error;
+        }
+    }
+
+    actualizar = async (id: number, estudiante: Estudiante): Promise<any> => {
+        try {
+            
+            const data = buscarEnSesionStorage('usuario');
+
+            if(data){
+
+                const token = desencriptar(data.token);
+
+                const headers = new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                });
+
+                return await lastValueFrom(
+                    this.http.put(`${environment.URL}/api/estudiantes/${id}`, estudiante, { headers })
+                )
+            }
+
+        } catch (error) {
             throw error;
         }
     }

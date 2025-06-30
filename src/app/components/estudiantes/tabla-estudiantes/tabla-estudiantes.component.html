@@ -6,34 +6,45 @@
     />
 }
 
-<table>
-    <thead>
-        <tr>
-            <th>Cedula</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Edad</th>
-            <th>Email</th>
-            <th>Genero</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (estudiante of estudiantes; track estudiante.id) {
+
+<div class="tabla-estudiantes">
+    <table>
+        <thead>
             <tr>
-                <td> {{ estudiante.cedula }} </td>
-                <td> {{ estudiante.nombre }} </td>
-                <td> {{ estudiante.apellido }} </td>
-                <td> {{ estudiante.edad }} </td>
-                <td> {{ estudiante.email }} </td>
-                <td> {{ estudiante.genero }} </td>
-                <td class="contenedor-btns">
-                    <button [routerLink]="['/estudiantes', 'editar-estudiante', estudiante.id]" class="btn btn-actualizar" [title]="`Actualizar a ${estudiante.nombre}`"><img src="icons/icono-actualizar.svg" alt="Actualizar" width="18px"></button>
-                    <button (click)="eliminarEstudiante(estudiante.id)" class="btn" [title]="`Eliminar a ${estudiante.nombre}`"><img src="icons/icono-eliminar.svg" alt="Eliminar" width="15px"></button>
-                </td>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Celular</th>
+                <th>Email</th>
+                <th>Genero</th>
+                <th>Fecha Creación</th>
+                <th>Estado</th>
+                <th>Acción</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @for (estudiante of estudiantes; track estudiante.id) {
+                <tr>
+                    <td> {{ estudiante.cedula }} </td>
+                    <td> {{ estudiante.nombre }} </td>
+                    <td> {{ estudiante.apellido }} </td>
+                    <td> {{ estudiante.edad }} </td>
+                    <td> {{ estudiante.celular || 'No tiene'  }} </td>
+                    <td> {{ estudiante.email }} </td>
+                    <td> {{ estudiante.genero }} </td>
+                    <td> {{ estudiante.fechaCreacion | date:'yyyy/MM/dd hh:mm' }} </td>
+                    <td [ngClass]="(estudiante.estado)? 'activo': 'inactivo'"> {{ (estudiante.estado) ? 'Activo' : 'Inactivo' }} </td>
+                    <td class="contenedor-btns">
+                        <button [routerLink]="['/estudiantes', 'editar-estudiante', estudiante.id]" class="btn btn-actualizar" [title]="`Actualizar a ${estudiante.nombre}`"><img src="icons/icono-actualizar.svg" alt="Actualizar" width="18px"></button>
+                        <button (click)="eliminarEstudiante(estudiante.id)" class="btn" [title]="`Eliminar a ${estudiante.nombre}`"><img src="icons/icono-eliminar.svg" alt="Eliminar" width="15px"></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <app-paginacion [numeroPagina]="numeroPagina" [tamanoPagina]="tamanoPagina"  (enviarEstudiantes)="recibirEstudiantes($event)" />
+</div>
+
 
 

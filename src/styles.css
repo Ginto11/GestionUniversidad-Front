@@ -12,21 +12,20 @@ section{
 
 body{
     background-color: #f0f4fd;
-    
 }
 
 .contenedor-modulo{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
-.contenedor-modulo >  .modulo{
+.contenedor-modulo .modulo{
     width: 95%;
+    gap: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     padding: 20px;
     border-radius: 5px;
 }
@@ -40,7 +39,7 @@ body{
     list-style: none;
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 10px;
 }
 
 .contenedor-modulo .modulo-links a{
@@ -65,9 +64,8 @@ body{
 }
 
 
-.contenedor-modulo  .contenedor-componente{
-    height: 73vh;
-    border-radius: 5px;
+.contenedor-modulo > .contenedor-componente{
+    min-height: 73vh;
     overflow-y: auto;
     background-color: transparent;
 }

@@ -6,7 +6,11 @@ export class Estudiante implements IEstudiante {
     nombre: string = '';
     apellido: string = '';
     edad: number = 0;
+    celular: string = '';
     email: string = '';
     genero: string = '';
     generoId: number = 0;
+    estado: boolean = false;
+    fechaActualizacion: string = '';
+    fechaCreacion: string = '';
 }

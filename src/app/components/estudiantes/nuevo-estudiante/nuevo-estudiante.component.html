@@ -7,7 +7,7 @@
 }
 
 <div class="contenedor-formulario">
-    <form class="formulario-nuevos-usuarios">
+    <form class="formulario-nuevos-usuarios" (ngSubmit)="crearEstudiante()">
         <h2> {{ nombreFormulario }} </h2>
         <div class="contenedor-fila-nuevos-usuarios">
             <div>
@@ -35,9 +35,20 @@
             </div>
 
             <div>
-                <input [(ngModel)]="estudiante.contrasena" placeholder="Contraseña" type="password" name="contrasena" id="contrasena-estudiante" name="contrasena-estudiante"/>
+                <input [(ngModel)]="estudiante.celular" placeholder="Celular" type="text" name="celular" id="celular-estudiante" name="celular-estudiante"/>
             </div>
         </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <input [(ngModel)]="estudiante.contrasena" placeholder="Contraseña" type="password" name="contrasena" id="contrasena" />
+            </div>
+            <div>
+                <input [(ngModel)]="estudiante.confirmacion_contrasena" placeholder="Confirmar contraseña" type="password" name="confirmacion_contrasena" id="confirmacion_contrasena">
+            </div>
+
+        </div>
+
         <div class="contenedor-fila-nuevos-usuarios">
             <div>
                 <select [(ngModel)]="estudiante.generoId" style="height: 30px; width: 100%;" name="genero-estudiante" id="genero-estudiante">
@@ -50,7 +61,7 @@
         </div>
 
         <div class="contenedor-fila-nuevos-usuarios">
-            <button (click)="crearEstudiante()"> Añadir </button>
+            <button type="submit"> Añadir </button>
         </div>
 
     </form>
