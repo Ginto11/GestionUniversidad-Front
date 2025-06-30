@@ -10,4 +10,4 @@ Allow: /
 # Disallow: /api/
 
 # Enlace al sitemap para facilitar rastreo e indexación
-Sitemap: https://tusitio.com/sitemap.xml
+Sitemap: https://gestion-universidad.vercel.app/sitemap.xml
