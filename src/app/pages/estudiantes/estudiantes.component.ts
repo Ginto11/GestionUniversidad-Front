@@ -28,6 +28,7 @@ export default class EstudiantesComponent implements OnInit {
      }
 
     ngOnInit(): void {
+        console.log('c estudiantes')
         this.validarSesion();
         this.mostrarEstudiantes();
         this.comunicacionService.ocultarLinksEnModulos(false);

@@ -43,6 +43,8 @@ export default class TablaEstudiantesComponent {
     recibirEstudiantes = (lista: Estudiante[]): void => {
         this.estudiantes = lista;
     }
+
+   
     
     eliminarEstudiante = async (id: number): Promise<any> => {
         try {

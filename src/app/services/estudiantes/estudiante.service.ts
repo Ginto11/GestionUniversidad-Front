@@ -91,6 +91,32 @@ export class EstudianteServices {
         }
     }
 
+    buscarPorCedula = async (cedula: number): Promise<Estudiante> => {
+        try {
+
+            const usuario = buscarEnSesionStorage('usuario');
+
+            if(usuario){
+                
+                const token = desencriptar(usuario.token);
+
+                const headers = new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                });
+                    
+                return await lastValueFrom(
+                    this.http.get<Estudiante>(`${environment.URL}/api/estudiantes/buscar/${cedula}`, { headers })
+                );
+            }
+
+            throw new Error('Usuario no encontrado en sesión');
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
     eliminar = async (id: number): Promise<any> => {
         try {
 

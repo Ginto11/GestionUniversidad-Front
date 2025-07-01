@@ -23,6 +23,7 @@ body{
 
 .contenedor-modulo .modulo{
     width: 95%;
+    height: 85vh;
     gap: 15px;
     display: flex;
     flex-direction: column;

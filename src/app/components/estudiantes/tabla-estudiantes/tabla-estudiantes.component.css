@@ -16,11 +16,18 @@
 }
 
 .inactivo{
-    color: red;
+    border-radius: 12px;
+    background-color: #FF000060;
+    color: #1A1731;
+    padding: 3px;
+
 }
 
 .activo{
-    color: green;
+    border-radius: 12px;
+    background-color: #00FF0060;
+    color: #1A1731;
+    padding: 3px;
 }
 
 

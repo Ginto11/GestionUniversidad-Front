@@ -41,6 +41,10 @@ export const routes: Routes = [
             {
                 path: 'nuevo-estudiante',
                 loadComponent: () => import('./components/estudiantes/nuevo-estudiante/nuevo-estudiante.component')
+            },
+            {
+                path: 'detalle-estudiante',
+                loadComponent: () => import('./components/estudiantes/detalle-estudiante/detalle-estudiante.component')
             }
         ]
     }

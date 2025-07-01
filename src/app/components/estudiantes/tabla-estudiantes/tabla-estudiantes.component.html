@@ -34,7 +34,7 @@
                     <td> {{ estudiante.email }} </td>
                     <td> {{ estudiante.genero }} </td>
                     <td> {{ estudiante.fechaCreacion | date:'yyyy/MM/dd hh:mm' }} </td>
-                    <td [ngClass]="(estudiante.estado)? 'activo': 'inactivo'"> {{ (estudiante.estado) ? 'Activo' : 'Inactivo' }} </td>
+                    <td><p [ngClass]="(estudiante.estado)? 'activo': 'inactivo'"> {{ (estudiante.estado) ? 'Activo' : 'Inactivo' }} </p> </td>
                     <td class="contenedor-btns">
                         <button [routerLink]="['/estudiantes', 'editar-estudiante', estudiante.id]" class="btn btn-actualizar"><img src="icons/icono-actualizar.svg" [title]="`Actualizar a ${estudiante.nombre}`" alt="Icono Actualizar" width="18px"></button>
                         <button (click)="eliminarEstudiante(estudiante.id)" class="btn"><img src="icons/icono-eliminar.svg" [title]="`Eliminar a ${estudiante.nombre}`" alt="Icono Eliminar" width="15px"></button>
@@ -45,6 +45,7 @@
     </table>
     <app-paginacion [numeroPagina]="numeroPagina" [tamanoPagina]="tamanoPagina"  (enviarEstudiantes)="recibirEstudiantes($event)" />
 </div>
+
 
 
 
