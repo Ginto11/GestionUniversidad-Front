@@ -1,0 +1,49 @@
+<div class="contenedor-detalle">
+    
+    <div >
+        <h2>Detalle del Estudiante</h2>
+        <table class="estudiante-detalle">
+            <tr>
+                <th>Cédula</th>
+                <td><input [(ngModel)]="cedula" type="number" name="cedula-detalle" placeholder="Ingrese la cedula"></td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td><input [value]="estudiante.nombre" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td><input [value]="estudiante.apellido" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Edad</th>
+                <td><input [value]="estudiante.edad == 0 ? '' : estudiante.edad" type="number" disabled></td>
+            </tr>
+            <tr>
+                <th>Celular</th>
+                <td><input [value]="estudiante.cedula == 0 ? '' : estudiante.cedula " type="number" disabled></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><input [value]="estudiante.email" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Género</th>
+                <td><input [value]="estudiante.genero" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td><input [value]="estudiante.estado == null ? '' : estudiante.estado ? 'Activo' : 'Inactivo'" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Fecha Creación</th>
+                <td><input [value]="estudiante.fechaCreacion | date:'yyyy/MM/dd hh:mm'" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Fecha Actualización</th>
+                <td><input [value]="estudiante.fechaActualizacion | date:'yyyy/MM/dd hh:mm'" type="text" disabled></td>
+            </tr>
+        </table>
+        <button (click)="buscarEstudiante()">Buscar</button>
+    </div>
+</div>

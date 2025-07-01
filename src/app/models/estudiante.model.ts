@@ -10,7 +10,7 @@ export class Estudiante implements IEstudiante {
     email: string = '';
     genero: string = '';
     generoId: number = 0;
-    estado: boolean = false;
+    estado! : boolean | null;
     fechaActualizacion: string = '';
     fechaCreacion: string = '';
 }
