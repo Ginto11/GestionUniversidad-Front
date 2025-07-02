@@ -6,7 +6,7 @@
                       http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
   <url>
-    <loc>https://gestion-universidad.vercel.app/</loc>
+    <loc>https://gestion-universidad.vercel.app/home</loc>
     <lastmod>2025-06-30</lastmod>
     <priority>1.0</priority>
   </url>
