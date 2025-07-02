@@ -32,7 +32,7 @@
 .estudiante-detalle input[name = "cedula-detalle"]{
     all: unset;
     width: 100%;
-    border: 2px solid #1A1731;
+    border: 2px solid transparent;
     padding: 7px 0px;
     border-radius: 12px;
     background-color: #FFF;
@@ -71,14 +71,4 @@ td {
 
 th {
     width: 40%;
-}
-
-.inactivo{
-    background-color: #FF000060;
-    color: #1A1731;
-}
-
-.activo{
-    background-color: #00FF0060;
-    color: #1A1731;
 }

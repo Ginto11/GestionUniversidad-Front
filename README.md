@@ -5,7 +5,7 @@
 
 ![Angular](https://img.shields.io/badge/Angular-19.2.4-DD0031?logo=angular&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-5.7.3-3178C6?logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-22.14.0-339933?logo=node.js&logoColor=white)
 
-Esta es la **interfaz de usuario** para la Gestión Universitaria de **NovaUniversitas**.  
+Esta es la **interfaz de usuario** para la Gestión Universitaria de **Instituto Central MZ**.  
 Se trata de una SPA (Single Page Application) basada en **Angular**, diseñada para administrar estudiantes, módulos, programas y otros elementos del sistema.
 
 
@@ -22,7 +22,6 @@ Se trata de una SPA (Single Page Application) basada en **Angular**, diseñada p
   - [🌐 Características principales](#-características-principales)
   - [📁 Scripts principales](#-scripts-principales)
   - [📄 Variables de Entorno](#-variables-de-entorno)
-  - [🎨 Capturas de Pantalla](#-capturas-de-pantalla)
   - [👥 Contribución](#-contribución)
   - [✉️ Contacto](#️-contacto)
 
@@ -132,22 +131,6 @@ export const environment = {
   URL: 'http://tuservidor/api' // Cambia a tu backend
 };
 ```
-
-## 🎨 Capturas de Pantalla
-- Home
-![alt text](image.png)
-
-- Nosotros
-![alt text](image-1.png)
-
-- Programas
-![alt text](image-2.png)
-
-- Iniciar sesión y registro.
-![alt text](image-3.png)
-
-- Pie de Página.
-![alt text](image-4.png)
 
 ## 👥 Contribución
 Si deseas contribuir:
