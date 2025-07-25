@@ -1,7 +1,3 @@
-section{
-    padding-top: 60px;
-}
-
 h2{
     color: #1A1731;
     padding-top: 20px;
@@ -9,6 +5,7 @@ h2{
 }
 
 .contenedor-contenido{
+    padding-top: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;

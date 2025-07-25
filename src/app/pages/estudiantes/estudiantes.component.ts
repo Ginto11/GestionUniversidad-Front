@@ -1,53 +1,80 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavSesionComponent } from 'src/app/shared/nav-sesion/nav-sesion.component';
+import { HeaderSesionComponent } from 'src/app/shared/header-sesion/header-sesion.component';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
-import { IEstudiante } from 'src/app/interfaces/IEstudiante';
-import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
 import { ViewportScroller } from '@angular/common';
 import { RouterOutlet, RouterLinkActive, RouterLink } from '@angular/router';
+import { FooterSesionComponent } from 'src/app/shared/footer-sesion/footer-sesion.component';
+import { IOpcionesOverlay } from 'src/app/interfaces/IOpcionesOverlay';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { OverlayComponent } from "src/app/shared/overlay/overlay.component";
 
 @Component({
     selector: 'app-estudiantes',
-    imports: [NavSesionComponent, RouterOutlet, RouterLinkActive, RouterLink],
+    imports: [HeaderSesionComponent, RouterOutlet, RouterLinkActive, RouterLink, FooterSesionComponent, OverlayComponent],
     templateUrl: './estudiantes.component.html',
     styleUrl: './estudiantes.component.css'
 })
 export default class EstudiantesComponent implements OnInit {
 
-    nombreUser!: string;
-    isUserLogue!: boolean;
-    estudiantes!: IEstudiante[];
+    accionesOverlay = {
+            redireccionar: false,
+            ocultar: false
+        }
+    
+    activarOverlay = false;
+    
+    opciones: IOpcionesOverlay =  {
+        mensaje: '',
+        icon: '',
+        color: '',
+        alt: '',
+        lista: []
+    }
 
-    isMostrarTabla = true;
-    isMostrarForm = false;
-    isMostrarFormEditarEstudiante = false;
-
-    constructor(private router: Router, private estudianteService: EstudianteServices, private comunicacionService: ComunicacionService, private viewportScroller: ViewportScroller) {
-        this.viewportScroller.scrollToPosition([0, 0]);
-     }
+    constructor(private authService: AuthService, private router: Router, private estudianteService: EstudianteServices, private viewportScroller: ViewportScroller) {}
 
     ngOnInit(): void {
-        console.log('c estudiantes')
         this.validarSesion();
-        this.mostrarEstudiantes();
-        this.comunicacionService.ocultarLinksEnModulos(false);
     }
 
-    //VALIDA LA SESION POR MEDIO DEL SESION STORAGE SI NO HAY USER DIRECCIONA AL HOME
-    validarSesion = () => {
-        this.nombreUser = JSON.parse(sessionStorage.getItem('usuario') || '{}').nombre;
-        (!this.nombreUser) ? this.router.navigate(['/']) : this.isUserLogue = true;
-    }
-
-    //MUESTRA TODOS LOS ESTUDIANTES CUANDO SE ABRE EL MODULO (ESTUDIANTES)
-    mostrarEstudiantes = async () => {
-        try {
-            const data = await this.estudianteService.listarEstudiantes();
-            this.estudiantes = data;
-        } catch (error) {
-            console.log(error);
+    
+    validarSesion = async (): Promise<any> => {
+        if(await this.authService.validarSesion() == false) {
+            this.redireccionarOverlay('Inicie sesión para poder continuar.', 'informacion.webp', '#1A1731', 'Informacion', []);
+            this.activarOverlay = true;
+            return;
         }
-    };
+        this.viewportScroller.scrollToPosition([0, 0]);
+    }
+
+
+    recibirDatoOcultar = (dato: boolean) => {
+        if(dato){
+            this.activarOverlay = false;
+        }
+    }
+
+    ocultarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
+        this.opciones.mensaje =  mensaje;
+        this.opciones.icon = icon;
+        this.opciones.color =  color;
+        this.opciones.lista = lista;
+        this.opciones.alt = alt;
+        this.accionesOverlay.redireccionar = false;
+        this.accionesOverlay.ocultar = true;
+    }
+
+    redireccionarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
+        this.opciones.mensaje =  mensaje;
+        this.opciones.icon = icon;
+        this.opciones.color =  color;
+        this.opciones.lista = lista;
+        this.opciones.alt = alt;
+        this.accionesOverlay.redireccionar = true;
+        this.accionesOverlay.ocultar = false;
+    }
+
+
 
 }

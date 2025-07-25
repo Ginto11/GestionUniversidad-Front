@@ -38,11 +38,13 @@
                     <td class="contenedor-btns">
                         <button [routerLink]="['/estudiantes', 'editar-estudiante', estudiante.id]" class="btn btn-actualizar"><img src="icons/icono-actualizar.svg" [title]="`Actualizar a ${estudiante.nombre}`" alt="Icono Actualizar" width="18px"></button>
                         <button (click)="eliminarEstudiante(estudiante.id)" class="btn"><img src="icons/icono-eliminar.svg" [title]="`Eliminar a ${estudiante.nombre}`" alt="Icono Eliminar" width="15px"></button>
+                        <button (click)="copiarCedula(estudiante.cedula)" class="btn"><img src="icons/icono-copiar.svg" [title]="'Copiar Cedula de ' + estudiante.nombre" alt="Copiar Cedula" width="15px"></button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <!-- EL COMPONENTE DE PAGINACION REGRESA LA LISTA DE ESTUDIANTES -->
     <app-paginacion [numeroPagina]="numeroPagina" [tamanoPagina]="tamanoPagina"  (enviarEstudiantes)="recibirEstudiantes($event)" />
 </div>
 

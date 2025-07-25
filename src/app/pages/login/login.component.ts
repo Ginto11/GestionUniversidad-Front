@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { desencriptar, encriptar } from 'src/app/util/util.encrypt';
 import { buscarEnSesionStorage } from 'src/app/util/utilidad';
 import { IAccionesOverlay } from 'src/app/interfaces/IAccionesOverlay';
 import { FooterComponent } from 'src/app/shared/footer/footer.component';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
     selector: 'app-login',
@@ -19,9 +20,9 @@ import { FooterComponent } from 'src/app/shared/footer/footer.component';
     styleUrl: './login.component.css'
 })
 
-export default class LoginComponent {
+export default class LoginComponent implements OnInit {
 
-    constructor(public authService: AuthService, private router: Router) { }
+    constructor(public authService: AuthService, private router: Router, private viewPortScroller: ViewportScroller) { }
 
     datosLogin = {
         email: '',
@@ -55,6 +56,10 @@ export default class LoginComponent {
     accionesOverlay: IAccionesOverlay = {
         redireccionar: false,
         ocultar: false
+    }
+
+    ngOnInit(): void {
+        this.viewPortScroller.scrollToPosition([0, 0]);
     }
 
 

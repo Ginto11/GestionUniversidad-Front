@@ -17,6 +17,7 @@ import { PaginacionComponent } from 'src/app/components/estudiantes/paginacion-e
 })
 export default class TablaEstudiantesComponent {
     
+    titleCopiado: string | null = "";
     numeroPagina = 1;
     tamanoPagina = 10;
 
@@ -40,6 +41,10 @@ export default class TablaEstudiantesComponent {
 
     constructor(private authService: AuthService, private estudianteService: EstudianteServices, private comunicacionService: ComunicacionService) { }
 
+    /*
+        RECIBE LA LISTA DE ESTUDIANTES DESDE EL COMPONENTE PAGINACION
+        Y LA ASIGNA A LA VARIABLE ESTUDIANTES PARA MOSTRARLA EN LA TABLA
+    */
     recibirEstudiantes = (lista: Estudiante[]): void => {
         this.estudiantes = lista;
     }
@@ -93,6 +98,11 @@ export default class TablaEstudiantesComponent {
         this.opciones.alt = alt;
         this.accionesOverlay.redireccionar = true;
         this.accionesOverlay.ocultar = false;
+    }
+
+    copiarCedula = (cedula: number) => {
+        navigator.clipboard.writeText(JSON.stringify(cedula));
+        this.titleCopiado = "Copiado";
     }
 
 }

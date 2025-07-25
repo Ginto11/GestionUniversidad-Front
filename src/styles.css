@@ -23,11 +23,11 @@ body{
 
 .contenedor-modulo .modulo{
     width: 95%;
-    height: 85vh;
+    height: 90vh;
     gap: 15px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 40px 0 0 0;
     border-radius: 5px;
 }
 

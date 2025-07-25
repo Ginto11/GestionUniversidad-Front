@@ -1,5 +1,5 @@
+<app-header-sesion />
 <section>
-    <app-nav-sesion [nombre]="nombreUser" [userLogue]="false" />
     <div class="contenedor-contenido">
         <h2>Recursos de la aplicación.</h2>
         <p>En esta sección puedes probar los recursos que necesites de acuerdo a tus permisos de usuario.</p>
@@ -7,9 +7,9 @@
             
         @if (rolUser == 'Administrador') {
 
-            <app-recurso icono="estudiante.webp" nombreRecurso="Estudiantes" altImg="Imagen Estudiantes" />
+            <app-recurso icono="estudiante.webp" nombreRecurso="Estudiantes" altImg="Imagen Estudiantes" ruta="/estudiantes" />
             
-            <app-recurso icono="docentes.webp" nombreRecurso="Docentes" altImg="Imagen Docentes" />
+            <app-recurso icono="docentes.webp" nombreRecurso="Docentes" altImg="Imagen Docentes" ruta="/docentes" />
             
             <app-recurso icono="materias.webp" nombreRecurso="Materias" altImg="Imagen Materias" />
             
@@ -38,4 +38,5 @@
 
     </div>
 </section>
+<app-footer-sesion />
 
