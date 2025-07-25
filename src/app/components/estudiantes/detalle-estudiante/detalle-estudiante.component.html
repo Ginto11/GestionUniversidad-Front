@@ -1,5 +1,4 @@
 <div class="contenedor-detalle">
-    
     <div >
         <h2>Detalle del Estudiante</h2>
         <table class="estudiante-detalle">
@@ -21,7 +20,7 @@
             </tr>
             <tr>
                 <th>Celular</th>
-                <td><input [value]="estudiante.cedula == 0 ? '' : estudiante.cedula " type="number" disabled></td>
+                <td><input [value]="estudiante.celular == '' ? '' : estudiante.celular" type="number" disabled></td>
             </tr>
             <tr>
                 <th>Email</th>

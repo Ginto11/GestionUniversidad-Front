@@ -14,4 +14,5 @@ export class RecursoComponent {
     @Input() icono = "";
     @Input() nombreRecurso = "";
     @Input() altImg = "";
+    @Input() ruta = "";
 }

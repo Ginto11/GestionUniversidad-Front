@@ -93,6 +93,7 @@ export default class NuevoEstudianteComponent {
     validarRegistroEstudiante = (est: IEstudianteRegistrar): string[] => {
         const errores: string[] = [];
 
+        if (est.contrasena !==  est.confirmacion_contrasena) errores.push('Las contraseñas no coinciden.');
         if (!est.cedula || est.cedula.toString().length < 5) errores.push('La cédula debe ser mayor a 4 dígitos.');
         if (!est.celular || est.celular.length < 7) errores.push("Numero de celular no valido.");
         if (!est.nombre.trim()) errores.push('El nombre es obligatorio.');

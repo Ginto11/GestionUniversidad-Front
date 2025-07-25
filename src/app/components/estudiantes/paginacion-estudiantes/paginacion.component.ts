@@ -21,15 +21,15 @@ export class PaginacionComponent implements OnInit{
             ocultar: false
         }
     
-        activarOverlay = false;
-        
-        opciones: IOpcionesOverlay =  {
-            mensaje: '',
-            icon: '',
-            color: '',
-            alt: '',
-            lista: []
-        };
+    activarOverlay = false;
+    
+    opciones: IOpcionesOverlay =  {
+        mensaje: '',
+        icon: '',
+        color: '',
+        alt: '',
+        lista: []
+    };
 
     @Output() enviarEstudiantes = new EventEmitter<Estudiante[]>();
 
