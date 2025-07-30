@@ -1,12 +1,5 @@
 <section>
-    @if(mostrarOverlay == true){
-        <app-overlay 
-            [opciones]="opciones" 
-            (datoEmitidoOcultar)="recibirDelOverlay($event)" 
-            [accionesOverlay]="accionesOverlay" />
-    }
-    
-    <div class="contenedor-ingresar">
+        <div class="contenedor-ingresar">
         <div class="contenedor-imagen">
             <img src="img/imagen-ingresar-formularios.webp" title="Fondo Ingreso y Resgitro." alt="Imagen Formularios">
         </div>

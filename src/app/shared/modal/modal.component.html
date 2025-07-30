@@ -1,0 +1,12 @@
+<div class="modal">
+    <img width="70px" [src]="'/icons/'+data.srcImg" [alt]="data.altImg" [title]="data.altImg">
+    @if (data.listaErrores.length > 0) {
+        @for (error of data.listaErrores; track $index) {
+            <p [style.color]="data.colorTexto"> - {{ error }} </p>
+        }
+    }
+    @else {
+        <p [style.color]="data.colorTexto"  > {{ data.mensaje }} </p>
+    }
+    <button mat-dialog-close="true">Aceptar</button>
+</div>

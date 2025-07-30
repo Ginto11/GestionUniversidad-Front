@@ -18,9 +18,9 @@ import { OverlayComponent } from "src/app/shared/overlay/overlay.component";
 export default class EstudiantesComponent implements OnInit {
 
     accionesOverlay = {
-            redireccionar: false,
-            ocultar: false
-        }
+        redireccionar: false,
+        ocultar: false
+    }
     
     activarOverlay = false;
     

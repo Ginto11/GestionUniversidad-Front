@@ -5,16 +5,16 @@ import { Router } from '@angular/router';
 import { FormIngresarComponent } from "../../shared/form-ingresar/form-ingresar.component";
 import { IEstudianteRegistrar } from 'src/app/interfaces/IEstudianteRegistrar';
 import { FormRegistrarComponent } from '../../shared/form-registrar/form-registrar.component';
-import { OverlayComponent } from "../../shared/overlay/overlay.component";
 import { desencriptar, encriptar } from 'src/app/util/util.encrypt';
 import { buscarEnSesionStorage } from 'src/app/util/utilidad';
-import { IAccionesOverlay } from 'src/app/interfaces/IAccionesOverlay';
 import { FooterComponent } from 'src/app/shared/footer/footer.component';
 import { ViewportScroller } from '@angular/common';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 
 @Component({
     selector: 'app-login',
-    imports: [FormsModule, FormIngresarComponent, FormRegistrarComponent, OverlayComponent, FooterComponent],
+    imports: [FormsModule, FormIngresarComponent, FormRegistrarComponent, FooterComponent],
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.css'
@@ -22,12 +22,20 @@ import { ViewportScroller } from '@angular/common';
 
 export default class LoginComponent implements OnInit {
 
-    constructor(public authService: AuthService, private router: Router, private viewPortScroller: ViewportScroller) { }
+
+
+    constructor(
+        private modalService: ModalService,
+        private authService: AuthService, 
+        private router: Router, 
+        private viewPortScroller: ViewportScroller) 
+    { }
 
     datosLogin = {
         email: '',
         contrasena: ''
     };
+
     
     datosRegistro = {
         cedula: null,
@@ -41,46 +49,38 @@ export default class LoginComponent implements OnInit {
         generoId: 0
     };
     
-    opciones = {
-        mensaje: '',
-        icon: '',
-        color: '',
-        alt: '',
-        lista:  [] as string[]
-    };
-
     isIngresando = true;
     isRegistrando = false;
     mostrarOverlay = false;
 
-    accionesOverlay: IAccionesOverlay = {
-        redireccionar: false,
-        ocultar: false
-    }
-
     ngOnInit(): void {
         this.viewPortScroller.scrollToPosition([0, 0]);
     }
-
-
-    recibirDelOverlay = (ocultar: boolean) => {
-        this.mostrarOverlay = !ocultar;
-    }
-
 
     registrar = async () => {
         try {
             const errores: string[] = this.validarRegistroEstudiante(this.datosRegistro);
 
             if (errores.length > 0) {
-                this.activarOverlay('', 'error.webp', 'red', 'Error', errores);
-                this.mostrarOverlay = true;
+                this.modalService.abrirModal(ModalComponent, {
+                    altImg: 'Imagem de error.',
+                    colorTexto: 'Red',
+                    srcImg: 'error.webp',
+                    listaErrores: errores,
+                    mensaje: ''
+                })
                 return;
             }
 
             if(this.datosRegistro.contrasena != this.datosRegistro.confirmacion_contrasena){
-                this.activarOverlay('Las contraseñas no coinciden.', 'error.webp', 'red', 'Error', []);
-                this.mostrarOverlay = true;
+
+                this.modalService.abrirModal(ModalComponent, {
+                    altImg: 'Imagen de error.',
+                    colorTexto: 'Red',
+                    srcImg: 'error.webp',
+                    listaErrores: [],
+                    mensaje: 'Las contraseñas no coinciden.'
+                })
                 return;
             }
 
@@ -99,8 +99,14 @@ export default class LoginComponent implements OnInit {
         try {
             
             if (this.datosLogin.email == '' && this.datosLogin.contrasena == '') {
-                this.activarOverlay('Debes ingresar tus credenciales.', 'error.webp', 'red', 'Error', []);
-                this.mostrarOverlay = true;
+
+                this.modalService.abrirModal(ModalComponent, {
+                    colorTexto: 'Red',
+                    mensaje: 'Debes ingresar tus credenciales.',
+                    srcImg: 'error.webp',
+                    altImg: 'Imagen de error.',
+                    listaErrores: []
+                })
                 return;
             }
             
@@ -112,16 +118,6 @@ export default class LoginComponent implements OnInit {
             this.manejoErroresLogin(error);
         }
     };
-
-    activarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
-        this.opciones.mensaje =  mensaje;
-        this.opciones.icon = icon;
-        this.opciones.color =  color;
-        this.opciones.lista = lista;
-        this.opciones.alt = alt;
-        this.accionesOverlay.redireccionar = false;
-        this.accionesOverlay.ocultar = true;
-    }
 
     limpiarCampos = () => {
         this.datosRegistro.apellido = '';
@@ -167,6 +163,7 @@ export default class LoginComponent implements OnInit {
     };
 
     validarRegistroEstudiante = (est: IEstudianteRegistrar): string[] => {
+
         const errores: string[] = [];
 
         if (!est.cedula || est.cedula.toString().length < 5) errores.push('La cédula debe ser mayor a 4 dígitos.');
@@ -187,40 +184,88 @@ export default class LoginComponent implements OnInit {
 
     manejoErroresLogin = (error: any) => {
         if (error.status == 400) {
-            this.activarOverlay('Credenciales Incorrectas.', 'error.webp', 'red', 'Error', []);
+
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Credenciales Incorrectas.',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error.',
+                listaErrores: []
+            })
+
         }
         else if(error.status > 400){
-            this.activarOverlay('Error en el cliente.', 'error.webp', 'red', 'Error', []);
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Error en el cliente.',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error.',
+                listaErrores: []
+            })
         }
         else if (error.status >= 500) {
-            this.activarOverlay('Error en el servidor.', 'error.webp', 'red', 'Error', []);
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Error en el servidor.',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error.',
+                listaErrores: []
+            })
         }
         else {
-            this.activarOverlay('Error al iniciar sesión.', 'error.webp', 'red', 'Error', []);
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Error al iniciar sesión.',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error.',
+                listaErrores: []
+            })
         }
 
-        this.mostrarOverlay = true;
     };
 
 
     manejoErroresRegistrar = (error: any) => {
         if (error.status == 409) {
-            this.activarOverlay(error.error.mensaje, 'error.webp', 'red', 'Error', []);
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: error.error.mensaje,
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error.',
+                listaErrores: []
+            })
         }
 
         if (error.status >= 500) {
-            this.activarOverlay('Se ha presentado un error del lado del servidor.', 'error.webp', 'red', 'Error', []);
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Error en el servidor.',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error.',
+                listaErrores: []
+            })
         }
 
         if (error.status >= 400) {
-            this.activarOverlay('Se ha presentado un error del lado del cliente.', 'error.webp', 'red', 'Error', []);
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Error en el cliente.',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error.',
+                listaErrores: []
+            })
         }
     };
 
 
     registroExitoso = () => {
-        this.activarOverlay('Estudiante registrado Exitosamente.', 'comprobado.webp', '#1A1731', 'Registrado', []);
-        this.mostrarOverlay = true;
+        this.modalService.abrirModal(ModalComponent, {
+            colorTexto: '#1A1731',
+            mensaje: 'Estudiante registrado exitosamente',
+            srcImg: 'comprobado.webp',
+            altImg: 'Imagen de registrado.',
+            listaErrores: []
+        })
         this.limpiarCampos();
     };
 
