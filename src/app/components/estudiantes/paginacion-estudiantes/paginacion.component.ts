@@ -28,19 +28,19 @@ export class PaginacionComponent implements OnInit{
 
     listarPaginacion = async (): Promise<Estudiante[]> => {
         try {
-            if(await this.authService.validarSesion() == false) {
-
+            
+            if(await this.authService.validarSesion() == false){
                 this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Inicie sesión para poder continuar.',
-                    colorTexto: '#1A1731',
+                    mensaje: 'Token expirado, inicie sesión nuevamente.',
                     altImg: 'Imagen de informacion',
+                    colorTexto: '#1A1731',
                     srcImg: 'informacion.webp',
                     listaErrores: [],
-                    redireccionar: false
+                    redireccionar: true
                 })
                 return [];
             }
-
+            
             const estudiantes = await this.estudiantesService.listarPaginado(this.numeroPagina, this.tamanoPagina);
             
             return estudiantes;
@@ -66,6 +66,18 @@ export class PaginacionComponent implements OnInit{
 
     siguiente = async () => {
         
+        if(await this.authService.validarSesion() == false){
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Token expirado, inicie sesión nuevamente.',
+                altImg: 'Imagen de informacion',
+                colorTexto: '#1A1731',
+                srcImg: 'informacion.webp',
+                listaErrores: [],
+                redireccionar: true
+            })
+            return;
+        }
+
         this.numeroPagina++;
         const lista = await this.listarPaginacion();
         if(lista.length == 0){
@@ -78,6 +90,18 @@ export class PaginacionComponent implements OnInit{
     }
 
     anterior = async () => {
+
+        if(await this.authService.validarSesion() == false){
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Token expirado, inicie sesión nuevamente.',
+                altImg: 'Imagen de informacion',
+                colorTexto: '#1A1731',
+                srcImg: 'informacion.webp',
+                listaErrores: [],
+                redireccionar: true
+            })
+            return;
+        }
 
         if(this.numeroPagina == 1){
             this.numeroPagina = 1;

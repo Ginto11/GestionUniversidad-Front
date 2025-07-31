@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IEstudianteRegistrar } from 'src/app/interfaces/IEstudianteRegistrar';
 import { FormsModule } from '@angular/forms';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
@@ -6,6 +6,7 @@ import { RedireccionService } from 'src/app/services/redireccion/redireccion.ser
 import { HttpErrorResponse } from '@angular/common/http';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
     selector: 'app-nuevo-estudiante',
@@ -13,7 +14,7 @@ import { ModalComponent } from 'src/app/shared/modal/modal.component';
     templateUrl: './nuevo-estudiante.component.html',
     styleUrl: './nuevo-estudiante.component.css'
 })
-export default class NuevoEstudianteComponent {
+export default class NuevoEstudianteComponent implements OnInit {
 
     nombreFormulario: string = 'Registro de Estudiante';
 
@@ -33,14 +34,48 @@ export default class NuevoEstudianteComponent {
     listaErrores: string[] = [];
 
 
+
     constructor(
         private modalService: ModalService,
+        private authService: AuthService,
         private estudianteServices: EstudianteServices, 
         private redireccionService: RedireccionService){}
 
 
+
+    ngOnInit(): void {
+        this.validarToken();
+    }
+
+    validarToken = async () :Promise<any> => {
+        if(await this.authService.validarSesion() == false){
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Token expirado, inicie sesión nuevamente.',
+                altImg: 'Imagen de informacion',
+                colorTexto: '#1A1731',
+                srcImg: 'informacion.webp',
+                listaErrores: [],
+                redireccionar: true
+            })
+            return;      
+        }
+    }
+
     crearEstudiante = async () => {
         try {
+
+            if(await this.authService.validarSesion() == false){
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: 'Token expirado, inicie sesión nuevamente.',
+                    colorTexto: '#1A1731',
+                    srcImg: 'informacion.webp',
+                    altImg: 'Imagen de informacion',
+                    listaErrores: [],
+                    redireccionar: true
+                })
+                return;
+            }
+
             this.listaErrores = this.validarRegistroEstudiante(this.estudiante);
 
             if(this.listaErrores.length == 0){

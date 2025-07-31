@@ -28,8 +28,7 @@ export default class EditarEstudianteComponent implements OnInit {
         private activatedRoute: ActivatedRoute, 
         private estudiantesService: EstudianteServices, 
         private generosService: GenerosServices, 
-        private authService: AuthService,
-        private router: Router) { }
+        private authService: AuthService) { }
 
 
     ngOnInit(): void {
@@ -39,6 +38,20 @@ export default class EditarEstudianteComponent implements OnInit {
 
     mostrarEstudiante = async () => {
         try{
+
+            if(await this.authService.validarSesion() == false){
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: 'Token expirado, inicie sesión nuevamente.',
+                    altImg: 'Imagen de informacion',
+                    colorTexto: '#1A1731',
+                    srcImg: 'informacion.webp',
+                    listaErrores: [],
+                    redireccionar: true
+                })
+                return;
+            }
+
+
             const id = this.activatedRoute.snapshot.params['id'];
             if(id){
                 this.estudiante = await this.estudiantesService.buscarPorId(id);
@@ -78,12 +91,12 @@ export default class EditarEstudianteComponent implements OnInit {
             if(await this.authService.validarSesion() === false) {
 
                 this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Inicie sesión para poder continuar.',
+                    mensaje: 'Token expirado, inicie sesión nuevamente.',
                     altImg: 'Imagen de informacion',
                     srcImg: 'informacion.webp',
                     colorTexto: '#1A1731',
                     listaErrores: [],
-                    redireccionar: false
+                    redireccionar: true
                 })
                 return;
             }

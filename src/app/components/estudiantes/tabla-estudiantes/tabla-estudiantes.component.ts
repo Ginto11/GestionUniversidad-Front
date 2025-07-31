@@ -27,8 +27,7 @@ export default class TablaEstudiantesComponent {
     constructor(
         private modalService: ModalService,
         private authService: AuthService, 
-        private estudianteService: EstudianteServices, 
-        private redireccionService: RedireccionService) { }
+        private estudianteService: EstudianteServices) { }
 
     /*
         RECIBE LA LISTA DE ESTUDIANTES DESDE EL COMPONENTE PAGINACION
@@ -44,12 +43,12 @@ export default class TablaEstudiantesComponent {
             if(await this.authService.validarSesion() === false) {
 
                 this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Inicie sesión para poder continuar.',
+                    mensaje: 'Token expirado, inicie sesión nuevamente.',
                     colorTexto: '#1A1731',
                     srcImg: 'informacion.webp',
                     altImg: 'Imagen de informacion',
                     listaErrores: [],
-                    redireccionar: false
+                    redireccionar: true
                 })
                 return;
             }
@@ -85,6 +84,14 @@ export default class TablaEstudiantesComponent {
     copiarCedula = (cedula: number) => {
         navigator.clipboard.writeText(JSON.stringify(cedula));
         this.titleCopiado = "Copiado";
+        this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Cedula Copiada.',
+                altImg: 'Imagen de comprobado',
+                colorTexto: 'Green',
+                srcImg: 'comprobado.webp',
+                listaErrores: [],
+                redireccionar: false
+            })
     }
 
 }

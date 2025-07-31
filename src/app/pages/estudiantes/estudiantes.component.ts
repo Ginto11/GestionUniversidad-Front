@@ -35,12 +35,12 @@ export default class EstudiantesComponent implements OnInit {
         if(await this.authService.validarSesion() == false) {
 
             this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Inicie sesión para poder continuar.',
+                mensaje: 'Token expirado, inicie sesión nuevamente.',
                 altImg: 'Imagen de informacion',
                 colorTexto: '#1A1731',
                 srcImg: 'informacion.webp',
                 listaErrores: [],
-                redireccionar: false
+                redireccionar: true
             })
             return;
         }
