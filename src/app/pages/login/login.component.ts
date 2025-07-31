@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { FormIngresarComponent } from "../../shared/form-ingresar/form-ingresar.component";
 import { IEstudianteRegistrar } from 'src/app/interfaces/IEstudianteRegistrar';
 import { FormRegistrarComponent } from '../../shared/form-registrar/form-registrar.component';
-import { desencriptar, encriptar } from 'src/app/util/util.encrypt';
-import { buscarEnSesionStorage } from 'src/app/util/utilidad';
+import { encriptar } from 'src/app/util/util.encrypt';
 import { FooterComponent } from 'src/app/shared/footer/footer.component';
 import { ViewportScroller } from '@angular/common';
 import { ModalService } from 'src/app/services/modal/modal.service';
@@ -21,8 +20,6 @@ import { ModalComponent } from 'src/app/shared/modal/modal.component';
 })
 
 export default class LoginComponent implements OnInit {
-
-
 
     constructor(
         private modalService: ModalService,
@@ -51,7 +48,6 @@ export default class LoginComponent implements OnInit {
     
     isIngresando = true;
     isRegistrando = false;
-    mostrarOverlay = false;
 
     ngOnInit(): void {
         this.viewPortScroller.scrollToPosition([0, 0]);
@@ -67,7 +63,8 @@ export default class LoginComponent implements OnInit {
                     colorTexto: 'Red',
                     srcImg: 'error.webp',
                     listaErrores: errores,
-                    mensaje: ''
+                    mensaje: '',
+                    redireccionar: false
                 })
                 return;
             }
@@ -79,7 +76,8 @@ export default class LoginComponent implements OnInit {
                     colorTexto: 'Red',
                     srcImg: 'error.webp',
                     listaErrores: [],
-                    mensaje: 'Las contraseñas no coinciden.'
+                    mensaje: 'Las contraseñas no coinciden.',
+                    redireccionar: false
                 })
                 return;
             }
@@ -105,7 +103,8 @@ export default class LoginComponent implements OnInit {
                     mensaje: 'Debes ingresar tus credenciales.',
                     srcImg: 'error.webp',
                     altImg: 'Imagen de error.',
-                    listaErrores: []
+                    listaErrores: [],
+                    redireccionar: false
                 })
                 return;
             }
@@ -142,7 +141,7 @@ export default class LoginComponent implements OnInit {
     };
 
     
-    verificar =  async () => {
+    /*verificar =  async () => {
         try {
             const usuario = buscarEnSesionStorage('usuario');
             if (!usuario) {
@@ -160,7 +159,7 @@ export default class LoginComponent implements OnInit {
         } catch (error) {
             console.log(error)
         }
-    };
+    };*/
 
     validarRegistroEstudiante = (est: IEstudianteRegistrar): string[] => {
 
@@ -190,7 +189,8 @@ export default class LoginComponent implements OnInit {
                 srcImg: 'error.webp',
                 colorTexto: 'Red',
                 altImg: 'Imagen de error.',
-                listaErrores: []
+                listaErrores: [],
+                redireccionar: false
             })
 
         }
@@ -200,7 +200,8 @@ export default class LoginComponent implements OnInit {
                 srcImg: 'error.webp',
                 colorTexto: 'Red',
                 altImg: 'Imagen de error.',
-                listaErrores: []
+                listaErrores: [],
+                redireccionar: false
             })
         }
         else if (error.status >= 500) {
@@ -209,7 +210,8 @@ export default class LoginComponent implements OnInit {
                 srcImg: 'error.webp',
                 colorTexto: 'Red',
                 altImg: 'Imagen de error.',
-                listaErrores: []
+                listaErrores: [],
+                redireccionar: false
             })
         }
         else {
@@ -218,7 +220,8 @@ export default class LoginComponent implements OnInit {
                 srcImg: 'error.webp',
                 colorTexto: 'Red',
                 altImg: 'Imagen de error.',
-                listaErrores: []
+                listaErrores: [],
+                redireccionar: false
             })
         }
 
@@ -232,7 +235,8 @@ export default class LoginComponent implements OnInit {
                 srcImg: 'error.webp',
                 colorTexto: 'Red',
                 altImg: 'Imagen de error.',
-                listaErrores: []
+                listaErrores: [],
+                redireccionar: false
             })
         }
 
@@ -242,7 +246,8 @@ export default class LoginComponent implements OnInit {
                 srcImg: 'error.webp',
                 colorTexto: 'Red',
                 altImg: 'Imagen de error.',
-                listaErrores: []
+                listaErrores: [],
+                redireccionar: false
             })
         }
 
@@ -252,7 +257,8 @@ export default class LoginComponent implements OnInit {
                 srcImg: 'error.webp',
                 colorTexto: 'Red',
                 altImg: 'Imagen de error.',
-                listaErrores: []
+                listaErrores: [],
+                redireccionar: false
             })
         }
     };
@@ -264,7 +270,8 @@ export default class LoginComponent implements OnInit {
             mensaje: 'Estudiante registrado exitosamente',
             srcImg: 'comprobado.webp',
             altImg: 'Imagen de registrado.',
-            listaErrores: []
+            listaErrores: [],
+            redireccionar: false
         })
         this.limpiarCampos();
     };

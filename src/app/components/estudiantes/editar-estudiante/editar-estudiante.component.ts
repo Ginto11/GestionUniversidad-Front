@@ -7,12 +7,12 @@ import { IGenero } from 'src/app/interfaces/IGenero';
 import { GenerosServices } from 'src/app/services/generos/generos.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { IOpcionesOverlay } from 'src/app/interfaces/IOpcionesOverlay';
-import { OverlayComponent } from 'src/app/shared/overlay/overlay.component';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 
 @Component({
     selector: 'app-editar-estudiante',
-    imports: [FormsModule, RouterLink, OverlayComponent],
+    imports: [FormsModule, RouterLink],
     templateUrl: './editar-estudiante.component.html',
     styleUrl: './editar-estudiante.component.css'
 })
@@ -21,24 +21,10 @@ export default class EditarEstudianteComponent implements OnInit {
     nombreFormulario: string = 'Editando Estudiante';
     estudiante: Estudiante = new Estudiante;
     generos: IGenero[] = [];
-    activarOverlay = false;
     confirmacion_contrasena = '';
     
-    accionesOverlay = {
-            redireccionar: false,
-            ocultar: false
-        }
-    
-        
-    opciones: IOpcionesOverlay =  {
-        mensaje: '',
-        icon: '',
-        color: '',
-        alt: '',
-        lista: []
-    };
-
     constructor(
+        private modalService: ModalService,
         private activatedRoute: ActivatedRoute, 
         private estudiantesService: EstudianteServices, 
         private generosService: GenerosServices, 
@@ -56,11 +42,17 @@ export default class EditarEstudianteComponent implements OnInit {
             const id = this.activatedRoute.snapshot.params['id'];
             if(id){
                 this.estudiante = await this.estudiantesService.buscarPorId(id);
-                console.log(this.estudiante)
                 this.traerGeneros();
             }
         }catch (error) {
-            console.error('Error al cargar el estudiante:', error);
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: `Error al cargar el estudiante: ${error}`,
+                altImg: 'Imagen de error',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                listaErrores: [],
+                redireccionar: false
+            })
         }
     }
 
@@ -69,7 +61,14 @@ export default class EditarEstudianteComponent implements OnInit {
         try {
             this.generos = await this.generosService.listarGeneros();
         } catch (error) {
-            console.error('Error al cargar los géneros:', error);
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: `Error al cargar los generos: ${error}`,
+                altImg: 'Imagen de error',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                listaErrores: [],
+                redireccionar: false
+            })
         }
     }
 
@@ -77,50 +76,46 @@ export default class EditarEstudianteComponent implements OnInit {
     actualizar = async (id: number) => {
         try {
             if(await this.authService.validarSesion() === false) {
-                this.redireccionarOverlay('Inicie sesión para poder continuar.', 'informacion.webp', '#1A1731', 'Informacion', []);
-                this.activarOverlay = true;
+
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: 'Inicie sesión para poder continuar.',
+                    altImg: 'Imagen de informacion',
+                    srcImg: 'informacion.webp',
+                    colorTexto: '#1A1731',
+                    listaErrores: [],
+                    redireccionar: false
+                })
                 return;
             }
 
             const res = await this.estudiantesService.actualizar(id, this.estudiante);
             
             if(res == null){
-                this.ocultarOverlay('Estudiante actualizado (verificar en la tabla).', 'informacion.webp', '#1A1731', 'Informacion', []);
-                this.activarOverlay = true;
+
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: 'Estudiante actualizado (verificar en la tabla).',
+                    altImg: 'Imagen de informacion',
+                    srcImg: 'informacion.webp',
+                    colorTexto: '#1A1731',
+                    listaErrores: [],
+                    redireccionar: false
+                })
             }
 
         } catch (error) {
-            this.redireccionarOverlay(`Error al actualizar`, 'error.webp', 'red', 'Error', []);
-            this.activarOverlay = true;
+
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Error al actualizar',
+                altImg: 'Imagen de error',
+                srcImg: 'error.webp',
+                colorTexto: 'Red',
+                listaErrores: [],
+                redireccionar: false
+            })
             return;
         }
     }
 
-    redireccionarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
-        this.opciones.mensaje =  mensaje;
-        this.opciones.icon = icon;
-        this.opciones.color =  color;
-        this.opciones.lista = lista;
-        this.opciones.alt = alt;
-        this.accionesOverlay.redireccionar = true;
-        this.accionesOverlay.ocultar = false;
-    }
-
-    ocultarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
-        this.opciones.mensaje =  mensaje;
-        this.opciones.icon = icon;
-        this.opciones.color =  color;
-        this.opciones.lista = lista;
-        this.opciones.alt = alt;
-        this.accionesOverlay.redireccionar = false;
-        this.accionesOverlay.ocultar = true;
-    }
-
-    recibirDatoOcultar = (dato: boolean) => {
-        if(dato){
-            this.activarOverlay = false;
-        }
-    }
 
     
 }

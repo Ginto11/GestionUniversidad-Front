@@ -8,5 +8,12 @@
     @else {
         <p [style.color]="data.colorTexto"  > {{ data.mensaje }} </p>
     }
-    <button mat-dialog-close="true">Aceptar</button>
+
+    @if(data.redireccionar){
+        <button (click)="redireccionarAHome()" mat-dialog-close="true">Aceptar</button>
+    }
+    @else {
+        <button mat-dialog-close="true">Aceptar</button>
+    }
+
 </div>

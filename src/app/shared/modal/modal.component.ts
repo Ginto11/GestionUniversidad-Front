@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { MatButton } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogClose, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogClose } from '@angular/material/dialog';
+import { RedireccionService } from 'src/app/services/redireccion/redireccion.service';
 
 @Component({
     selector: 'app-modal',
@@ -10,10 +10,17 @@ import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogClose, MatDia
 })
 export class ModalComponent {
 
+
+
     constructor(
+        private redireccionService: RedireccionService,
         public matDialogRef: MatDialogRef<ModalComponent>, 
         @Inject(MAT_DIALOG_DATA) public data:any) 
     {
 
+    }
+
+    redireccionarAHome = () :void => {
+        this.redireccionService.tokenExpirado();
     }
 }

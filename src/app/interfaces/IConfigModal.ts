@@ -4,4 +4,5 @@ export interface IConfigModal {
     colorTexto: string;
     listaErrores: string[];
     mensaje: string;
+    redireccionar: boolean;
 }

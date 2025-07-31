@@ -5,7 +5,7 @@ import { BehaviorSubject } from "rxjs";
     providedIn: 'root'
 })
 
-export class ComunicacionService{
+export class RedireccionService{
     private mostrarLinksSubject = new BehaviorSubject<boolean>(true);
     mostrarLinks = this.mostrarLinksSubject.asObservable();
 
