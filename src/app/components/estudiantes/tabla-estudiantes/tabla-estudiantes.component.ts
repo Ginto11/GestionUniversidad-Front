@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { OverlayComponent } from '../../../shared/overlay/overlay.component';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
-import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
-import { IOpcionesOverlay } from 'src/app/interfaces/IOpcionesOverlay';
+import { RedireccionService } from 'src/app/services/redireccion/redireccion.service';
 import { RouterLink } from '@angular/router';
 import { Estudiante } from 'src/app/models/estudiante.model';
 import { CommonModule } from '@angular/common';
 import { PaginacionComponent } from 'src/app/components/estudiantes/paginacion-estudiantes/paginacion.component';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 
 @Component({
     selector: 'app-tabla-estudiantes',
-    imports: [OverlayComponent, RouterLink, CommonModule, PaginacionComponent],
+    imports: [RouterLink, CommonModule, PaginacionComponent],
     templateUrl: './tabla-estudiantes.component.html',
     styleUrl: './tabla-estudiantes.component.css'
 })
@@ -23,23 +23,12 @@ export default class TablaEstudiantesComponent {
 
     estudiantes: Estudiante[] = [];
 
-    accionesOverlay = {
-        redireccionar: false,
-        ocultar: false
-    }
 
-    activarOverlay = false;
-    
-    opciones: IOpcionesOverlay =  {
-        mensaje: '',
-        icon: '',
-        color: '',
-        alt: '',
-        lista: []
-    };
-    
-
-    constructor(private authService: AuthService, private estudianteService: EstudianteServices, private comunicacionService: ComunicacionService) { }
+    constructor(
+        private modalService: ModalService,
+        private authService: AuthService, 
+        private estudianteService: EstudianteServices, 
+        private redireccionService: RedireccionService) { }
 
     /*
         RECIBE LA LISTA DE ESTUDIANTES DESDE EL COMPONENTE PAGINACION
@@ -48,56 +37,49 @@ export default class TablaEstudiantesComponent {
     recibirEstudiantes = (lista: Estudiante[]): void => {
         this.estudiantes = lista;
     }
-
-   
     
     eliminarEstudiante = async (id: number): Promise<any> => {
         try {
 
             if(await this.authService.validarSesion() === false) {
-                this.redireccionarOverlay('Inicie sesión para poder continuar.', 'informacion.webp', '#1A1731', 'Informacion', []);
-                this.activarOverlay = true;
+
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: 'Inicie sesión para poder continuar.',
+                    colorTexto: '#1A1731',
+                    srcImg: 'informacion.webp',
+                    altImg: 'Imagen de informacion',
+                    listaErrores: [],
+                    redireccionar: false
+                })
                 return;
             }
 
             const res = await this.estudianteService.eliminar(id);
-            this.ocultarOverlay('Estudiante eliminado exitosamente', 'comprobado.webp', '#1A1731', 'Comprobado', []);
-            this.activarOverlay = true;
+
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Estudiante eliminado exitosamente',
+                colorTexto: '#1A1731',
+                srcImg: 'comprobado.webp',
+                altImg: 'Imagen de comprobado',
+                listaErrores: [],
+                redireccionar: false
+            })
 
             const estudiantesActualizados = await this.estudianteService.listarPaginado(this.numeroPagina, this.tamanoPagina);
             this.estudiantes = estudiantesActualizados;
             
             return res;
             } catch (error) {
-                this.ocultarOverlay('Error al eliminar el estudiante (verifique y si el estudiante tiene matricula no se puede eliminar)', 'error.webp', 'red', 'Error', []);
-                this.activarOverlay = true;
+
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: 'Error al eliminar el estudiante (verifique y si el estudiante tiene matricula no se puede eliminar)',
+                    colorTexto: 'Red',
+                    altImg: 'Imagen de error',
+                    srcImg: 'error.webp',
+                    listaErrores: [],
+                    redireccionar: false
+                })
             }
-    }
-
-    recibirDatoOcultar = (dato: boolean) => {
-        if(dato){
-            this.activarOverlay = false;
-        }
-    }
-
-    ocultarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
-        this.opciones.mensaje =  mensaje;
-        this.opciones.icon = icon;
-        this.opciones.color =  color;
-        this.opciones.lista = lista;
-        this.opciones.alt = alt;
-        this.accionesOverlay.redireccionar = false;
-        this.accionesOverlay.ocultar = true;
-    }
-
-    redireccionarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
-        this.opciones.mensaje =  mensaje;
-        this.opciones.icon = icon;
-        this.opciones.color =  color;
-        this.opciones.lista = lista;
-        this.opciones.alt = alt;
-        this.accionesOverlay.redireccionar = true;
-        this.accionesOverlay.ocultar = false;
     }
 
     copiarCedula = (cedula: number) => {

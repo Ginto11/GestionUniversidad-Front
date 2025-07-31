@@ -2,34 +2,20 @@ import { Component, Input } from '@angular/core';
 import { IEstudianteRegistrar } from 'src/app/interfaces/IEstudianteRegistrar';
 import { FormsModule } from '@angular/forms';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
-import { ComunicacionService } from 'src/app/services/comunicacion/comunicacion.service';
-import { OverlayComponent } from '../../../shared/overlay/overlay.component';
-import { IOpcionesOverlay } from 'src/app/interfaces/IOpcionesOverlay';
-import { IAccionesOverlay } from 'src/app/interfaces/IAccionesOverlay';
+import { RedireccionService } from 'src/app/services/redireccion/redireccion.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ModalService } from 'src/app/services/modal/modal.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 
 @Component({
     selector: 'app-nuevo-estudiante',
-    imports: [FormsModule, OverlayComponent],
+    imports: [FormsModule],
     templateUrl: './nuevo-estudiante.component.html',
     styleUrl: './nuevo-estudiante.component.css'
 })
 export default class NuevoEstudianteComponent {
 
     nombreFormulario: string = 'Registro de Estudiante';
-
-    opciones: IOpcionesOverlay =  {
-        mensaje: '',
-        icon: '',
-        color: '',
-        alt: '',
-        lista: []
-    };
-
-    accionesOverlay: IAccionesOverlay = {
-        redireccionar: false,
-        ocultar: false
-    };
 
     estudiante: IEstudianteRegistrar = {
         cedula: null,
@@ -43,12 +29,14 @@ export default class NuevoEstudianteComponent {
         generoId: 0
     }
 
-    activarOverlay = false;
     estaCreado = false;
     listaErrores: string[] = [];
 
 
-    constructor(private estudianteServices: EstudianteServices, private comunicacionService: ComunicacionService){}
+    constructor(
+        private modalService: ModalService,
+        private estudianteServices: EstudianteServices, 
+        private redireccionService: RedireccionService){}
 
 
     crearEstudiante = async () => {
@@ -57,36 +45,64 @@ export default class NuevoEstudianteComponent {
 
             if(this.listaErrores.length == 0){
                 await this.estudianteServices.crear(this.estudiante);
-                this.ocultarOverlay('Estudiante registrado exitosamente', 'comprobado.webp', '#1A1731', 'Comprobado', []);
+
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: 'Estudiante registrado exitosamente',
+                    colorTexto: '#1A1731',
+                    altImg: 'Imagen de comprobado',
+                    srcImg: 'comprobado.webp',
+                    listaErrores: [],
+                    redireccionar: false
+                })
+
                 this.limpiarCampos();
-                this.activarOverlay = true;
                 return;
             }
 
             if(this.estudiante.contrasena != this.estudiante.confirmacion_contrasena){
-                this.ocultarOverlay('Las contraseñas no coinciden.', 'error.webp', 'red', 'Error', []);
-                this.activarOverlay = true;
+                
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: 'Las contraseñas no coinciden.',
+                    colorTexto: 'Red',
+                    altImg: 'Imagen de error',
+                    srcImg: 'error.webp',
+                    listaErrores: [],
+                    redireccionar: false
+                })
                 return;
             }
 
-            this.ocultarOverlay('Error al registrar estudiante', 'error.webp', 'red', 'Error', this.listaErrores);
-            this.activarOverlay = true;
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Error al registrar estudiante',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error',
+                srcImg: 'error.webp',
+                listaErrores: [],
+                redireccionar: false
+            })
 
         } catch (error) {
             if(error instanceof HttpErrorResponse){
-                this.ocultarOverlay(error.error.mensaje, 'error.webp', 'red', 'Error', []);
-                this.activarOverlay = true;
+
+                this.modalService.abrirModal(ModalComponent, {
+                    mensaje: error.error.mensaje,
+                    colorTexto: 'Red',
+                    altImg: 'Imagen de error',
+                    srcImg: 'error.webp',
+                    listaErrores: [],
+                    redireccionar: false
+                })
                 return;
             }
 
-            this.ocultarOverlay('Ocurrio un error inesperado.', 'error.webp', 'red', 'Error', []);
-            this.activarOverlay = true;
-        }
-    }
-
-    recibirDatoOcultar = (dato: boolean) => {
-        if(dato){
-            this.activarOverlay = false;
+            this.modalService.abrirModal(ModalComponent, {
+                mensaje: 'Ocurrio un error inesperado.',
+                colorTexto: 'Red',
+                altImg: 'Imagen de error',
+                srcImg: 'error.webp',
+                listaErrores: [],
+                redireccionar: false
+            })
         }
     }
 
@@ -108,27 +124,6 @@ export default class NuevoEstudianteComponent {
 
         return errores;
     };
-
-
-    ocultarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
-        this.opciones.mensaje =  mensaje;
-        this.opciones.icon = icon;
-        this.opciones.color =  color;
-        this.opciones.lista = lista;
-        this.opciones.alt = alt;
-        this.accionesOverlay.redireccionar = false;
-        this.accionesOverlay.ocultar = true;
-    }
-
-    redireccionarOverlay = (mensaje: string, icon: string, color: string, alt: string, lista: string[]) => {
-        this.opciones.mensaje =  mensaje;
-        this.opciones.icon = icon;
-        this.opciones.color =  color;
-        this.opciones.lista = lista;
-        this.opciones.alt = alt;
-        this.accionesOverlay.redireccionar = true;
-        this.accionesOverlay.ocultar = false;
-    }
 
     limpiarCampos = () => {
         this.estudiante.apellido = '';

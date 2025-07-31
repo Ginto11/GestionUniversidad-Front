@@ -1,11 +1,3 @@
-@if (activarOverlay) { 
-    <app-overlay 
-        [accionesOverlay]="accionesOverlay" 
-        [opciones]="opciones" 
-        (datoEmitidoOcultar)="recibirDatoOcultar($event)"
-    /> 
-}
-
 <div class="contenedor-formulario">
     <form class="formulario-nuevos-usuarios" (ngSubmit)="actualizar(estudiante.id)">
         <h2> {{ nombreFormulario }} </h2>
