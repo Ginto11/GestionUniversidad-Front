@@ -20,3 +20,7 @@
     cursor: pointer;
     font-size: 20px;
 }
+
+.modal p {
+    text-align: center;
+}

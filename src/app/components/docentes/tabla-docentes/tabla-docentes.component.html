@@ -1,1 +1,40 @@
-<p>tabla-docentes works!</p>
+<div class="tabla-docentes">
+    <table>
+        <thead>
+            <tr>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Celular</th>
+                <th>Email</th>
+                <th>Genero</th>
+                <th>Fecha Creación</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (docente of docentes; track docente.id) {
+                <tr>
+                    <td> {{ docente.cedula }} </td>
+                    <td> {{ docente.nombre }} </td>
+                    <td> {{ docente.apellido }} </td>
+                    <td> {{ docente.edad }} </td>
+                    <td> {{ docente.celular || 'No tiene'  }} </td>
+                    <td> {{ docente.email }} </td>
+                    <td> {{ docente.genero }} </td>
+                    <td> {{ docente.fechaCreacion | date:'yyyy/MM/dd hh:mm' }} </td>
+                    <td><p [ngClass]="(docente.estado)? 'activo': 'inactivo'"> {{ (docente.estado) ? 'Activo' : 'Inactivo' }} </p> </td>
+                    <td class="contenedor-btns">
+                        <button [routerLink]="['/docentes', 'editar-docente', docente.id]" class="btn btn-actualizar"><img src="icons/icono-actualizar.svg" [title]="`Actualizar a ${docente.nombre}`" alt="Icono Actualizar" width="18px"></button>
+                        <button (click)="eliminarDocente(docente.id)" class="btn"><img src="icons/icono-eliminar.svg" [title]="`Eliminar a ${docente.nombre}`" alt="Icono Eliminar" width="15px"></button>
+                        <button (click)="copiarCedula(docente.cedula)" class="btn"><img src="icons/icono-copiar.svg" [title]="'Copiar Cedula de ' + docente.nombre" alt="Copiar Cedula" width="15px"></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- EL COMPONENTE DE PAGINACION REGRESA LA LISTA DE ESTUDIANTES -->
+    <app-paginacion-docentes [numeroPagina]="numeroPagina" [tamanoPagina]="tamanoPagina"  (enviarDocentes)="recibirDocentes($event)" />
+</div>

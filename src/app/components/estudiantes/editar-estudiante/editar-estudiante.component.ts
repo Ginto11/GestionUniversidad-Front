@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Estudiante } from 'src/app/models/estudiante.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
 import { FormsModule } from '@angular/forms';
 import { IGenero } from 'src/app/interfaces/IGenero';
 import { GenerosServices } from 'src/app/services/generos/generos.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ModalService } from 'src/app/services/modal/modal.service';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
 
 @Component({
     selector: 'app-editar-estudiante',
@@ -23,11 +22,19 @@ export default class EditarEstudianteComponent implements OnInit {
     generos: IGenero[] = [];
     confirmacion_contrasena = '';
     
+    /**
+     * CREA UNA INSTANCIA DEL COMPONENTE
+     * @param activatedRoute SERVICIO PARA ACCEDER AL PARAMS(ID) DE LA URL
+     * @param estudianteService SERVICIO PARA OPERACIONES RELACIONADAS CON ESTUDIANTES
+     * @param generosService SERVICIO PARA TRAER LOS GENEROS DE LOS ESTUDIANTES
+     * @param tipoModalService SERVICIO PARA MOSTRAR DIFERENTES TIPOS DE MODALES
+     * @param authService SERVICIO DE AUTENTIICACION DEL USUARIO
+     */
     constructor(
-        private modalService: ModalService,
         private activatedRoute: ActivatedRoute, 
-        private estudiantesService: EstudianteServices, 
+        private estudianteService: EstudianteServices, 
         private generosService: GenerosServices, 
+        private tipoModalService: TipoModalService,
         private authService: AuthService) { }
 
 
@@ -35,97 +42,58 @@ export default class EditarEstudianteComponent implements OnInit {
         this.mostrarEstudiante();
     }
 
-
+    /**
+     * METODO QUE MUESTRA EL ESTUDIANTE POR EDITAR
+     */
     mostrarEstudiante = async () => {
         try{
 
             if(await this.authService.validarSesion() == false){
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Token expirado, inicie sesión nuevamente.',
-                    altImg: 'Imagen de informacion',
-                    colorTexto: '#1A1731',
-                    srcImg: 'informacion.webp',
-                    listaErrores: [],
-                    redireccionar: true
-                })
+                this.tipoModalService.tokenExpirado();
                 return;
             }
 
-
             const id = this.activatedRoute.snapshot.params['id'];
+
             if(id){
-                this.estudiante = await this.estudiantesService.buscarPorId(id);
+                this.estudiante = await this.estudianteService.buscarPorId(id);
                 this.traerGeneros();
             }
         }catch (error) {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: `Error al cargar el estudiante: ${error}`,
-                altImg: 'Imagen de error',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                listaErrores: [],
-                redireccionar: false
-            })
+            this.tipoModalService.manejoError(error);
         }
     }
 
-
+    /**
+     * METODO QUE TRAE LOS GENEROS
+     */
     traerGeneros = async () => {
         try {
             this.generos = await this.generosService.listarGeneros();
         } catch (error) {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: `Error al cargar los generos: ${error}`,
-                altImg: 'Imagen de error',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                listaErrores: [],
-                redireccionar: false
-            })
+            this.tipoModalService.manejoError(error);
         }
     }
 
-
+    /**
+     * METODO QUE ACTUALIZA UN ESTUDIANTE
+     * @param id ID DEL ESTUDIANTE
+     */
     actualizar = async (id: number) => {
         try {
             if(await this.authService.validarSesion() === false) {
-
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Token expirado, inicie sesión nuevamente.',
-                    altImg: 'Imagen de informacion',
-                    srcImg: 'informacion.webp',
-                    colorTexto: '#1A1731',
-                    listaErrores: [],
-                    redireccionar: true
-                })
+                this.tipoModalService.tokenExpirado();
                 return;
             }
 
-            const res = await this.estudiantesService.actualizar(id, this.estudiante);
+            const res = await this.estudianteService.actualizar(id, this.estudiante);
             
             if(res == null){
-
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Estudiante actualizado (verificar en la tabla).',
-                    altImg: 'Imagen de informacion',
-                    srcImg: 'informacion.webp',
-                    colorTexto: '#1A1731',
-                    listaErrores: [],
-                    redireccionar: false
-                })
+                this.tipoModalService.elementoActualizado('Estudiante actualizado (verificar en la tabla).');
             }
 
         } catch (error) {
-
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Error al actualizar',
-                altImg: 'Imagen de error',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                listaErrores: [],
-                redireccionar: false
-            })
-            return;
+            this.tipoModalService.manejoError(error);
         }
     }
 
