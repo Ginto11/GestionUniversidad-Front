@@ -1,59 +1,33 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { environment } from "@envs/environment";
-import { AuthService } from "../auth/auth.service";
-import { desencriptar } from "src/app/util/util.encrypt";
-import { lastValueFrom } from "rxjs";
-import { buscarEnSesionStorage } from "src/app/util/utilidad";
-import { IEstudianteRegistrar } from "src/app/interfaces/IEstudianteRegistrar";
-import { Estudiante } from "src/app/models/estudiante.model";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Docente } from 'src/app/models/docente.model';
+import { desencriptar } from 'src/app/util/util.encrypt';
+import { buscarEnSesionStorage } from 'src/app/util/utilidad';
+import { lastValueFrom } from 'rxjs';
+import { environment } from '@envs/environment';
+import { IDocenteRegistrar } from 'src/app/interfaces/IDocenteRegistrar';
 
-@Injectable({
-    providedIn: 'root'
-})
-export class EstudianteServices {
+@Injectable({ providedIn: 'root' })
+export class DocenteService {
 
-    constructor(private http: HttpClient, private authService: AuthService){}
+    constructor(private http: HttpClient) { }
 
-    listarEstudiantes = async (): Promise<Estudiante[]> => {
+    listarDocentes = async (): Promise<Docente[]> => {
         try {
+
             const data = buscarEnSesionStorage('usuario');
 
-            if(data){
+            if (data) {
+
                 const token = desencriptar(data.token);
 
                 const headers = new HttpHeaders({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 })
-        
+
                 return await lastValueFrom(
-                    this.http.get<Estudiante[]>(`${environment.URL}/api/estudiantes`, { headers })
-                );
-            }
-
-            return [];
-
-        } catch (error) {
-            throw error;
-        }
-
-    }
-
-    listarPaginado = async (nPagina: number, nMostrar: number): Promise<Estudiante[]> => {
-        try {
-            const data = buscarEnSesionStorage('usuario');
-
-            if(data){
-                const token = desencriptar(data.token);
-
-                const headers = new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                })
-        
-                return await lastValueFrom(
-                    this.http.get<Estudiante[]>(`${environment.URL}/api/estudiantes/${nPagina}/${nMostrar}`, { headers })
+                    this.http.get<Docente[]>(`${environment.URL}/api/docentes`, { headers })
                 );
             }
 
@@ -63,23 +37,45 @@ export class EstudianteServices {
         }
     }
 
+    listarPaginado = async (nPagina: number, nMostrar: number): Promise<Docente[]> => {
+        try {
+            const data = buscarEnSesionStorage('usuario');
 
-    buscarPorId = async (id: number): Promise<Estudiante> => {
+            if (data) {
+                const token = desencriptar(data.token);
+
+                const headers = new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                })
+
+                return await lastValueFrom(
+                    this.http.get<Docente[]>(`${environment.URL}/api/docentes/${nPagina}/${nMostrar}`, { headers })
+                );
+            }
+
+            return [];
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    buscarPorId = async (id: number): Promise<Docente> => {
         try {
 
             const usuario = buscarEnSesionStorage('usuario');
 
-            if(usuario){
-                
+            if (usuario) {
+
                 const token = desencriptar(usuario.token);
 
                 const headers = new HttpHeaders({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 });
-                    
+
                 return await lastValueFrom(
-                    this.http.get<Estudiante>(`${environment.URL}/api/estudiantes/${id}`, { headers })
+                    this.http.get<Docente>(`${environment.URL}/api/docentes/${id}`, { headers })
                 );
             }
 
@@ -90,22 +86,22 @@ export class EstudianteServices {
         }
     }
 
-    buscarPorCedula = async (cedula: number): Promise<Estudiante> => {
+    buscarPorCedula = async (cedula: number): Promise<Docente> => {
         try {
 
             const usuario = buscarEnSesionStorage('usuario');
 
-            if(usuario){
-                
+            if (usuario) {
+
                 const token = desencriptar(usuario.token);
 
                 const headers = new HttpHeaders({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 });
-                    
+
                 return await lastValueFrom(
-                    this.http.get<Estudiante>(`${environment.URL}/api/estudiantes/buscar/${cedula}`, { headers })
+                    this.http.get<Docente>(`${environment.URL}/api/docentes/buscar/${cedula}`, { headers })
                 );
             }
 
@@ -121,7 +117,7 @@ export class EstudianteServices {
 
             const data = buscarEnSesionStorage('usuario');
 
-            if(data){
+            if (data) {
 
                 const token = desencriptar(data.token);
 
@@ -129,47 +125,48 @@ export class EstudianteServices {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 });
-            
+
                 return await lastValueFrom(
-                    this.http.delete(`${environment.URL}/api/estudiantes/${id}`, { headers })
+                    this.http.delete(`${environment.URL}/api/docentes/${id}`, { headers })
                 );
             }
-        }catch(error){
+        } catch (error) {
             throw error;
         }
     }
 
 
-    crear = async (estudiante: IEstudianteRegistrar) : Promise<any> => {
-        try{
+    crear = async (docente: IDocenteRegistrar): Promise<any> => {
+        try {
 
             const data = buscarEnSesionStorage('usuario');
 
-            if(data){
-            
+            if (data) {
+
                 const token = desencriptar(data.token);
 
                 const headers = new HttpHeaders({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 })
-            
+
                 return await lastValueFrom(
-                    this.http.post(`${environment.URL}/api/estudiantes`, estudiante, { headers })
+                    this.http.post(`${environment.URL}/api/docentes`, docente, { headers })
                 );
-            
+
             }
-        }catch(error){
+        } catch (error) {
+            console.log(error);
             throw error;
         }
     }
 
-    actualizar = async (id: number, estudiante: Estudiante): Promise<any> => {
+    actualizar = async (id: number, docente: Docente): Promise<any> => {
         try {
-            
+
             const data = buscarEnSesionStorage('usuario');
 
-            if(data){
+            if (data) {
 
                 const token = desencriptar(data.token);
 
@@ -179,7 +176,7 @@ export class EstudianteServices {
                 });
 
                 return await lastValueFrom(
-                    this.http.put(`${environment.URL}/api/estudiantes/${id}`, estudiante, { headers })
+                    this.http.put(`${environment.URL}/api/docentes/${id}`, docente, { headers })
                 )
             }
 
@@ -187,5 +184,4 @@ export class EstudianteServices {
             throw error;
         }
     }
-
 }

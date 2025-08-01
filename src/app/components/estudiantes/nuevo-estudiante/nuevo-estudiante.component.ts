@@ -1,12 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IEstudianteRegistrar } from 'src/app/interfaces/IEstudianteRegistrar';
 import { FormsModule } from '@angular/forms';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
-import { RedireccionService } from 'src/app/services/redireccion/redireccion.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ModalService } from 'src/app/services/modal/modal.service';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
 
 @Component({
     selector: 'app-nuevo-estudiante',
@@ -34,113 +31,75 @@ export default class NuevoEstudianteComponent implements OnInit {
     listaErrores: string[] = [];
 
 
-
+    /**
+     * CREA UNA INSTANCIA DEL COMPONENTE
+     * @param authService SERVICIO DE AUTENTIICACION DEL USUARIO
+     * @param tipoModalService SERVICIO PARA MOSTRAR DIFERENTES TIPOS DE MODALES
+     * @param estudianteServices SERVICIO PARA OPERACIONES RELACIONADAS CON ESTUDIANTES
+     */
     constructor(
-        private modalService: ModalService,
         private authService: AuthService,
-        private estudianteServices: EstudianteServices, 
-        private redireccionService: RedireccionService){}
-
-
+        private tipoModalService: TipoModalService,
+        private estudianteServices: EstudianteServices
+    ){}
 
     ngOnInit(): void {
         this.validarToken();
     }
 
+    /**
+     * METODO QUE VALIDA EL TOKEN JWT
+     * @returns { Promise<any> } PROMESA CON VALOR DESCONOCIDO
+     */
     validarToken = async () :Promise<any> => {
         if(await this.authService.validarSesion() == false){
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Token expirado, inicie sesión nuevamente.',
-                altImg: 'Imagen de informacion',
-                colorTexto: '#1A1731',
-                srcImg: 'informacion.webp',
-                listaErrores: [],
-                redireccionar: true
-            })
+            this.tipoModalService.tokenExpirado();
             return;      
         }
     }
 
+    /**
+     * METODO QUE CREA UN ESTUDIANTE
+     */
     crearEstudiante = async () => {
         try {
 
             if(await this.authService.validarSesion() == false){
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Token expirado, inicie sesión nuevamente.',
-                    colorTexto: '#1A1731',
-                    srcImg: 'informacion.webp',
-                    altImg: 'Imagen de informacion',
-                    listaErrores: [],
-                    redireccionar: true
-                })
+                this.tipoModalService.tokenExpirado();
                 return;
             }
 
             this.listaErrores = this.validarRegistroEstudiante(this.estudiante);
 
+            if(this.listaErrores.length > 0){
+                this.tipoModalService.mostrarMultiplesErrores(this.listaErrores);
+                return;
+            }
+
             if(this.listaErrores.length == 0){
                 await this.estudianteServices.crear(this.estudiante);
 
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Estudiante registrado exitosamente',
-                    colorTexto: '#1A1731',
-                    altImg: 'Imagen de comprobado',
-                    srcImg: 'comprobado.webp',
-                    listaErrores: [],
-                    redireccionar: false
-                })
-
+                this.tipoModalService.elementoAgregado('Estudiante registrado exitosamente');
                 this.limpiarCampos();
                 return;
             }
 
             if(this.estudiante.contrasena != this.estudiante.confirmacion_contrasena){
-                
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Las contraseñas no coinciden.',
-                    colorTexto: 'Red',
-                    altImg: 'Imagen de error',
-                    srcImg: 'error.webp',
-                    listaErrores: [],
-                    redireccionar: false
-                })
+                this.tipoModalService.contrasenasDesiguales();
                 return;
             }
-
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Error al registrar estudiante',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error',
-                srcImg: 'error.webp',
-                listaErrores: [],
-                redireccionar: false
-            })
 
         } catch (error) {
-            if(error instanceof HttpErrorResponse){
+            this.tipoModalService.manejoError(error);
 
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: error.error.mensaje,
-                    colorTexto: 'Red',
-                    altImg: 'Imagen de error',
-                    srcImg: 'error.webp',
-                    listaErrores: [],
-                    redireccionar: false
-                })
-                return;
-            }
-
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Ocurrio un error inesperado.',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error',
-                srcImg: 'error.webp',
-                listaErrores: [],
-                redireccionar: false
-            })
         }
     }
 
+    /**
+     * METODO QUE VALIDA LOS CAMPOS AL REGISTRAR UN ESTUDIANTE
+     * @param est INTERFACE PARA REGISTRAR ESTUDIANTES
+     * @returns { string[] } LISTA DE ERRORES
+     */
     validarRegistroEstudiante = (est: IEstudianteRegistrar): string[] => {
         const errores: string[] = [];
 

@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
-import { RedireccionService } from 'src/app/services/redireccion/redireccion.service';
 import { RouterLink } from '@angular/router';
 import { Estudiante } from 'src/app/models/estudiante.model';
 import { CommonModule } from '@angular/common';
 import { PaginacionComponent } from 'src/app/components/estudiantes/paginacion-estudiantes/paginacion.component';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
 
 @Component({
     selector: 'app-tabla-estudiantes',
@@ -25,73 +24,53 @@ export default class TablaEstudiantesComponent {
 
 
     constructor(
-        private modalService: ModalService,
+        private tipoModalService: TipoModalService,
         private authService: AuthService, 
-        private estudianteService: EstudianteServices) { }
+        private estudianteService: EstudianteServices
+    ) { }
 
-    /*
-        RECIBE LA LISTA DE ESTUDIANTES DESDE EL COMPONENTE PAGINACION
-        Y LA ASIGNA A LA VARIABLE ESTUDIANTES PARA MOSTRARLA EN LA TABLA
-    */
+    /**
+     * METODO QUE RECIBE LA LISTA DE ESTUDIANTES
+     * @param lista LISTA DE ESTUDIANTES DEL COMPONENTE PAGINACION
+     */
     recibirEstudiantes = (lista: Estudiante[]): void => {
         this.estudiantes = lista;
     }
     
+    /**
+     * METODO PARA ELIMINARESTUDIANTE
+     * @param id ID DEL ESTUDIANTE
+     * @returns { Promise<any> } PROMESA CON VALOR DESCONOCIDO
+     */
     eliminarEstudiante = async (id: number): Promise<any> => {
         try {
 
             if(await this.authService.validarSesion() === false) {
-
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Token expirado, inicie sesión nuevamente.',
-                    colorTexto: '#1A1731',
-                    srcImg: 'informacion.webp',
-                    altImg: 'Imagen de informacion',
-                    listaErrores: [],
-                    redireccionar: true
-                })
+                this.tipoModalService.tokenExpirado();
                 return;
             }
 
             const res = await this.estudianteService.eliminar(id);
 
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Estudiante eliminado exitosamente',
-                colorTexto: '#1A1731',
-                srcImg: 'comprobado.webp',
-                altImg: 'Imagen de comprobado',
-                listaErrores: [],
-                redireccionar: false
-            })
+            this.tipoModalService.elementoEliminado('Estudiante eliminado exitosamente');
 
             const estudiantesActualizados = await this.estudianteService.listarPaginado(this.numeroPagina, this.tamanoPagina);
             this.estudiantes = estudiantesActualizados;
             
             return res;
             } catch (error) {
-
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Error al eliminar el estudiante (verifique y si el estudiante tiene matricula no se puede eliminar)',
-                    colorTexto: 'Red',
-                    altImg: 'Imagen de error',
-                    srcImg: 'error.webp',
-                    listaErrores: [],
-                    redireccionar: false
-                })
+                this.tipoModalService.manejoError(error);
             }
     }
 
+    /**
+     * METODO PARA COPIAR LA CEDULA DEL ESTUDIANTE
+     * @param cedula CEDULA DEL ESTUDIANTE
+     */
     copiarCedula = (cedula: number) => {
         navigator.clipboard.writeText(JSON.stringify(cedula));
         this.titleCopiado = "Copiado";
-        this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Cedula Copiada.',
-                altImg: 'Imagen de comprobado',
-                colorTexto: 'Green',
-                srcImg: 'comprobado.webp',
-                listaErrores: [],
-                redireccionar: false
-            })
+        this.tipoModalService.cedulaCopiada();
     }
 
 }

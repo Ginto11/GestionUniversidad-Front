@@ -3,9 +3,9 @@ import { Estudiante } from 'src/app/models/estudiante.model';
 import { FormsModule } from '@angular/forms';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
 import { CommonModule } from '@angular/common';
-import { ModalService } from 'src/app/services/modal/modal.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
 
 @Component({
     selector: 'app-detalle-estudiante',
@@ -19,43 +19,41 @@ export default class DetalleEstudianteComponent implements OnInit {
 
     cedula = null;
 
+    /**
+     * CREA UNA INSTANCIA DEL COMPONENTE
+     * @param authService SERVICIO DE AUTENTICACION DEL USUARIO
+     * @param tipoModalService SERVICIO PARA MOSTRAR DIFERENTES TIPOS DE MODALES
+     * @param estudianteService SERVICIO PARA OPERACIONES CON ESTUDIANTES
+     */
     constructor(
         private authService: AuthService,
-        private modalService: ModalService,
-        private estudiantesService: EstudianteServices){}
+        private tipoModalService: TipoModalService,
+        private estudianteService: EstudianteServices){}
 
     ngOnInit(): void {
         this.validarToken();
     }
 
+    /**
+     * METODO QUEE VALIDA EL TOKEN JWT
+     * @returns { Promise<any> } PROMESA CON VALOR DESCONOCIDO
+     */
     validarToken = async () :Promise<any> => {
         if(await this.authService.validarSesion() == false){
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Token expirado, inicie sesión nuevamente.',
-                altImg: 'Imagen de informacion',
-                colorTexto: '#1A1731',
-                srcImg: 'informacion.webp',
-                listaErrores: [],
-                redireccionar: true
-            })
+            this.tipoModalService.tokenExpirado();
             return;
         }
     }
 
+    /**
+     * METODO QUE BUSCA UN ESTUDIANTE POR CEDULA
+     */
     buscarEstudiante = async () => {
         if(!this.cedula){
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Ingrese el numero de cedula, por favor.',
-                altImg: 'Imagen de error',
-                colorTexto: 'Red',
-                srcImg: 'error.webp',
-                listaErrores: [],
-                redireccionar: false
-            })
+            this.tipoModalService.pedirDato('Ingrese el numero de cedula, por favor.');
             return;
         }
 
-        this.estudiante = await this.estudiantesService.buscarPorCedula(this.cedula);
-
+        this.estudiante = await this.estudianteService.buscarPorCedula(this.cedula);
     }
 }
