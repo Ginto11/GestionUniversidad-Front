@@ -1,0 +1,15 @@
+section{
+    height: fit-content;
+    padding-top: 100px;
+}
+
+h2{
+    color: #1A1731;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.programas-link-active{
+    background-color: #1A173110;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+}

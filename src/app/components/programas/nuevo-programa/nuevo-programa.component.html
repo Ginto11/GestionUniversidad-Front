@@ -1,0 +1,40 @@
+<div class="contenedor-formulario">
+    <form class="formulario-nuevo-programa">
+        <h2> {{ nombreFormulario }} </h2>
+        <div class="contenedor-fila-nuevo-programa">
+            <div>
+                <input [(ngModel)]="programa.nombre" placeholder="Nombre" type="text" id="nombre-programa"
+                    name="nombre-programa">
+            </div>
+
+            <div>
+                <input [(ngModel)]="programa.duracion" placeholder="Duración" type="text" id="duracion" name="duracion">
+            </div>
+
+        </div>
+        <div>
+            <select [(ngModel)]="programa.facultadId" name="facultad-programa" id="facultad-programa">
+                <option selected value="">Seleccionar Facultad</option>
+                @for (facultad of facultades; track facultad.id) {
+                <option [value]="facultad.id"> {{ facultad.nombre }} </option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <textarea [(ngModel)]="programa.descripcion" placeholder="Descripción" name="descripcion-programa" id="descripcion-programa"></textarea>
+        </div>
+
+        <div>
+            <input (change)="alSeleccionarAchivo($event)" accept="image/webp" type="file" name="imagen-programa"
+                id="imagen-programa">
+        </div>
+
+        <div class="contenedor-fila-nuevo-programa">
+            <button (click)="crearPrograma()" type="button"> Añadir </button>
+        </div>
+    </form>
+    @if (imagenVisual != '') {
+        <img class="visual" [src]="imagenVisual" alt="">
+    }
+</div>

@@ -1,1 +1,48 @@
-<p>detalle-docente works!</p>
+<div class="contenedor-detalle">
+    <div >
+        <h2>Detalle del Docente</h2>
+        <table class="docente-detalle">
+            <tr>
+                <th>Cédula</th>
+                <td><input [(ngModel)]="cedula" type="number" name="cedula-detalle" placeholder="Ingrese la cedula"></td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td><input [value]="docente.nombre" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td><input [value]="docente.apellido" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Edad</th>
+                <td><input [value]="docente.edad == 0 ? '' : docente.edad" type="number" disabled></td>
+            </tr>
+            <tr>
+                <th>Celular</th>
+                <td><input [value]="docente.celular == '' ? '' : docente.celular" type="number" disabled></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td><input [value]="docente.email" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Género</th>
+                <td><input [value]="docente.genero" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Estado</th>
+                <td><input [value]="docente.estado == null ? '' : docente.estado ? 'Activo' : 'Inactivo'" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Fecha Creación</th>
+                <td><input [value]="docente.fechaCreacion | date:'yyyy/MM/dd hh:mm'" type="text" disabled></td>
+            </tr>
+            <tr>
+                <th>Fecha Actualización</th>
+                <td><input [value]="docente.fechaActualizacion | date:'yyyy/MM/dd hh:mm'" type="text" disabled></td>
+            </tr>
+        </table>
+        <button (click)="buscarDocente()">Buscar</button>
+    </div>
+</div>

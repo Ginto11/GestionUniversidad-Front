@@ -1,4 +1,5 @@
 export const environment = {
     URL: "https://gestionuniversidad.somee.com",
-    ENCRYPT_KEY: "78A16661B4BE3"
+    ENCRYPT_KEY: "78A16661B4BE3",
+    IMG_URL: 'https://gestionuniversidad.somee.com/Uploads/Programas/'
 };

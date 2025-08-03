@@ -1,28 +1,28 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IGenero } from 'src/app/interfaces/IGenero';
 import { Docente } from 'src/app/models/docente.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DocenteService } from 'src/app/services/docentes/docente.service';
 import { GenerosServices } from 'src/app/services/generos/generos.service';
-import { ModalService } from 'src/app/services/modal/modal.service';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
 
 @Component({
     selector: 'app-editar-docente',
-    imports: [],
+    imports: [FormsModule],
     templateUrl: './editar-docente.component.html',
     styleUrl: './editar-docente.component.css'
 })
 export default class EditarDocenteComponent {
 
     nombreFormulario: string = 'Editando Docente';
-    estudiante: Docente = new Docente;
+    docente: Docente = new Docente;
     generos: IGenero[] = [];
     confirmacion_contrasena = '';
     
     constructor(
-        private modalService: ModalService,
+        private tipoModalService: TipoModalService,
         private activatedRoute: ActivatedRoute, 
         private docenteService: DocenteService, 
         private generosService: GenerosServices, 
@@ -33,96 +33,58 @@ export default class EditarDocenteComponent {
         this.mostrarDocente();
     }
 
-
+    /**
+     * METODO QUE MUESTRA LA INFORMACION DEL DOCENTE
+     */
     mostrarDocente = async () => {
         try{
 
             if(await this.authService.validarSesion() == false){
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Token expirado, inicie sesión nuevamente.',
-                    altImg: 'Imagen de informacion',
-                    colorTexto: '#1A1731',
-                    srcImg: 'informacion.webp',
-                    listaErrores: [],
-                    redireccionar: true
-                })
+                this.tipoModalService.tokenExpirado();
                 return;
             }
 
 
             const id = this.activatedRoute.snapshot.params['id'];
             if(id){
-                this.estudiante = await this.docenteService.buscarPorId(id);
+                this.docente = await this.docenteService.buscarPorId(id);
                 this.traerGeneros();
             }
         }catch (error) {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: `Error al cargar el estudiante: ${error}`,
-                altImg: 'Imagen de error',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                listaErrores: [],
-                redireccionar: false
-            })
+            this.tipoModalService.manejoError(error);
         }
     }
 
-
+    /**
+     * METODO QUE TRAE LOS GENEROS DE LOS DOCENTES
+     */
     traerGeneros = async () => {
         try {
             this.generos = await this.generosService.listarGeneros();
         } catch (error) {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: `Error al cargar los generos: ${error}`,
-                altImg: 'Imagen de error',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                listaErrores: [],
-                redireccionar: false
-            })
+            this.tipoModalService.manejoError(error);
         }
     }
 
-
+    /**
+     * METODO QUE ACTUALIZA EL DOCENTE
+     * @param id ID DEL DOCENTE
+     */
     actualizar = async (id: number) => {
         try {
             if(await this.authService.validarSesion() === false) {
-
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Token expirado, inicie sesión nuevamente.',
-                    altImg: 'Imagen de informacion',
-                    srcImg: 'informacion.webp',
-                    colorTexto: '#1A1731',
-                    listaErrores: [],
-                    redireccionar: true
-                })
+                this.tipoModalService.tokenExpirado();
                 return;
             }
 
-            const res = await this.docenteService.actualizar(id, this.estudiante);
+            const res = await this.docenteService.actualizar(id, this.docente);
             
             if(res == null){
-
-                this.modalService.abrirModal(ModalComponent, {
-                    mensaje: 'Docente actualizado (verificar en la tabla).',
-                    altImg: 'Imagen de informacion',
-                    srcImg: 'informacion.webp',
-                    colorTexto: '#1A1731',
-                    listaErrores: [],
-                    redireccionar: false
-                })
+                this.tipoModalService.elementoActualizado('Docente actualizado (verificar en la tabla).');
             }
 
         } catch (error) {
-
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Error al actualizar',
-                altImg: 'Imagen de error',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                listaErrores: [],
-                redireccionar: false
-            })
+            this.tipoModalService.manejoError(error);
             return;
         }
     }

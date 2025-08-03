@@ -1,0 +1,25 @@
+.contenedor-paginado{
+    padding: 5px 0;
+    height: fit-content;
+    display: flex;
+    background-color: #FFF;
+    align-items: center;
+    gap: 30px;
+}
+
+.contenedor-paginado button{
+    all: unset;
+    padding: 3px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #1A1731;
+    color: #FFF;
+}
+
+.contenedor-paginado div{
+    margin: 0px 30px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+

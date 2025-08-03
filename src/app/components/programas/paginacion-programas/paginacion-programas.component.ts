@@ -1,30 +1,32 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Estudiante } from 'src/app/models/estudiante.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Programa } from 'src/app/models/programa.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
 import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
+import { ProgramaService } from 'src/app/services/programas/programas.service';
 
 @Component({
-  selector: 'app-paginacion',
-  templateUrl: './paginacion.component.html',
-  styleUrl: './paginacion.component.css'
+    selector: 'app-paginacion-programas',
+    imports: [],
+    templateUrl: './paginacion-programas.component.html',
+    styleUrl: './paginacion-programas.component.css'
 })
-export class PaginacionComponent implements OnInit{
+export class PaginacionProgramasComponent {
+
 
     @Input() numeroPagina!: number;
     @Input() tamanoPagina!: number;
 
-    @Output() enviarEstudiantes = new EventEmitter<Estudiante[]>();
+    @Output() enviarProgramas = new EventEmitter<Programa[]>();
 
     /**
      * 
      * @param tipoModalService SERVICIO PARA MOSTRAR DIFERENTES TIPOS DE MODALES
-     * @param estudianteService SERVICIO PARA OPERACIONES RELACIONADAS CON ESTUDIANTES
+     * @param estudianteService SERVICIO PARA OPERACIONES RELACIONADAS CON PROGRAMAS
      * @param authService SERVICIO DE AUTENTICACION DEL USUARIO
      */
     constructor(
         private tipoModalService: TipoModalService,
-        private estudianteService: EstudianteServices, 
+        private programaService: ProgramaService, 
         private authService: AuthService
     ){ }
 
@@ -33,10 +35,10 @@ export class PaginacionComponent implements OnInit{
     }
 
     /**
-     * METODO QUE TRAE LOS ESTUDIANTES PAGINADOS
-     * @returns { Promise<Estudiante[]> } PROMESA DE LISTA DE ESTUDIANTES
+     * METODO QUE TRAE LOS PROGRAMAS PAGINADOS
+     * @returns { Promise<Estudiante[]> } PROMESA DE LISTA DE PROGRAMAS
      */
-    listarPaginacion = async (): Promise<Estudiante[]> => {
+    listarPaginacion = async (): Promise<Programa[]> => {
         try {
             
             if(await this.authService.validarSesion() == false){
@@ -44,8 +46,8 @@ export class PaginacionComponent implements OnInit{
                 return [];
             }
             
-            const estudiantes = await this.estudianteService.listarPaginado(this.numeroPagina, this.tamanoPagina);
-            return estudiantes;
+            const programas = await this.programaService.listarPaginado(this.numeroPagina, this.tamanoPagina);
+            return programas;
 
         } catch (error) {
             this.tipoModalService.manejoError(error);
@@ -55,7 +57,7 @@ export class PaginacionComponent implements OnInit{
 
     init = async () => {
         const lista = await this.listarPaginacion();
-        this.enviarEstudiantes.emit(lista);
+        this.enviarProgramas.emit(lista);
     }
 
     /**
@@ -76,7 +78,7 @@ export class PaginacionComponent implements OnInit{
             return;
         }
 
-        this.enviarEstudiantes.emit(lista);
+        this.enviarProgramas.emit(lista);
     }
 
     /**
@@ -96,7 +98,7 @@ export class PaginacionComponent implements OnInit{
         
         this.numeroPagina--;
         const lista = await this.listarPaginacion();
-        this.enviarEstudiantes.emit(lista);
+        this.enviarProgramas.emit(lista);
     }
 
 }
