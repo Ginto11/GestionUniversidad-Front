@@ -1,0 +1,130 @@
+.contenedor-formulario {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    padding: 30px 0;
+    color: #1A1731;
+    gap: 30px;
+}
+
+.formulario-nuevo-programa{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: .6s ease-in-out all;
+}
+
+.formulario-nuevo-programa h2 {
+    text-align: center;
+    color: #FF5F15;
+}
+
+.formulario-nuevo-programa{
+    display: flex;
+    gap: 15px; 
+}
+
+.formulario-nuevo-programa div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.formulario-nuevo-programa input, select, button, textarea{
+    all: unset;
+    width: 100%;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    box-shadow: 0px 2px 2px 2px  rgba(0, 0, 0, 0.0888);
+    transition: border 0.3s ease-in-out;
+}
+
+.formulario-nuevo-programa input:focus, select:focus {
+    border-color: #FF5F15;
+}
+
+.formulario-nuevo-programa select {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario-nuevo-programa button{
+    background-color: #FF5F15;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;     
+}
+
+.formulario-nuevo-programa textarea {
+    resize: vertical;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    min-height: 70px;
+    max-height: 100px;
+}
+
+
+.formulario-nuevo-programa textarea::-webkit-scrollbar{
+    width: 7px;
+    background-color: transparent;
+}
+
+.formulario-nuevo-programa textarea::-webkit-scrollbar-thumb{
+    width: 7px;
+    background-color: #1A1731;
+    border-radius: 3px;
+}
+
+.formulario-nuevo-programa button:hover{
+    border-color: black;
+}
+
+.visual {
+    width: 40%;
+    border-radius: 12px;
+    box-shadow: 0px 2px 2px 2px  rgba(0, 0, 0, 0.0888);
+    transition: .4s ease all;
+    /*animation: animacion;
+    animation-duration: 4s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;*/
+
+    animation-name: animacion;
+    animation-duration: 4s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.active{
+    transform: translateX(0);
+}
+
+@keyframes animacion {
+    0%{
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(0.5);
+    }
+
+    40% {
+        transform: translateY(-30px);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}

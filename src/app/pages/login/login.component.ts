@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
@@ -10,10 +10,11 @@ import { FooterComponent } from 'src/app/shared/footer/footer.component';
 import { ViewportScroller } from '@angular/common';
 import { ModalService } from 'src/app/services/modal/modal.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { NavComponent } from "src/app/shared/nav/nav.component";
 
 @Component({
     selector: 'app-login',
-    imports: [FormsModule, FormIngresarComponent, FormRegistrarComponent, FooterComponent],
+    imports: [FormsModule, FormIngresarComponent, FormRegistrarComponent, FooterComponent, NavComponent],
     standalone: true,
     templateUrl: './login.component.html',
     styleUrl: './login.component.css'

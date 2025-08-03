@@ -1,0 +1,27 @@
+<div class="contenedor-programas">
+    <div class="lista">
+        @for (programa of programas; track programa.id) {
+        <div class="card">
+            <div class="contenedor-imagen">
+                <img [src]="urlImagenes+programa.rutaImagen" [alt]="'Imagen del programa ' + programa.nombre">
+            </div>
+            <div class="contenedor-contenido">
+                <h2>{{ programa.nombre }}</h2>
+                <p><strong>Descripción:</strong> {{ programa.descripcion }}</p>
+                <p><strong>Duración:</strong> {{ programa.duracion }} horas</p>
+                <div class="contenedor-botones">
+                    <img width="20px" src="icons/icono-actualizar.svg" alt="">
+                    <img (click)="eliminarPrograma(programa.id)" width="15px" src="icons/icono-eliminar.svg" alt="">
+                    <img width="20px" src="icons/icono-revisar.svg" alt="">
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+    <app-paginacion-programas [numeroPagina]="numeroPagina" [tamanoPagina]="tamanoPagina"  (enviarProgramas)="recibirProgramas($event)" />
+</div>
+<!-- EL COMPONENTE DE PAGINACION REGRESA LA LISTA DE PROGRAMAS -->
+
+
+
+

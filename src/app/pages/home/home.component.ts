@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { FooterComponent } from 'src/app/shared/footer/footer.component';
+import { NavComponent } from "src/app/shared/nav/nav.component";
 
 @Component({
     selector: 'app-home',
-    imports: [RouterLink, FooterComponent   ],
+    imports: [RouterLink, FooterComponent, NavComponent],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })

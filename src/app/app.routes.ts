@@ -11,8 +11,8 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/home/home.component')
     },
     {
-        path: 'programas',
-        loadComponent: () => import('./pages/programas/programas.component')
+        path: 'nuestros-programas',
+        loadComponent: () => import('./pages/nuestros-programas/nuestros-programas.component')
     },
     {
         path: 'iniciar-sesion',
@@ -28,7 +28,7 @@ export const routes: Routes = [
     },
     {
         path: 'estudiantes',
-        loadComponent: () => import('./pages/estudiantes/estudiantes.component'),
+        loadComponent: () => import('./components/estudiantes/inicio-estudiantes/inicio-estudiantes.component'),
         children: [
             {
                 path: '', 
@@ -60,7 +60,7 @@ export const routes: Routes = [
     },
     {
         path: 'docentes',
-        loadComponent: () => import('./pages/docentes/docentes.component'),
+        loadComponent: () => import('./components/docentes/inicio-docentes/inicio-docentes.component'),
         children: [
             {
                 path: '',
@@ -86,6 +86,38 @@ export const routes: Routes = [
             {
                 path: '**',
                 redirectTo: 'tabla-docentes',
+                pathMatch: 'full'
+            }
+        ]
+    },
+    {
+        path: 'programas',
+        loadComponent: () => import('./components/programas/inicio-programas/inicio-programas.component'),
+        children: [
+            {
+                path: '',
+                redirectTo: 'listar-programas',
+                pathMatch: 'full'
+            },
+            {
+                path: 'listar-programas',
+                loadComponent: () => import('./components/programas/tabla-programas/tabla-programas.component')
+            },
+            {
+                path: 'editar-programa/:id',
+                loadComponent: () => import('./components/programas/editar-programa/editar-programa.component')
+            },
+            {
+                path: 'nuevo-programa',
+                loadComponent: () => import('./components/programas/nuevo-programa/nuevo-programa.component')
+            },
+            {
+                path: 'detalle-programa',
+                loadComponent: () => import('./components/programas/detalle-programa/detalle-programa.component')
+            },
+            {
+                path: '**',
+                redirectTo: 'tabla-programas',
                 pathMatch: 'full'
             }
         ]

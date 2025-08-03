@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { FooterComponent } from 'src/app/shared/footer/footer.component';
+import { NavComponent } from "src/app/shared/nav/nav.component";
 
 @Component({
     selector: 'app-nosotros',
-    imports: [FooterComponent],
+    imports: [FooterComponent, NavComponent],
     templateUrl: './nosotros.component.html',
     styleUrl: './nosotros.component.css'
 })

@@ -140,8 +140,19 @@ export class TipoModalService {
             this.crearModalError(`Error en el servidor (Codigo: ${error.status} ${error.statusText})`);
             return;
         }
-
+        console.log(error);
         this.crearModalError(`Error inesperado (Codigo: ${error.status} ${error.statusText})`);
+    }
+
+    manejoErrorGenerico = (mensaje: string): void => {
+        this.modalService.abrirModal(ModalComponent, {
+            mensaje: mensaje,
+            colorTexto: 'Red',
+            altImg: 'Imagen de error',
+            srcImg: 'error.webp',
+            listaErrores: [],
+            redireccionar: false
+        })
     }
 
     private crearModalError = (mensaje: string): void => {

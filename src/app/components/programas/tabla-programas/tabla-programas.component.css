@@ -1,0 +1,66 @@
+.contenedor-programas {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.contenedor-programas .lista {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px
+}
+
+.contenedor-programas .lista .card {
+    display: flex;
+    background-color: #FFF;
+    width: 48%;
+    height: 200px;
+    border-radius: 12px;
+}
+
+.card .contenedor-imagen {
+    width: 250px;
+}
+
+.card h2 {
+    padding: 0;
+}
+
+.card p {
+    text-align: justify;
+}
+
+.card .contenedor-imagen img {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.card .contenedor-contenido {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.card .contenedor-botones{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #0001;
+    padding: 5px;
+    border-radius: 12px;
+}
+
+.card .contenedor-botones img {
+    cursor: pointer;
+}

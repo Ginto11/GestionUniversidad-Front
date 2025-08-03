@@ -1,1 +1,58 @@
-<p>editar-docente works!</p>
+<div class="contenedor-formulario">
+    <form class="formulario-nuevos-usuarios" (ngSubmit)="actualizar(docente.id)">
+        <h2> {{ nombreFormulario }} </h2>
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <label for="cedula-docente"> Cedula</label>
+                <input [(ngModel)]="docente.cedula" disabled="" type="number" id="cedula-docente" name="cedula-docente">
+            </div>
+
+            <div>
+                <label for="nombre-docente">Nombre</label>
+                <input [(ngModel)]="docente.nombre" placeholder="Nombre" type="text" id="nombre-docente" name="nombre-docente">
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <label for="apellido-docente">Apellido</label>
+                <input [(ngModel)]="docente.apellido" placeholder="Apellido" type="text" id="apellido-docente" name="apellido-docente">
+            </div>
+
+            <div>
+                <label for="edad-docente">Edad</label>
+                <input [(ngModel)]="docente.edad" placeholder="Edad" type="number" id="edad-docente" name="edad-docente">
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <label for="email-docente">Email</label>
+                <input [(ngModel)]="docente.email" disabled="" type="email" name="email" id="email-docente" name="email-docente">
+            </div>
+
+            <div>
+                <label for="celular-docente">Celular</label>
+                <input [(ngModel)]="docente.celular" type="celular" name="celular-docente" id="celular-docente" name="celular-docente">
+            </div>
+            
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <div>
+                <label for="genero-docente">Genero</label>
+                <select [(ngModel)]="docente.generoId" style="height: 30px; width: 100%;" name="genero-docente" id="genero-docente">
+                    @for (genero of generos; track genero.id) {
+                        <option [selected]="docente.generoId == genero.id" [value]="genero.id"> {{ genero.nombre }} </option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="contenedor-fila-nuevos-usuarios">
+            <button type="reset" class="btn-cancelar" routerLink="/docentes/listar-docentes"> Cancelar </button>
+            <button type="submit"> Actualizar </button>
+        </div>
+
+    </form>
+</div>
