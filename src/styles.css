@@ -1,3 +1,9 @@
+@import "tailwindcss";
+
+html{
+    font-size: 14px;
+}
+
 *{
     padding: 0;
     margin: 0;
@@ -5,9 +11,37 @@
     user-select: none;
 }
 
-section{
-    height: calc(100vh - 60px);
+h1{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+h2{
+    font-size: 1.7rem;
+    font-weight: 600;
     color: #1A1731;
+}
+
+h3{
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1A1731;
+}
+
+section{
+    height: calc(100vh - 4.3rem);
+    color: #1A1731;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section .contenido {
+    width: 95%;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
 }
 
 body{
@@ -15,53 +49,55 @@ body{
 }
 
 .contenedor-modulo{
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: fit-content;
 }
 
 .contenedor-modulo .modulo{
     width: 95%;
-    min-height: 90vh;
-    gap: 15px;
+    min-height: fit-content;
+    gap: 1rem;
     display: flex;
     flex-direction: column;
-    padding: 40px 0 0 0;
-    border-radius: 5px;
+    padding: .5rem 0 0 0;
 }
 
-.contenedor-modulo .modulo h2{
+section .contenido h2{
+    width: 95%;
     text-align: left;
-    padding: 5px 10px;
+    padding-top: 2rem;
 }
 
-.contenedor-modulo .modulo-links{
+section .contenido .modulo-links{
+    width: 95%;
     list-style: none;
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 1rem;
 }
 
-.contenedor-modulo .modulo-links a{
+section .modulo-links a{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: .4rem;
     color: #FF5F15;
     text-decoration: none;
     cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: .4rem .8rem;
+    border-radius: .4rem;
     font-weight: bold;
     align-items: center;
     transition: .4s ease all;
 }
 
 
-.contenedor-modulo .modulo-links a:hover{
+section .modulo-links a:hover{
     background-color: #1A173110;
-    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 .3rem .1rem rgba(0, 0, 0, 0.1);
 }
 
 
@@ -85,8 +121,8 @@ body{
 }
 
 .contenedor-modulo .contenedor-componente table td, th{
-    padding: 8px;
-    border-bottom: 1px solid #0002;
+    padding: .5rem;
+    border-bottom: .1rem solid #0002;
     background-color: #F5F5F5;
 }
 

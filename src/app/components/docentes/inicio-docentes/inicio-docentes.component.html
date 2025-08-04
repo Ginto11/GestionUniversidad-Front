@@ -1,15 +1,17 @@
 <app-header-sesion />
 <section>
-    <div class="contenedor-modulo">
-        <div class="modulo">
-            <h2>Modulo Docentes</h2>
-            <ul class="modulo-links">
-                <a routerLink="listar-docentes" routerLinkActive="docentes-link-active" title="Ir a Lista Docentes."> <img src="icons/tabla.svg" title="Icono Lista Docentes." alt="Mostrar Docentes" width="20px"> Mostrar todos</a>
-                <a routerLink="nuevo-docente" routerLinkActive="docentes-link-active" title="Ir a Agregar Docente."> <img src="icons/nuevo.svg" title="Icono Nuevo Docente." alt="Nuevo Docente" width="20px" style="margin-bottom: 3px;"> Nuevo</a>
-                <a routerLink="detalle-docente" routerLinkActive="docentes-link-active" title="Ir a Detalle Docente"> <img src="icons/detalle.svg" title="Icono Detalle Docente" alt="Detalle Docente" width="20px" style="margin-bottom: 2px;">Buscar</a>
-            </ul>
-            <div class="contenedor-componente">
-                    <router-outlet></router-outlet>
+    <div class="contenido">
+        <h2>Modulo Docentes</h2>
+        <ul class="modulo-links">
+            <a routerLink="listar-docentes" routerLinkActive="docentes-link-active" title="Ir a Lista Docentes."> <img src="icons/tabla.svg" title="Icono Lista Docentes." alt="Mostrar Docentes" width="20px"> Mostrar todos</a>
+            <a routerLink="nuevo-docente" routerLinkActive="docentes-link-active" title="Ir a Agregar Docente."> <img src="icons/nuevo.svg" title="Icono Nuevo Docente." alt="Nuevo Docente" width="20px" style="margin-bottom: 3px;"> Nuevo</a>
+            <a routerLink="detalle-docente" routerLinkActive="docentes-link-active" title="Ir a Detalle Docente"> <img src="icons/detalle.svg" title="Icono Detalle Docente" alt="Detalle Docente" width="20px" style="margin-bottom: 2px;">Buscar</a>
+        </ul>
+        <div class="contenedor-modulo">
+            <div class="modulo">
+                <div class="contenedor-componente">
+                        <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
     </div>

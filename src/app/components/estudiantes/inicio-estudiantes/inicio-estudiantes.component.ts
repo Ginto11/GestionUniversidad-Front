@@ -30,7 +30,7 @@ export default class InicioEstudiantesComponent implements OnInit {
     validarSesion = async (): Promise<any> => {
         if(await this.authService.validarSesion() == false) {
 
-            this.modalService.abrirModal(ModalComponent, {
+            /*this.modalService.abrirModal(ModalComponent, {
                 mensaje: 'Token expirado, inicie sesión nuevamente.',
                 altImg: 'Imagen de informacion',
                 colorTexto: '#1A1731',
@@ -38,7 +38,7 @@ export default class InicioEstudiantesComponent implements OnInit {
                 listaErrores: [],
                 redireccionar: true
             })
-            return;
+            return;*/
         }
         this.viewportScroller.scrollToPosition([0, 0]);
     }

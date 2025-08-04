@@ -26,15 +26,17 @@
         </div>
 
         <div>
-            <input (change)="alSeleccionarAchivo($event)" accept="image/webp" type="file" name="imagen-programa"
+            <input (change)="alSeleccionarAchivo($event)" accept="image/png, image/jpeg, image/webp, image/jpg" type="file" name="imagen-programa"
                 id="imagen-programa">
         </div>
 
         <div class="contenedor-fila-nuevo-programa">
-            <button (click)="crearPrograma()" type="button"> Añadir </button>
+            <button (click)="crearPrograma()" [disabled]="isCargando" type="button"> 
+                {{ isCargando ? 'Cargando...' : 'Registrar Programa' }}
+            </button>
         </div>
     </form>
     @if (imagenVisual != '') {
-        <img class="visual" [src]="imagenVisual" alt="">
+        <img class="visual" [src]="imagenVisual" [alt]="'Imagen del programa ' + programa.nombre">
     }
 </div>

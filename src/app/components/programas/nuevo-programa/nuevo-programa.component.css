@@ -3,50 +3,49 @@
     display: flex;
     justify-content: center;
     align-items: center; 
-    padding: 30px 0;
     color: #1A1731;
-    gap: 30px;
 }
 
 .formulario-nuevo-programa{
     width: 40%;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    padding: 10px;
-    border-radius: 5px;
+    gap: 1rem;
+    border-radius: .4rem;
     transition: .6s ease-in-out all;
 }
 
 .formulario-nuevo-programa h2 {
+    padding-top: 0;
+    width: 100%;
     text-align: center;
     color: #FF5F15;
 }
 
 .formulario-nuevo-programa{
     display: flex;
-    gap: 15px; 
+    gap: 1rem; 
 }
 
 .formulario-nuevo-programa div{
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 1.2rem;
 }
 
 .formulario-nuevo-programa input, select, button, textarea{
     all: unset;
     width: 100%;
     background-color: #fff;
-    padding: 12px;
-    border-radius: 12px;
-    border: 2px solid transparent;
-    box-shadow: 0px 2px 2px 2px  rgba(0, 0, 0, 0.0888);
+    padding: .6rem;
+    border-radius: .8rem;
+    border: .15rem solid transparent;
+    box-shadow: 0px .15rem .15rem .15rem  rgba(0, 0, 0, 0.0888);
     transition: border 0.3s ease-in-out;
 }
 
-.formulario-nuevo-programa input:focus, select:focus {
+.formulario-nuevo-programa input:focus, select:focus, textarea:focus, select:focus {
     border-color: #FF5F15;
 }
 
@@ -62,27 +61,26 @@
     text-align: center;
     font-weight: bold;
     cursor: pointer;
-    font-size: 20px;     
 }
 
 .formulario-nuevo-programa textarea {
     resize: vertical;
     overflow-x: hidden;
     word-wrap: break-word;
-    min-height: 70px;
-    max-height: 100px;
+    min-height: 4rem;
+    max-height: 9rem;
 }
 
 
 .formulario-nuevo-programa textarea::-webkit-scrollbar{
-    width: 7px;
+    width: .4rem;
     background-color: transparent;
 }
 
 .formulario-nuevo-programa textarea::-webkit-scrollbar-thumb{
-    width: 7px;
+    width: .4rem;
     background-color: #1A1731;
-    border-radius: 3px;
+    border-radius: .3rem;
 }
 
 .formulario-nuevo-programa button:hover{
@@ -91,15 +89,9 @@
 
 .visual {
     width: 40%;
-    border-radius: 12px;
-    box-shadow: 0px 2px 2px 2px  rgba(0, 0, 0, 0.0888);
+    border-radius: .9rem;
+    box-shadow: 0px .2rem .2rem .2rem  rgba(0, 0, 0, 0.0888);
     transition: .4s ease all;
-    /*animation: animacion;
-    animation-duration: 4s;
-    animation-timing-function: ease;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;*/
-
     animation-name: animacion;
     animation-duration: 4s;
     animation-timing-function: ease;
@@ -120,7 +112,7 @@
     }
 
     40% {
-        transform: translateY(-30px);
+        transform: translateY(-2rem);
     }
 
     100% {

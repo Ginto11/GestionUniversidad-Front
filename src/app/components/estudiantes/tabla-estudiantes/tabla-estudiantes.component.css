@@ -1,5 +1,5 @@
 .contenedor-btns button{
-    margin: 0 3px;
+    margin: 0 .3rem;
 }
 
 
@@ -16,17 +16,17 @@
 }
 
 .inactivo{
-    border-radius: 12px;
+    border-radius: .8rem;
     background-color: #FF000060;
     color: #1A1731;
-    padding: 3px;
+    padding: .2rem;
 }
 
 .activo{
-    border-radius: 12px;
+    border-radius: .8rem;
     background-color: #00FF0060;
     color: #1A1731;
-    padding: 3px;
+    padding: .2rem;
 }
 
 

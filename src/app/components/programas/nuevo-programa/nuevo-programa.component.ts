@@ -16,7 +16,7 @@ import { ProgramaService } from 'src/app/services/programas/programas.service';
 export default class NuevoProgramaComponent implements OnInit {
     nombreFormulario = 'Registrando Programa'
     imagenVisual: string = '';
-
+    isCargando: boolean = false;
     facultades: Facultad[] = [];
 
     programa: IProgramaRegistrar = {
@@ -48,6 +48,8 @@ export default class NuevoProgramaComponent implements OnInit {
                 return;
             }
 
+            this.isCargando = true;
+
 
             const formData = new FormData();
             formData.append('nombre', this.programa.nombre);
@@ -58,6 +60,7 @@ export default class NuevoProgramaComponent implements OnInit {
 
             await this.programaService.crear(formData);
             this.limpiarFormulario();
+            this.isCargando = false;
             this.tipoModalService.elementoAgregado('Programa registrado exitosamente');
         } catch (error) {
             this.tipoModalService.manejoError(error);
@@ -82,10 +85,7 @@ export default class NuevoProgramaComponent implements OnInit {
         const archivo = input.files?.[0];
 
         if (archivo) {
-            if (archivo.type !== 'image/webp') {
-                alert('Solo se permiten imágenes .webp');
-                return;
-            }
+            
             const reader = new FileReader();
             reader.onload = () => {
                 const imagenUrl = reader.result as string;

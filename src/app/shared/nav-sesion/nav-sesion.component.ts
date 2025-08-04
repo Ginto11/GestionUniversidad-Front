@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { RedireccionService } from 'src/app/services/redireccion/redireccion.service';
 
 @Component({
     selector: 'app-nav-sesion',
@@ -15,7 +14,7 @@ export class NavSesionComponent implements OnInit {
     isUserLogue!: boolean;
     nombreUser!: string;
     
-    constructor(private router: Router, private redireccionService: RedireccionService) { }
+    constructor(private router: Router) { }
 
 
     ngOnInit(): void {

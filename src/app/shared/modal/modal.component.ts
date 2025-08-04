@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogClose } from '@angular/material/dialog';
-import { RedireccionService } from 'src/app/services/redireccion/redireccion.service';
+import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-modal',
@@ -13,7 +14,7 @@ export class ModalComponent {
 
 
     constructor(
-        private redireccionService: RedireccionService,
+        private router: Router,
         public matDialogRef: MatDialogRef<ModalComponent>, 
         @Inject(MAT_DIALOG_DATA) public data:any) 
     {
@@ -21,6 +22,8 @@ export class ModalComponent {
     }
 
     redireccionarAHome = () :void => {
-        this.redireccionService.tokenExpirado();
+        this.router.navigate(['/iniciar-sesion']);
+        this.matDialogRef.close();
+        sessionStorage.removeItem('usuario');
     }
 }

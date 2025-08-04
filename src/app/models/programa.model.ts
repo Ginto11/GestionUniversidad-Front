@@ -1,4 +1,4 @@
-import { IPrograma } from "../interfaces/IProgramas";
+import { IPrograma } from "../interfaces/IPrograma";
 
 export class Programa implements IPrograma {
     id: number = 0;

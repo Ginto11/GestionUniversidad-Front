@@ -155,6 +155,28 @@ export class TipoModalService {
         })
     }
 
+    manejoErrorGenericoConRedireccion = (mensaje: string): void => {
+        this.modalService.abrirModal(ModalComponent, {
+            mensaje: mensaje,
+            colorTexto: 'Red',
+            altImg: 'Imagen de error',
+            srcImg: 'error.webp',
+            listaErrores: [],
+            redireccionar: true
+        })
+    }
+
+    manejoExitoso = (mensaje: string): void => {
+        this.modalService.abrirModal(ModalComponent, {
+            mensaje: mensaje,
+            colorTexto: 'Green',
+            altImg: 'Imagen de exito',
+            srcImg: 'comprobado.webp',
+            listaErrores: [],
+            redireccionar: false
+        })
+    }
+
     private crearModalError = (mensaje: string): void => {
         this.modalService.abrirModal(ModalComponent, {
             mensaje: mensaje,

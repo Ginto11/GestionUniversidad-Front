@@ -1,0 +1,19 @@
+<app-nav />
+<section class="seccion-imagen">
+    <div>
+        <h2>CONTACTANOS</h2>
+    </div>
+</section>
+<section class="seccion-formulario">
+    <h2>📞 Contáctanos</h2>
+    <p>Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos.</p>
+    <form>
+        <input [(ngModel)]="data.nombre" type="text" name="nombre-usuario" id="nombre-usuario" placeholder="Nombre" required>
+        <input [(ngModel)]="data.email" type="email" name="email-usuario" id="email-usuario" placeholder="Correo electrónico" required>
+        <textarea [(ngModel)]="data.mensaje" name="mensaje-usuario" id="mensaje-usuario" placeholder="Mensaje" required></textarea>
+        <button [disabled]="isCargando" (click)="enviarMensaje()">
+            {{ isCargando ? 'Enviando...' : 'Enviar' }}
+        </button>
+    </form>
+</section>
+<app-footer></app-footer>

@@ -14,18 +14,16 @@
     background-color: rgba(5, 7, 12, 0.6);
     width: 100%;
     height: 120vh;
-    position: absolute;
     flex-direction: column;
-    gap: 30px;
 }
 
 .seccion-imagen-programas div h2{
-    font-size: 50px;
+    font-size: 3.5rem;
     color: #fff;
     animation-name: movimiento;
     animation-duration: 2s;
     text-align: center;
-    text-shadow: 0 0 10px #000;
+    text-shadow: 0 0 .8rem #000;
 }
 
 @keyframes movimiento {
@@ -35,7 +33,7 @@
     }
 
     30% {
-        transform: translateY(-200px);
+        transform: translateY(-14rem);
     }
 
     60%{
@@ -52,13 +50,13 @@
 .titulo-seccion {
     width: 70%;
     color: #FF5F15;
-    text-shadow: 0 0 1px #000;
+    text-shadow: 0 0 .1rem #000;
 }
 
-.seccion-lista-programas .contenedor-cards > h2{
+.seccion-lista-programas .contenedor-cards  h3{
     width: 90%;
     color: #1A1731;
-    text-shadow: 0 0 1px #000;
+    text-shadow: 0 0 .1rem #000;
 }
 
 
@@ -67,11 +65,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 50px 0;
+    padding: 3.5rem 0;
     display: flex;
     flex-wrap: wrap;
     height: fit-content;
-    gap: 30px;
+    gap: 2rem;
 }
 
 .contenedor-cards{
@@ -80,27 +78,27 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 2rem;
 }
 
 .seccion-lista-programas .card{
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    width: 300px;
-    height: 350px;
-    padding: 10px;
+    width: 21rem;
+    height: 25rem;
+    padding: .4rem;
     background-color: #FEFDFC;
-    border-radius: 12px;
-    box-shadow: 0px 2px 2px 2px  rgba(0, 0, 0, 0.0888);
+    border-radius: .9rem;
+    box-shadow: 0px .15rem .15rem .15rem  rgba(0, 0, 0, 0.0888);
 }
 
 .seccion-lista-programas .card img{
     width: 100%;
-    height: 200px;
-    border-radius: 12px;
+    height: 14rem;
+    border-radius: .9rem;
 }
 
 .seccion-lista-programas .card p{
-    text-shadow: 0 0 1px #000;
+    text-shadow: 0 0 .1rem #000;
 }

@@ -3,8 +3,7 @@
     min-height: 90vh;
     display: flex;
     flex-direction: column;
-    margin-bottom: 30px;
-    gap: 10px;
+    gap: .8rem;
 }
 
 .contenedor-programas .lista {
@@ -12,19 +11,19 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 30px
+    gap: 2rem;
 }
 
 .contenedor-programas .lista .card {
     display: flex;
     background-color: #FFF;
     width: 48%;
-    height: 200px;
-    border-radius: 12px;
+    height: 14rem;
+    border-radius: .9rem;
 }
 
 .card .contenedor-imagen {
-    width: 250px;
+    width: 30rem;
 }
 
 .card h2 {
@@ -32,24 +31,25 @@
 }
 
 .card p {
+    font-size: .9rem;
     text-align: justify;
 }
 
 .card .contenedor-imagen img {
-    width: 250px;
-    height: 200px;
+    width: 21rem;
+    height: 14rem;
     object-fit: cover;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border-top-left-radius: .9rem;
+    border-bottom-left-radius: .9rem;
 }
 
 .card .contenedor-contenido {
     width: 100%;
-    padding: 10px;
+    padding: .8rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 10px;
+    gap: .8rem;
 }
 
 .card .contenedor-botones{
@@ -57,8 +57,8 @@
     justify-content: space-around;
     align-items: center;
     background-color: #0001;
-    padding: 5px;
-    border-radius: 12px;
+    padding: .4rem;
+    border-radius: .9rem;
 }
 
 .card .contenedor-botones img {

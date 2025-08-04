@@ -1,15 +1,18 @@
 section{
     height: fit-content;
-    padding-top: 100px;
+    padding-top: 8rem;
+    display: flex;
+    flex-direction: column;
 }
 
 h2{
     color: #1A1731;
-    padding-top: 20px;
+    padding-top: 1.4rem;
     text-align: center;
 }
 
+
 .docentes-link-active{
     background-color: #1A173110;
-    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 .3rem .1rem rgba(0, 0, 0, 0.1);
 }
