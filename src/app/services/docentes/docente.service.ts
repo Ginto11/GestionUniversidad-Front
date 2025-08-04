@@ -108,7 +108,6 @@ export class DocenteService {
             throw new Error('Usuario no encontrado en sesión');
 
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }

@@ -8,9 +8,8 @@ import { FormRegistrarComponent } from '../../shared/form-registrar/form-registr
 import { encriptar } from 'src/app/util/util.encrypt';
 import { FooterComponent } from 'src/app/shared/footer/footer.component';
 import { ViewportScroller } from '@angular/common';
-import { ModalService } from 'src/app/services/modal/modal.service';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { NavComponent } from "src/app/shared/nav/nav.component";
+import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
 
 @Component({
     selector: 'app-login',
@@ -23,7 +22,7 @@ import { NavComponent } from "src/app/shared/nav/nav.component";
 export default class LoginComponent implements OnInit {
 
     constructor(
-        private modalService: ModalService,
+        private tipoModalService: TipoModalService,
         private authService: AuthService, 
         private router: Router, 
         private viewPortScroller: ViewportScroller) 
@@ -59,36 +58,21 @@ export default class LoginComponent implements OnInit {
             const errores: string[] = this.validarRegistroEstudiante(this.datosRegistro);
 
             if (errores.length > 0) {
-                this.modalService.abrirModal(ModalComponent, {
-                    altImg: 'Imagem de error.',
-                    colorTexto: 'Red',
-                    srcImg: 'error.webp',
-                    listaErrores: errores,
-                    mensaje: '',
-                    redireccionar: false
-                })
+                this.tipoModalService.mostrarMultiplesErrores(errores);
                 return;
             }
 
             if(this.datosRegistro.contrasena != this.datosRegistro.confirmacion_contrasena){
-
-                this.modalService.abrirModal(ModalComponent, {
-                    altImg: 'Imagen de error.',
-                    colorTexto: 'Red',
-                    srcImg: 'error.webp',
-                    listaErrores: [],
-                    mensaje: 'Las contraseñas no coinciden.',
-                    redireccionar: false
-                })
+                this.tipoModalService.contrasenasDesiguales();
                 return;
             }
 
             await this.authService.registrar(this.datosRegistro);
-            this.registroExitoso();
+            this.tipoModalService.elementoAgregado('Registro exitoso, inicie sesión.');
             this.limpiarCampos();
 
         } catch (error) {
-            this.manejoErroresRegistrar(error);
+            this.tipoModalService.manejoError(error);
         }
 
     };
@@ -98,15 +82,7 @@ export default class LoginComponent implements OnInit {
         try {
             
             if (this.datosLogin.email == '' && this.datosLogin.contrasena == '') {
-
-                this.modalService.abrirModal(ModalComponent, {
-                    colorTexto: 'Red',
-                    mensaje: 'Debes ingresar tus credenciales.',
-                    srcImg: 'error.webp',
-                    altImg: 'Imagen de error.',
-                    listaErrores: [],
-                    redireccionar: false
-                })
+                this.tipoModalService.manejoErrorGenerico('Debes ingresar tus credenciales');
                 return;
             }
             
@@ -115,7 +91,7 @@ export default class LoginComponent implements OnInit {
             this.limpiarCampos();
 
         } catch (error) {
-            this.manejoErroresLogin(error);
+            this.tipoModalService.manejoError(error);
         }
     };
 
@@ -142,26 +118,6 @@ export default class LoginComponent implements OnInit {
     };
 
     
-    /*verificar =  async () => {
-        try {
-            const usuario = buscarEnSesionStorage('usuario');
-            if (!usuario) {
-                this.router.navigate(['/iniciar-sesion']);
-                return;
-            }
-
-            const token = desencriptar(usuario.token);
-            const res = await this.authService.verificarToken(token);
-            if (res.status == 200) {
-                console.log(res)
-            }else{
-                console.log(res);
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    };*/
-
     validarRegistroEstudiante = (est: IEstudianteRegistrar): string[] => {
 
         const errores: string[] = [];
@@ -181,102 +137,6 @@ export default class LoginComponent implements OnInit {
         return errores;
     };
 
-
-    manejoErroresLogin = (error: any) => {
-        if (error.status == 400) {
-
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Credenciales Incorrectas.',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error.',
-                listaErrores: [],
-                redireccionar: false
-            })
-
-        }
-        else if(error.status > 400){
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Error en el cliente.',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error.',
-                listaErrores: [],
-                redireccionar: false
-            })
-        }
-        else if (error.status >= 500) {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Error en el servidor.',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error.',
-                listaErrores: [],
-                redireccionar: false
-            })
-        }
-        else {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Error al iniciar sesión.',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error.',
-                listaErrores: [],
-                redireccionar: false
-            })
-        }
-
-    };
-
-
-    manejoErroresRegistrar = (error: any) => {
-        if (error.status == 409) {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: error.error.mensaje,
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error.',
-                listaErrores: [],
-                redireccionar: false
-            })
-        }
-
-        if (error.status >= 500) {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Error en el servidor.',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error.',
-                listaErrores: [],
-                redireccionar: false
-            })
-        }
-
-        if (error.status >= 400) {
-            this.modalService.abrirModal(ModalComponent, {
-                mensaje: 'Error en el cliente.',
-                srcImg: 'error.webp',
-                colorTexto: 'Red',
-                altImg: 'Imagen de error.',
-                listaErrores: [],
-                redireccionar: false
-            })
-        }
-    };
-
-
-    registroExitoso = () => {
-        this.modalService.abrirModal(ModalComponent, {
-            colorTexto: '#1A1731',
-            mensaje: 'Estudiante registrado exitosamente',
-            srcImg: 'comprobado.webp',
-            altImg: 'Imagen de registrado.',
-            listaErrores: [],
-            redireccionar: false
-        })
-        this.limpiarCampos();
-    };
-
     registrandose = () => {
         this.isRegistrando = true;
         this.isIngresando = false;
@@ -286,4 +146,5 @@ export default class LoginComponent implements OnInit {
         this.isIngresando = true;
         this.isRegistrando = false;
     };
+
 }

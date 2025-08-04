@@ -15,18 +15,16 @@
     background-color: rgba(5, 7, 12, 0.6);
     width: 100%;
     height: 120vh;
-    position: absolute;
     flex-direction: column;
-    gap: 30px;
 }
 
 .seccion-imagen div h2{
-    font-size: 50px;
+    font-size: 3.5rem;
     color: #fff;
     animation-name: movimiento;
     animation-duration: 2s;
     text-align: center;
-    text-shadow: 0 0 10px #000;
+    text-shadow: 0 0 .8rem #000;
 }
 
 @keyframes movimiento {
@@ -36,7 +34,7 @@
     }
 
     30% {
-        transform: translateY(-200px);
+        transform: translateY(-14rem);
     }
 
     60%{
@@ -51,10 +49,10 @@
 }
 
 .seccion-informacion{
-    padding: 50px 0;
+    padding: 3.5rem 0;
     height: fit-content;
     display: flex;
-    gap: 30px;
+    gap: 2rem;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -63,24 +61,24 @@
 .seccion-informacion h2{
     width: 70%;
     color: #FF5F15;
-    text-shadow: 0 0 1px #000;
+    text-shadow: 0 0 .1rem #000;
 }
 
 .seccion-informacion article{
     width: 70%;
     text-align: justify;
     line-height: 1.5;
-    text-shadow: 0 0 1px #000;
+    text-shadow: 0 0 .1rem #000;
 }
 
 .seccion-informacion article img{
-    width: 300px;
+    width: 40%;
     float: right;
-    margin-left: 30px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    margin-top: 10px;
-    box-shadow: 0 0 1px #000;    
+    margin-left: 2rem;
+    margin-bottom: 1.4rem;
+    border-radius: .4rem;
+    margin-top: .8rem;
+    box-shadow: 0 0 .1rem #000;    
 }
 
 

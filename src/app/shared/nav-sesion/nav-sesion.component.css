@@ -5,25 +5,25 @@ h2{
 .contenedor-bienvenida{
     background-color: #fff;
     display: flex;
-    height: 50px;
+    height: 3.5rem;
     justify-content: space-between;
     color: #1A1731;
     align-items: center;
-    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 .3rem .3rem rgba(0, 0, 0, 0.1);
 }
 
 .contenedor-bienvenida{
-    padding: 0 30px;
+    padding: 0 3rem;
 }
 
 .contenedor-bienvenida div a{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: .4rem;
     color: #FF5F15;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: .3rem .8rem;
     border-radius: 5px;
     font-weight: bold;
     align-items: center;
@@ -32,12 +32,12 @@ h2{
 
 .contenedor-bienvenida div a:hover{
     background-color: #1A173110;
-    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 .3rem .1rem rgba(0, 0, 0, 0.1);
 }
 
 .contenedor-bienvenida div {
     display: flex;
-    gap: 15px;
+    gap: 1rem;
 }
 
 

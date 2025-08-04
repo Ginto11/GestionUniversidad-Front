@@ -23,6 +23,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/nosotros/nosotros.component')
     },
     {
+        path: 'contacto',
+        loadComponent: () => import('./pages/contacto/contacto.component')
+    },
+    {
         path: 'modulos',
         loadComponent: () => import('./pages/modulos/modulos.component')
     },

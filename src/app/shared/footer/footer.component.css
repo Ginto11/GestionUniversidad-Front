@@ -1,14 +1,14 @@
 footer{
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 1rem;
     background-color: #0A0A0A;
-    padding: 30px 0;
+    padding: 2rem 0;
     color: #f0f4fd;
-    box-shadow: 0 0 6px #000;
+    box-shadow: 0 0 .4rem #000;
 }
 
-footer h3{
+footer h2{
     color: #FF5F15;
 }
 
@@ -24,50 +24,7 @@ footer h3{
 footer .contenedor{
     display: flex;
     flex-direction: column;
-    gap: 30px;
-}
-
-footer .contenedor p{
-    width: 200px;
-}
-
-footer .contenedor form{
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-footer .contenedor form> input, button, textarea{
-    all: unset;
-    width: 100%;
-    background-color: #fff;
-    padding: 7px;
-    border-radius: 12px;
-    border: 2px solid transparent;
-    box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.0888);
-    transition: border 0.3s ease-in-out;
-    color: #1A1731;
-}
-
-footer .contenedor form> input:focus, textarea:focus {
-    border-color: #FF5F15;
-}
-
-footer .contenedor form textarea {
-    min-width: 250px;
-    max-width: 250px;
-    max-height: 100px;
-    min-height: 50px;
-}
-
-footer .contenedor form button{
-    background-color: #FF5F15;
-    text-align: center;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 20px;
-    color: #1A1731;
+    gap: 1rem;
 }
 
 footer ul{
@@ -81,32 +38,32 @@ footer ul{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 1rem;
     justify-content: center;
 }
 
 .redes-sociales ul{
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 1rem;
 }
 
 .redes-sociales ul .twitter{
     background-color: #f0f4fd;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: .4rem;
 }
 
 footer .btn-descargar{
     all: unset;
-    padding: 10px 15px;
+    padding: .7rem;
     background-color: #FF5F15;
     color: #1A1731;
     font-weight: bold;
     text-decoration: none;
     text-align: center;
-    border-radius: 12px;
+    border-radius: .8rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -116,13 +73,13 @@ footer .btn-descargar{
 footer .link-desarrollador{
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: .4rem;
 }
 
 footer .link-desarrollador a{
     color: #f0f4fd;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: .4rem;
     text-decoration: none;
 }

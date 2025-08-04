@@ -1,5 +1,5 @@
 <div class="contenedor-formulario">
-    <form class="formulario-nuevos-usuarios" (ngSubmit)="actualizar(docente.id)">
+    <form class="formulario-nuevos-usuarios">
         <h2> {{ nombreFormulario }} </h2>
         <div class="contenedor-fila-nuevos-usuarios">
             <div>
@@ -51,7 +51,7 @@
 
         <div class="contenedor-fila-nuevos-usuarios">
             <button type="reset" class="btn-cancelar" routerLink="/docentes/listar-docentes"> Cancelar </button>
-            <button type="submit"> Actualizar </button>
+            <button (click)="actualizar(docente.id)" > Actualizar </button>
         </div>
 
     </form>

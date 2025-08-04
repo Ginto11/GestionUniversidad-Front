@@ -85,7 +85,6 @@ export default class EditarDocenteComponent {
 
         } catch (error) {
             this.tipoModalService.manejoError(error);
-            return;
         }
     }
 

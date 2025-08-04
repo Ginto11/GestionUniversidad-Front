@@ -1,15 +1,17 @@
 <app-header-sesion />
 <section>
-    <div class="contenedor-modulo">
-        <div class="modulo">
-            <h2>Modulo Programas</h2>
-            <ul class="modulo-links">
-                <a routerLink="listar-programas" routerLinkActive="programas-link-active" title="Ir a Lista Programas."> <img src="icons/tabla.svg" title="Icono Lista Programas." alt="Mostrar Programas" width="20px"> Mostrar todos</a>
-                <a routerLink="nuevo-programa" routerLinkActive="programas-link-active" title="Ir a Agregar Programa."> <img src="icons/icono-nuevo-programa.svg" title="Icono Nuevo Programa." alt="Nuevo Programa" width="20px" style="margin-bottom: 3px;"> Nuevo</a>
-                <a routerLink="detalle-programa" routerLinkActive="programas-link-active" title="Ir a Detalle Programa"> <img src="icons/detalle.svg" title="Icono Detalle Programa" alt="Detalle Programa" width="20px" style="margin-bottom: 2px;">Buscar</a>
-            </ul>
-            <div class="contenedor-componente">
-                    <router-outlet></router-outlet>
+    <div class="contenido">
+        <h2>Modulo Programas</h2>
+        <ul class="modulo-links">
+            <a routerLink="listar-programas" routerLinkActive="programas-link-active" title="Ir a Lista Programas."> <img src="icons/tabla.svg" title="Icono Lista Programas." alt="Mostrar Programas" width="20px"> Mostrar todos</a>
+            <a routerLink="nuevo-programa" routerLinkActive="programas-link-active" title="Ir a Agregar Programa."> <img src="icons/icono-nuevo-programa.svg" title="Icono Nuevo Programa." alt="Nuevo Programa" width="20px" style="margin-bottom: 3px;"> Nuevo</a>
+            <a routerLink="detalle-programa" routerLinkActive="programas-link-active" title="Ir a Detalle Programa"> <img src="icons/detalle.svg" title="Icono Detalle Programa" alt="Detalle Programa" width="20px" style="margin-bottom: 2px;">Buscar</a>
+        </ul>
+        <div class="contenedor-modulo">
+            <div class="modulo">
+                <div class="contenedor-componente">
+                        <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
     </div>
