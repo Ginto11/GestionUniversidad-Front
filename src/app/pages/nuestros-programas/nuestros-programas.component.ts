@@ -32,6 +32,7 @@ export default class nuestrosProgramasComponent implements OnInit {
         try{
 
             const res = await this.programaService.listarProgramas();
+
             this.programas = res;
 
         }catch(error) {
