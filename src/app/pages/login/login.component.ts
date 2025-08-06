@@ -10,6 +10,7 @@ import { FooterComponent } from 'src/app/shared/footer/footer.component';
 import { ViewportScroller } from '@angular/common';
 import { NavComponent } from "src/app/shared/nav/nav.component";
 import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',

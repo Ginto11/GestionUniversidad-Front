@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ModalService } from './modal.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class TipoModalService {
@@ -129,18 +130,36 @@ export class TipoModalService {
         })
     }
 
-
     manejoError = (error: any) :void => {
-        if(error.status >= 400 && error.status < 500){
+
+        const httpError = error as HttpErrorResponse;
+
+        if(httpError.error.codigo == 401){
+            this.crearModalError(httpError.error.mensaje);
+            return;
+        }
+
+        if(httpError.error.codigo == 409){
+            this.crearModalError(httpError.error.mensaje);
+            return;
+        }
+
+        if(httpError.error.codigo == 500){
+            this.crearModalError(httpError.error.mensaje);
+            return;
+        }
+
+        if(error.status > 400 && error.status < 500){
+            console.log(error);
             this.crearModalError(`Error en el cliente (Codigo: ${error.status} ${error.statusText})`);
             return;
         }
 
-        if(error.status >= 500){
+        if(error.status > 500){
+            console.log(error);
             this.crearModalError(`Error en el servidor (Codigo: ${error.status} ${error.statusText})`);
             return;
         }
-        console.log(error);
         this.crearModalError(`Error inesperado (Codigo: ${error.status} ${error.statusText})`);
     }
 

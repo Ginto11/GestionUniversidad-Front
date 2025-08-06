@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center; 
     color: #1A1731;
+    gap: 2rem;
 }
 
 .formulario-nuevo-programa{
@@ -44,6 +45,7 @@
     box-shadow: 0px .15rem .15rem .15rem  rgba(0, 0, 0, 0.0888);
     transition: border 0.3s ease-in-out;
 }
+
 
 .formulario-nuevo-programa input:focus, select:focus, textarea:focus, select:focus {
     border-color: #FF5F15;
