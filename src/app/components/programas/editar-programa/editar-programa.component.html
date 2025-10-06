@@ -1,1 +1,60 @@
-<p>editar-programa works!</p>
+<div class="contenedor-formulario">
+    <form class="formulario-nuevo-programa">
+        <h2> {{ nombreFormulario }} {{ programaPorEditar.nombre }}  </h2>
+        <div class="contenedor-fila-nuevo-programa">
+            <div>
+                <input [(ngModel)]="programaPorEditar.nombre" placeholder="Nombre" type="text" id="nombre-programa-editar"
+                    name="nombre-programa">
+            </div>
+
+            <div>
+                <input [(ngModel)]="programaPorEditar.duracion" placeholder="Duración" type="text" id="duracion-editar" name="duracion">
+            </div>
+
+        </div>
+        <div>
+            <select [value]="" name="facultad-programa" id="facultad-programa-editar">
+                
+                @for (facultad of facultades; track facultad.id) {
+
+                    @if(programaPorEditar.facultad == facultad.nombre){
+                        <option selected [value]="facultad.id"> {{ programaPorEditar.facultad }} </option>
+                    } @else {
+                        <option [value]="facultad.id"> {{ facultad.nombre }} </option>
+                    }
+
+                }
+            </select>
+        </div>
+
+        <div>
+            <textarea [(ngModel)]="programaPorEditar.descripcion" placeholder="Descripción" name="descripcion-programa" id="descripcion-programa-editar"></textarea>
+        </div>
+
+        <div class="contenedor-img">
+            <div class="input-file-personalizado">
+                <button (click)="cambiarImagen()">Cambiar Imagen</button>
+                <label for="nueva-img"> {{ programaPorEditar.rutaImagen }} </label>
+            </div>
+            <input (change)="alSeleccionarAchivo($event)" type="file" name="cambiar-img" id="cambiar-img">
+            @if(imagenBase64 != ""){
+                <picture>
+                    <img [src]="imagenBase64" [alt]="'Imagen del programa ' + programaPorEditar.nombre">
+                </picture>
+            } @else {
+                <picture>
+                    <img [src]="`${IMG_URL}${programaPorEditar.rutaImagen}`" [alt]="'Imagen del programa ' + programaPorEditar.nombre">
+                </picture>
+            }
+        </div>
+
+        <div class="contenedor-fila-nuevo-programa">
+            <button routerLink="/programas/listar-programas">
+                Cancelar
+            </button>
+            <button (click)="actualizarPrograma()" [disabled]="isCargando" type="button"> 
+                {{ isCargando ? 'Cargando...' : 'Actualizar' }}
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,48 +1,81 @@
 <div class="contenedor-detalle">
-    <div >
-        <h2>Detalle del Estudiante</h2>
-        <table class="estudiante-detalle">
-            <tr>
-                <th>Cédula</th>
-                <td><input [(ngModel)]="cedula" type="number" name="cedula-detalle" placeholder="Ingrese la cedula"></td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td><input [value]="estudiante.nombre" type="text" disabled></td>
-            </tr>
-            <tr>
-                <th>Apellido</th>
-                <td><input [value]="estudiante.apellido" type="text" disabled></td>
-            </tr>
-            <tr>
-                <th>Edad</th>
-                <td><input [value]="estudiante.edad == 0 ? '' : estudiante.edad" type="number" disabled></td>
-            </tr>
-            <tr>
-                <th>Celular</th>
-                <td><input [value]="estudiante.celular == '' ? '' : estudiante.celular" type="number" disabled></td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td><input [value]="estudiante.email" type="text" disabled></td>
-            </tr>
-            <tr>
-                <th>Género</th>
-                <td><input [value]="estudiante.genero" type="text" disabled></td>
-            </tr>
-            <tr>
-                <th>Estado</th>
-                <td><input [value]="estudiante.estado == null ? '' : estudiante.estado ? 'Activo' : 'Inactivo'" type="text" disabled></td>
-            </tr>
-            <tr>
-                <th>Fecha Creación</th>
-                <td><input [value]="estudiante.fechaCreacion | date:'yyyy/MM/dd hh:mm'" type="text" disabled></td>
-            </tr>
-            <tr>
-                <th>Fecha Actualización</th>
-                <td><input [value]="estudiante.fechaActualizacion | date:'yyyy/MM/dd hh:mm'" type="text" disabled></td>
-            </tr>
-        </table>
-        <button (click)="buscarEstudiante()">Buscar</button>
+    <div class="contenedor-form-estudiantes">
+        <h2>Detalle {{ estudiante.nombre == '' ? 'del Estudiante' : `de ${estudiante.nombre}` }} </h2>
+
+        
+        <form class="form-estudiantes">
+            <fieldset>
+                <legend>Datos Personales</legend>
+
+                <div class="contenedor-input">
+                    <p>Cédula</p>
+                    <input [(ngModel)]="cedula" type="number" name="cedula-detalle" placeholder="Ingrese la cedula">
+                </div>
+        
+                <div class="contenedor-input">
+                    <p>Nombre</p>
+                    <input [value]="estudiante.nombre" type="text" disabled>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="contenedor-input">
+                    <p>Apellido</p>
+                    <input [value]="estudiante.apellido" type="text" disabled>
+                </div>
+
+                <div class="contenedor-input">
+                    <p>Edad</p>
+                    <input [value]="estudiante.edad == 0 ? '' : estudiante.edad" type="number" disabled>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="contenedor-input">
+                    <p>Celular</p>
+                    <input [value]="estudiante.celular == null ? 'No tiene' : estudiante.celular" type="text" disabled>
+                </div>
+
+                <div class="contenedor-input">
+                    <p>Email</p>
+                    <input [value]="estudiante.email" type="text" disabled>
+                </div>
+
+            
+                <br>
+                <br>
+
+                <div class="contenedor-input">
+                    <p>Genero</p>
+                    <input [value]="estudiante.genero" type="text" disabled>
+                </div>
+                <div class="contenedor-input">
+                    <p>Estado</p>
+                    <input [value]="estudiante.estado == null ? '' : estudiante.estado ? 'Activo' : 'Inactivo'" type="text" disabled>
+                </div>
+
+
+            </fieldset>
+            <fieldset>
+                <legend>Fechas de estados</legend>
+
+                <div class="contenedor-input">
+                    <p>Creación</p>
+                    <input [value]="estudiante.fechaCreacion | date:'yyyy/MM/dd hh:mm'" type="text" disabled>
+                </div>
+                <div class="contenedor-input">
+                    <p>Actualización</p>
+                    <input [value]="estudiante.fechaActualizacion | date:'yyyy/MM/dd hh:mm'" type="text" disabled>
+                </div>
+                
+            </fieldset>
+            <div class="contenedor-btns">
+                <button (click)="buscarEstudiante()">Buscar</button>
+                <button [routerLink]="['/estudiantes', 'editar-estudiante', estudiante.id]" type="button">Editar</button>
+            </div>
+        </form>
     </div>
 </div>
+

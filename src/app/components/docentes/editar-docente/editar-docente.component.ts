@@ -7,16 +7,17 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { DocenteService } from 'src/app/services/docentes/docente.service';
 import { GenerosServices } from 'src/app/services/generos/generos.service';
 import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-editar-docente',
-    imports: [FormsModule],
+    imports: [FormsModule, RouterLink],
     templateUrl: './editar-docente.component.html',
     styleUrl: './editar-docente.component.css'
 })
 export default class EditarDocenteComponent {
 
-    nombreFormulario: string = 'Editando Docente';
+    nombreFormulario: string = 'Editando a ';
     docente: Docente = new Docente;
     generos: IGenero[] = [];
     confirmacion_contrasena = '';

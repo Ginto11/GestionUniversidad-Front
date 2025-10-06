@@ -10,9 +10,15 @@
                 <p><strong>Descripción:</strong> {{ programa.descripcion }}</p>
                 <p><strong>Duración:</strong> {{ programa.duracion }} horas</p>
                 <div class="contenedor-botones">
-                    <img width="20px" src="icons/icono-actualizar.svg" alt="">
-                    <img (click)="eliminarPrograma(programa.id)" width="15px" src="icons/icono-eliminar.svg" alt="">
-                    <img width="20px" src="icons/icono-revisar.svg" alt="">
+                    <button [routerLink]="['/programas', 'editar-programa', programa.id]">
+                        <img width="20px" src="icons/icono-actualizar.svg" alt="Icono Editar Programa">
+                    </button>
+                    <button>
+                        <img (click)="eliminarPrograma(programa.id)" width="15px" title="Eliminar Programa" src="icons/icono-eliminar.svg" alt="Icono Eliminar Programa">
+                    </button>
+                    <button [routerLink]="['/programas', 'detalle-programa', programa.id]">
+                        <img width="20px" src="icons/icono-revisar.svg" alt="Icono Ver Programa">
+                    </button>
                 </div>
             </div>
         </div>
