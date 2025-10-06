@@ -1,6 +1,6 @@
 <div class="contenedor-formulario">
     <form class="formulario-nuevos-usuarios" (ngSubmit)="actualizar(estudiante.id)">
-        <h2> {{ nombreFormulario }} </h2>
+        <h2> {{ nombreFormulario }} {{ estudiante.nombre }} </h2>
         <div class="contenedor-fila-nuevos-usuarios">
             <div>
                 <label for="cedula-estudiante"> Cedula</label>

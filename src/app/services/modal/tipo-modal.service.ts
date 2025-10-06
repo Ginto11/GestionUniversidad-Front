@@ -139,6 +139,11 @@ export class TipoModalService {
             return;
         }
 
+        if(httpError.error.codigo == 404){
+            this.crearModalError(httpError.error.mensaje);
+            return;
+        }
+
         if(httpError.error.codigo == 409){
             this.crearModalError(httpError.error.mensaje);
             return;

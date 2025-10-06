@@ -17,7 +17,7 @@ import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
 })
 export default class EditarEstudianteComponent implements OnInit {
 
-    nombreFormulario: string = 'Editando Estudiante';
+    nombreFormulario: string = 'Editando a ';
     estudiante: Estudiante = new Estudiante;
     generos: IGenero[] = [];
     confirmacion_contrasena = '';

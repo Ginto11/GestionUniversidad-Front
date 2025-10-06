@@ -7,4 +7,5 @@ export class Programa implements IPrograma {
     duracion: number = 0;
     facultad: string = '';
     rutaImagen: string = '';
+    archivo!: File | null;
 }

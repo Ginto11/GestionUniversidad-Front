@@ -1,0 +1,138 @@
+.contenedor-formulario {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    color: #1A1731;
+    gap: 2rem;
+}
+
+.formulario-nuevo-programa{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: .4rem;
+    transition: .6s ease-in-out all;
+}
+
+.formulario-nuevo-programa h2 {
+    padding-top: 0;
+    width: 100%;
+    text-align: center;
+    color: #FF5F15;
+}
+
+.formulario-nuevo-programa{
+    display: flex;
+    gap: 1rem; 
+}
+
+.formulario-nuevo-programa div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.formulario-nuevo-programa input, select, button, textarea{
+    all: unset;
+    width: 100%;
+    background-color: #fff;
+    padding: .6rem;
+    border-radius: .8rem;
+    border: .15rem solid transparent;
+    box-shadow: 0px .15rem .15rem .15rem  rgba(0, 0, 0, 0.0888);
+    transition: border 0.3s ease-in-out;
+}
+
+
+.formulario-nuevo-programa input:focus, select:focus, textarea:focus, select:focus {
+    border-color: #FF5F15;
+}
+
+.formulario-nuevo-programa select {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario-nuevo-programa button{
+    background-color: #FF5F15;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.formulario-nuevo-programa textarea {
+    resize: vertical;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    min-height: 4rem;
+    max-height: 9rem;
+}
+
+
+.formulario-nuevo-programa textarea::-webkit-scrollbar{
+    width: .4rem;
+    background-color: transparent;
+}
+
+.formulario-nuevo-programa textarea::-webkit-scrollbar-thumb{
+    width: .4rem;
+    background-color: #1A1731;
+    border-radius: .3rem;
+}
+
+.formulario-nuevo-programa button:hover{
+    border-color: black;
+}
+
+
+.formulario-nuevo-programa .contenedor-img {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: .6rem;
+    border-radius: .8rem;
+    border: .15rem solid transparent;
+    box-shadow: 0px .15rem .15rem .15rem  rgba(0, 0, 0, 0.0888);
+}
+
+
+.formulario-nuevo-programa .contenedor-img input[type="file"]{
+    display: none;
+}
+
+.formulario-nuevo-programa .contenedor-img img {
+    border-radius: .8rem;
+}
+
+
+.formulario-nuevo-programa .contenedor-img .input-file-personalizado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.formulario-nuevo-programa .contenedor-img .input-file-personalizado *{
+    flex: 1;
+}
+
+.formulario-nuevo-programa .contenedor-img .input-file-personalizado button {
+    background-color: #FF5F15;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 30%;
+}
+
+
+.formulario-nuevo-programa .contenedor-img .input-file-personalizado label{
+    padding: .6rem;
+    border-radius: .8rem;
+    border: .15rem solid transparent;
+    box-shadow: 0px .15rem .15rem .15rem  rgba(0, 0, 0, 0.0888);
+}

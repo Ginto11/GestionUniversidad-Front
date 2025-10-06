@@ -5,10 +5,11 @@ import { environment } from '@envs/environment';
 import { ProgramaService } from 'src/app/services/programas/programas.service';
 import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-tabla-programas',
-    imports: [PaginacionProgramasComponent],
+    imports: [PaginacionProgramasComponent, RouterLink],
     templateUrl: './tabla-programas.component.html',
     styleUrl: './tabla-programas.component.css'
 })
@@ -32,7 +33,6 @@ export default class TablaProgramasComponent {
      */
     recibirProgramas = (lista: Programa[]): void => {
         this.programas = lista;
-        console.log(this.programas);
     }
 
     eliminarPrograma = async (id: number): Promise<void> => {

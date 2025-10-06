@@ -5,10 +5,11 @@ import { Docente } from 'src/app/models/docente.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DocenteService } from 'src/app/services/docentes/docente.service';
 import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-detalle-docente',
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, RouterLink],
     templateUrl: './detalle-docente.component.html',
     styleUrl: './detalle-docente.component.css'
 })
@@ -57,6 +58,5 @@ export default class DetalleDocenteComponent {
         } catch (error) {
             this.tipoModalService.manejoError(error);
         }
-
     }
 }

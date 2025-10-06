@@ -4,17 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { EstudianteServices } from 'src/app/services/estudiantes/estudiante.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { TipoModalService } from 'src/app/services/modal/tipo-modal.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-detalle-estudiante',
-    imports: [FormsModule, CommonModule],
+    imports: [FormsModule, CommonModule, RouterLink],
     templateUrl: './detalle-estudiante.component.html',
     styleUrl: './detalle-estudiante.component.css'
 })
 
 export default class DetalleEstudianteComponent implements OnInit {
+    
     estudiante: Estudiante = new Estudiante();
 
     cedula = null;
@@ -54,6 +55,10 @@ export default class DetalleEstudianteComponent implements OnInit {
             return;
         }
 
-        this.estudiante = await this.estudianteService.buscarPorCedula(this.cedula);
+        try {
+            this.estudiante = await this.estudianteService.buscarPorCedula(this.cedula);
+        } catch (error) {
+            this.tipoModalService.manejoError(error);            
+        }
     }
 }
