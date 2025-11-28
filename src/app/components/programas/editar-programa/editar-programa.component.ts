@@ -18,7 +18,7 @@ import { environment } from '@envs/environment';
   styleUrl: './editar-programa.component.css'
 })
 export default class EditarProgramaComponent {
-  nombreFormulario = 'Editando a programa de ';
+  nombreFormulario = 'Editando programa';
 
   isCargando = false;
 

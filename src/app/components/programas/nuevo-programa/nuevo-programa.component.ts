@@ -42,7 +42,6 @@ export default class NuevoProgramaComponent implements OnInit {
 
     crearPrograma = async () => {
         try {
-            console.log(this.programa);
             if (!this.programa.nombre || !this.programa.descripcion || !this.programa.duracion || !this.programa.facultadId || !this.programa.archivo) {
                 this.tipoModalService.manejoErrorGenerico('Todos los campos son obligatorios');
                 return;
